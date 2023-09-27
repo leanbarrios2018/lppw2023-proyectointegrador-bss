@@ -22,12 +22,12 @@
   <div id="idContenedor">
     <section class="container">
       <div class="row">
-        <div class="mx-auto mt-5 col-xs-9 col-sm-9 col-md-7 col-lg-5">
+        <div class="mx-auto mt-3 col-xs-9 col-sm-9 col-md-7 col-lg-5">
           <!-- formulario iniciar sesion - inicio -->
-          <form action="#" id="formIniciarSesion" class="border rounded shadow-lg">
-            <div class="card">
+          <form action="#" method="get" id="formIniciarSesion" class="border rounded shadow-lg">
+            <div class="card bg-dark text light">
               <div class="card-header">
-                <h5 class="text-center fs-4">Iniciar Sesion</h5>
+                <h5 class="text-center fs-4 text-light">Iniciar Sesion</h5>
               </div>
               <div class="card-body">
                 <div class="row">
@@ -37,13 +37,13 @@
                   <div class="mx-auto mt-1 col-12">
                     <label for="idNombreDeUsuario">Usuario</label>
                     <input type="text" name="usuario" id="idNombreDeUsuario" class="form-control mt-1"
-                      placeholder="Ej: Nathan Drake"></i>
+                      placeholder="Ej: Nathan Drake" required></i>
                     <div class="invalid-feedback" id="errorNombreUsuario"></div>
                   </div>
                   <div class="mx-auto mt-1 col-12">
                     <label for="idpassword" class="mt-2">Contraseña</label>
                     <input type="password" name="contraseña" id="idpassword" class="form-control mt-1"
-                      placeholder="***********"></i>
+                      placeholder="***********" required></i>
                     <div class="invalid-feedback" id="errorContrasenha"></div>
                   </div>
                 </div>
@@ -68,23 +68,24 @@
   <!-- modal recuperar contraseña - inicio -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <form name="datosUsuarioContraseña">
+      <div class="modal-content bg-dark text-light">
+        <form action="#" method="get" name="formReestablecerContrasenha" id="formReestablecerContrasenha">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="exampleModalLabel">Recupera tu cuenta</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" ria-label="Close"></button>
           </div>
           <div class="modal-body">
             <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Introduce tu correo electrónico:</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Correo Electronico" autocomplete="off">
+              <label for="emailUsuario" class="form-label">Introduce tu correo electrónico:</label>
+              <input type="email" class="form-control" id="emailUsuario" aria-describedby="emailHelp" placeholder="Correo Electronico"
+                autocomplete="off" required>
               <div id="emailHelp" class="form-text mt-2">Nunca compartiremos su correo electrónico con nadie más</div>
+              <div class="invalid-feedback" id="errorEmailUsuario"></div>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Enviar</button>
+            <button type="submit" class="btn btn-primary">Enviar</button>
           </div>
         </form>
       </div>

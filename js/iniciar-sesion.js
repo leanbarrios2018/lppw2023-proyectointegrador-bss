@@ -1,8 +1,10 @@
 window.onload = inicio;
 
 function inicio() {
-    const formulario_iniciar_sesion = document.getElementById("formIniciarSesion");
+    let formulario_iniciar_sesion = document.getElementById("formIniciarSesion");
     formulario_iniciar_sesion.addEventListener("submit", iniciar_sesion);
+    let formulario_reestablecer_contrasenha = document.getElementById("formReestablecerContrasenha");
+    formulario_reestablecer_contrasenha.addEventListener("submit", resstablecer_contrasenha);
 }
 
 function iniciar_sesion(evento) {
@@ -26,6 +28,14 @@ function iniciar_sesion(evento) {
     }
 }
 
+function resstablecer_contrasenha(evento) {
+    evento.preventDefault();
+    let email_usuario = validar_email()
+    if (email_usuario) {
+        console.log("se envio un mail a " + email_usuario + ". Verifique su bandeja de entrada");
+    }
+}
+
 function validar_usuario_password() {
     // hard-codeo administrador de stocks
     const hard_admin_stock = "adminstock";
@@ -36,11 +46,11 @@ function validar_usuario_password() {
     // hard-codeo contraseña (igual para todos los usuarios)
     const hard_password = "1234";
     // iniciar sesion hard-codeado
-    const usuario = document.getElementById("idNombreDeUsuario");
+    let usuario = document.getElementById("idNombreDeUsuario");
     let usuario_valor = usuario.value;
     let error_usuario = document.getElementById("errorNombreUsuario");
     usuario.classList.remove("is-invalid");
-    const password = document.getElementById("idpassword");
+    let password = document.getElementById("idpassword");
     let password_valor = password.value;
     let error_password = document.getElementById("errorContrasenha");
     password.classList.remove("is-invalid");
@@ -78,5 +88,32 @@ function validar_usuario_password() {
     } else {
         // mando el usuario a iniciar_sesion()
         return usuario_valor;
+    }
+}
+
+function validar_email() {
+    let email = document.getElementById("emailUsuario");
+    let email_valor = email.value;
+    let error_email = document.getElementById("errorEmailUsuario");
+    let expresionRegularEmail = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
+    let contador = 0;
+
+    if (!email_valor) {
+        email.classList.add('is-invalid');
+        error_email.innerHTML = "Campo email no puede quedar vacío. Ingrese su email.";
+        contador++;
+    } else if (!expresionRegularEmail.test(email_valor)) {
+        email.classList.add('is-invalid');
+        error_email.innerHTML = "Email inválido. Ingrese un email válido.";
+        contador++;
+    } else {
+        // paso la validacion del email
+    }
+
+    if (contador >= 1) {
+        console.log("Se encontraron " + contador + " errores al validar usuario y/o password");
+        return false;
+    } else {
+        return email_valor;
     }
 }
