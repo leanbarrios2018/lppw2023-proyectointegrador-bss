@@ -1,0 +1,14 @@
+body {
+    background: linear-gradient(to right, #212529, #0d6efd);
+}
+
+.pintar_negro_azul {
+    background: linear-gradient(to right, #212529, #0d6efd);
+}
+
+/* .imgLogo{
+    margin-left: 120px;
+    margin-top: 30px;
+    border-radius: 15;
+    border: 12 solid black;
+} */
