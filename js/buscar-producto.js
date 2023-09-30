@@ -1,9 +1,14 @@
 function inicio() {
     document.getElementById("buscarBoton").addEventListener("click", buscarProducto, false);
+    document.getElementById("generarVentas").addEventListener("submit", generarVentas, false);
+}
+
+function generarVentas(e) {
+    e.preventDefault();
 }
 
 // Lista de productos (ejemplo)
-const productos = [
+let productos = [
     { id: 1, producto: 'Camisa', marca: "Adidas", stock: 200, precio: 20 },
     { id: 2, producto: 'Pantalon', marca: "Louis Vuitton", stock: 100, precio: 30 },
     { id: 3, producto: 'Zapatos', marca: "Michael Kors", stock: 300, precio: 50 },
@@ -23,17 +28,18 @@ function buscarProducto() {
 
     productoInputValidacion.classList.remove("is-invalid")
     productoInputValidacion.classList.remove("is-valid");
+
     expresionRegularBuscar = /^[a-zA-Z0-9\s]+$/;
 
-    let smsErrorBuscar = document.getElementById("smsErrorBuscar");
+    let smsError = document.getElementById("smsError");
 
     if (productoInput.trim() === "") {
         productoInputValidacion.classList.add("is-invalid");
-        smsErrorBuscar.innerHTML = "El campo de busquedad se encuentra vacio";
+        smsError.innerHTML = "El campo de busquedad se encuentra vacio";
     }
     else if (!expresionRegularBuscar.test(productoInput)) {
         productoInputValidacion.classList.add("is-invalid");
-        smsErrorBuscar.innerHTML = "Solo se aceptan palabras alfabéticas y numéricas"
+        smsError.innerHTML = "Solo se aceptan palabras alfabéticas y numéricas"
     }
     else {
         productoInputValidacion.classList.add("is-valid");
@@ -51,16 +57,16 @@ function buscarProducto() {
 
 function mostrarResultados(resultados) {
 
-    let smsErrorBuscar = document.getElementById("smsErrorBuscar");
+    let smsError = document.getElementById("smsError");
     let productoInputValidacion = document.getElementById("buscarInput");
 
     let cantidadInputValidacion = document.getElementById("cantidadInput");
     let cantidadInput = document.getElementById("cantidadInput").value;
-    let smsErrorCantidad = document.getElementById("smsErrorCantidad");
 
     cantidadInputValidacion.classList.remove("is-invalid");
     cantidadInputValidacion.classList.remove("is-valid");
-    expresionRegularCantidad = /^[0-9]+$/;
+
+    expresionRegularCantidad = /^[1-9][0-9]*$/;
 
     NumFilas++;
     let tbody = document.getElementById("tbody");
@@ -78,76 +84,88 @@ function mostrarResultados(resultados) {
 
     if (cantidadInput === "") {
         cantidadInputValidacion.classList.add("is-invalid");
-        smsErrorCantidad.innerHTML = "El campo se encuentra vacio"
+        smsError.innerHTML = "El campo de cantidad se encuentra vacio"
     }
     else if (!expresionRegularCantidad.test(cantidadInput)) {
-        productoInputValidacion.classList.add("is-invalid");
-        smsErrorCantidad.innerHTML = "Solo se aceptan valores numéricos"
+        cantidadInputValidacion.classList.add("is-invalid");
+        smsError.innerHTML = "Solo se aceptan valores numéricos y positivos"
     }
     else {
         cantidadInputValidacion.classList.add("is-valid");
-    }
 
-    if (resultados.length > 0) {//Checkeamos si el array esta vacio
-        tdNro.setAttribute("scope", "row");
-        tdID.setAttribute("class", "text-center");
-        tdProducto.setAttribute("class", "text-center");
-        tdMarca.setAttribute("class", "text-center");
-        tdCantidad.setAttribute("class", "text-center");
-        tdStock.setAttribute("class", "text-center");
-        tdPrecio.setAttribute("class", "text-center");
-        tdValoracion.setAttribute("class", "text-center");
-        tdValoracion.setAttribute("class", "valorTotal")
-        tdTotal.setAttribute("class", "text-center");
+        if (resultados.length > 0) {//Checkeamos si el array esta vacio
+            tdNro.setAttribute("scope", "row");
+            tdID.setAttribute("class", "text-center");
+            tdProducto.setAttribute("class", "text-center");
+            tdMarca.setAttribute("class", "text-center");
+            tdCantidad.setAttribute("class", "text-center");
+            tdStock.setAttribute("class", "text-center");
+            tdPrecio.setAttribute("class", "text-center");
+            tdValoracion.setAttribute("class", "text-center");
+            tdValoracion.setAttribute("valoracion", "valorTotal")
+            tdTotal.setAttribute("class", "text-center");
 
-        for (let producto of resultados) {
+            for (let producto of resultados) {
 
-            //Seteamos los valores de productos a las columnas
-            let sumaValoracion =
+                //Seteamos los valores de productos a las columnas
+                let sumaValoracion = 0;
+                let descontarStock = 0;
 
                 tdNro.innerHTML = NumFilas;
-            tdID.innerHTML = `${producto.id}`;
-            tdProducto.innerHTML = `${producto.producto}`;//Agrego el nombre del producto
-            tdMarca.innerHTML = `${producto.marca}`;
-            tdCantidad.innerHTML = cantidadInput;
-            tdStock.innerHTML = `${producto.stock}`;
-            tdPrecio.innerHTML = `${producto.precio}`;
-            sumaValoracion = parseFloat(cantidadInput * producto.precio);
-            tdValoracion.innerHTML = sumaValoracion;
-            
+                tdID.innerHTML = `${producto.id}`;
+                tdProducto.innerHTML = `${producto.producto}`;//Agrego el nombre del producto
+                tdMarca.innerHTML = `${producto.marca}`;
+                tdCantidad.innerHTML = cantidadInput;
 
+                if (cantidadInput <= producto.stock) {//Chekeamos si la cantidad es menor a stock
+                    descontarStock = parseInt(`${producto.stock}` - cantidadInput);
+                    producto.stock = descontarStock;
+                    tdStock.innerHTML = descontarStock;
 
-            //Agregamos las columnas a las filas
-            tbody.appendChild(tr);
-            tr.appendChild(tdNro);
-            tr.appendChild(tdID);
-            tr.appendChild(tdProducto);
-            tr.appendChild(tdMarca);
-            tr.appendChild(tdCantidad);
-            tr.appendChild(tdStock);
-            tr.appendChild(tdPrecio);
-            tr.appendChild(tdValoracion);
+                    //Agregamos las columnas a las filas
+                    tbody.appendChild(tr);
+                    tr.appendChild(tdNro);
+                    tr.appendChild(tdID);
+                    tr.appendChild(tdProducto);
+                    tr.appendChild(tdMarca);
+                    tr.appendChild(tdCantidad);
+                    tr.appendChild(tdStock);
+                    tr.appendChild(tdPrecio);
+                    tr.appendChild(tdValoracion);
+                }
+                else if (producto.stock === 0) {//Chekeamos si hay stock
+                    cantidadInputValidacion.classList.add("is-invalid");
+                    smsError.innerHTML = "No hay stock"
+                }
+                else {
+                    cantidadInputValidacion.classList.add("is-invalid");
+                    smsError.innerHTML = "Cantidad es superior a stock"
+                }
+
+                tdPrecio.innerHTML = `${producto.precio}`;
+
+                sumaValoracion = parseFloat(cantidadInput * producto.precio);
+                tdValoracion.innerHTML = sumaValoracion;
+            }
+
+            let valorTotal = calcularTotal();//Llamamos a la funcion
+            tdTotal.innerHTML = valorTotal;
+
         }
-
-        let valorTotal=calcularTotal();//
-        tdTotal.innerHTML =valorTotal;
-
+        else {
+            smsError.innerHTML = 'No se encontraron resultados.';
+            productoInputValidacion.classList.add("is-invalid");
+        }
     }
-    else {
-        smsErrorBuscar.innerHTML = 'No se encontraron resultados.';
-        productoInputValidacion.classList.add("is-invalid");
-    }
-
 }
 
 function calcularTotal() {
-    let valorTotal=0;
+    let valorTotal = 0;
 
-    let tdValoracion = document.querySelectorAll("tr>.valorTotal");
+    let tdValoracion = document.querySelectorAll("tr>td[valoracion='valorTotal']");
 
     for (let valor of tdValoracion) {
-        valorTotal +=parseInt(valor.innerHTML);
-        console.log(valorTotal);
+        valorTotal += parseInt(valor.innerHTML);
     }
 
     return valorTotal;
@@ -155,6 +173,4 @@ function calcularTotal() {
 
 window.addEventListener("load", inicio, false);
 
-
-//Falta corregir los input buscar y cantidad/
-//Falta descontar el stock
+//Falta corregir para que si stock es -1 no se ingrese en la tabla
