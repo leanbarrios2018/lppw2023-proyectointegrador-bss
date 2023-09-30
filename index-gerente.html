@@ -36,13 +36,13 @@
                            <a class="nav-link text-light mt-1" href="#">Gerente</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link text-light mt-1 fs-6" href="#">Menú Vendedor</a>
+                           <a class="nav-link text-light mt-1 fs-6" href="./menu-admin-usuarios.html">Menú admin. usuarios</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link text-light mt-1 fs-6" href="#">Menú usuarios</a>
+                           <a class="nav-link text-light mt-1 fs-6" href="./index-vendedor.html">Menú vendedor</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link text-light mt-1 fs-6" href="#">Menú Admin-stock</a>
+                           <a class="nav-link text-light mt-1 fs-6" href="./index-admin-stock.html">Menú admin. stock</a>
                         </li>
                      </ul>
                   </div>
@@ -64,18 +64,113 @@
                      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                      <button class="btn btn-outline-success" type="button"><i class="bi bi-search"></i></button>
                   </div>
+                  <hr>
                   <div class="mx-auto my-3 col-12">
-                     <h3>Acá habría que poner algo relacionado con los reporte de ventas</h3>
+                     <h4>Reporte de ventas realizadas el dia 27/09/2025</h4>
+                  </div>
+                  <div id="divMostrarOcultarTabla">
+                     <div class="table-responsive mx-auto my-3">
+                        <!-- <div> -->
+                        <table class="table table-dark table-striped">
+                           <thead>
+                              <tr>
+                                 <th>#</th>
+                                 <th>ID venta</th>
+                                 <th>Nombre</th>
+                                 <th>Fecha</th>
+                                 <th>Cantidad</th>
+                                 <th>Venta</th>
+                                 <th>Acciones</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr>
+                                 <td>1</td>
+                                 <td>11</td>
+                                 <td>Alfajor de chocolate</td>
+                                 <td>27/09/2023</td>
+                                 <td>5</td>
+                                 <td>1000</td>
+                                 <td>
+                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                       <button class="btn btn-success btn-sm"><i class="bi bi-eye"></i></button>
+                                    </div>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>2</td>
+                                 <td>6</td>
+                                 <td>Azucar blanca</td>
+                                 <td>27/09/2023</td>
+                                 <td>10</td>
+                                 <td>11000</td>
+                                 <td>
+                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                       <button class="btn btn-success btn-sm"><i class="bi bi-eye"></i></button>
+                                    </div>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>3</td>
+                                 <td>123</td>
+                                 <td>Leche deslactosada</td>
+                                 <td>27/09/2023</td>
+                                 <td>2</td>
+                                 <td>900</td>
+                                 <td>
+                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                       <button class="btn btn-success btn-sm"><i class="bi bi-eye"></i></button>
+                                    </div>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>4</td>
+                                 <td>231</td>
+                                 <td>Yerba mate compuesta</td>
+                                 <td>27/09/2023</td>
+                                 <td>1</td>
+                                 <td>650</td>
+                                 <td>
+                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                       <button class="btn btn-success btn-sm"><i class="bi bi-eye"></i></button>
+                                    </div>
+                                 </td>
+                              </tr>
+                              <tr>
+                                 <td>Total:</td>
+                                 <td></td>
+                                 <td></td>
+                                 <td></td>
+                                 <td></td>
+                                 <td>13550</td>
+                                 <td></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                     <nav aria-label="Ejemplo paginador">
+                        <ul class="pagination justify-content-center">
+                           <li class="page-item">
+                              <a class="page-link bg-dark text-light" href="#" aria-label="Previous">
+                                 <span aria-hidden="true">&laquo;</span>
+                              </a>
+                           </li>
+                           <li class="page-item active"><a class="page-link bg-dark text-light" href="#">1</a></li>
+                           <li class="page-item"><a class="page-link bg-dark text-light" href="#">2</a></li>
+                           <li class="page-item"><a class="page-link bg-dark text-light" href="#">3</a></li>
+                           <li class="page-item">
+                              <a class="page-link bg-dark text-light" href="#" aria-label="Next">
+                                 <span aria-hidden="true">&raquo;</span>
+                              </a>
+                           </li>
+                        </ul>
+                     </nav>
                   </div>
                </div>
             </div>
          </div>
       </div>
-      <!-- </div>
- <template id="template-pantalla-principal">
-  
-  
- </template> -->
+   </div>
 </body>
 
 </html>
