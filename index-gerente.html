@@ -19,44 +19,46 @@
 </head>
 
 <body>
-   <div class="container">
-      <div class="row">
-         <div class="mx-auto col-12">
-            <!-- navbar - inicio -->
-            <nav class="navbar navbar-expand-lg bg-black">
-               <div class="container-fluid">
-                  <a class="navbar-brand text-light fs-5" href="#">Estockear</a>
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                     <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarNav">
-                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                           <a class="nav-link text-light mt-1" href="#">Gerente</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link text-light mt-1 fs-6" href="./menu-admin-usuarios.html">Menú admin. usuarios</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link text-light mt-1 fs-6" href="./index-vendedor.html">Menú vendedor</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link text-light mt-1 fs-6" href="./index-admin-stock.html">Menú admin. stock</a>
-                        </li>
-                     </ul>
-                  </div>
+   <header>
+      <div class="mx-auto col-12">
+         <!-- navbar - inicio -->
+         <nav class="navbar navbar-expand-lg bg-black">
+            <div class="container-fluid">
+               <a class="navbar-brand text-light fs-5" href="#">Estockear</a>
+               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                  aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+               </button>
+               <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav">
-                     <li class="nav-item text-end">
-                        <a class="nav-link" href="./index.html"><button class="btn btn-danger py-1" id="salir"><i
-                                 class="bi bi-door-closed"></i> Cerrar
-                              sesion</button></a>
+                     <li class="nav-item">
+                        <a class="nav-link text-light mt-1" href="#">Gerente</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link text-light mt-1 fs-6" href="./menu-admin-usuarios.html">Menú admin. usuarios</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link text-light mt-1 fs-6" href="./index-vendedor.html">Menú vendedor</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link text-light mt-1 fs-6" href="./index-admin-stock.html">Menú admin. stock</a>
                      </li>
                   </ul>
                </div>
-            </nav>
-            <!-- navbar - fin -->
-         </div>
+               <ul class="navbar-nav">
+                  <li class="nav-item text-end">
+                     <a class="nav-link" href="./index.html"><button class="btn btn-danger py-1" id="salir"><i
+                              class="bi bi-door-closed"></i> Cerrar
+                           sesion</button></a>
+                  </li>
+               </ul>
+            </div>
+         </nav>
+         <!-- navbar - fin -->
+      </div>
+   </header>
+   <section class="container">
+      <div class="row">
          <div class="mx-auto my-3 col-12">
             <div class="card bg-dark text-light">
                <div class="card-body">
@@ -170,7 +172,7 @@
             </div>
          </div>
       </div>
-   </div>
+   </section>
 </body>
 
 </html>
