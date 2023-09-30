@@ -15,25 +15,54 @@ let NumFilas = 0;
 
 function buscarProducto() {
 
+    let productoInputValidacion = document.getElementById("buscarInput");
+
     let productoInput = document.getElementById("buscarInput").value.toLowerCase();
 
     let resultados = [];
 
-    for (let productoBuscado of productos) { //productos es la lista de productos (ejemplo)
-        let nombreProducto = productoBuscado.producto.toLowerCase();
+    productoInputValidacion.classList.remove("is-invalid")
+    productoInputValidacion.classList.remove("is-valid");
+    expresionRegularBuscar = /^[a-zA-Z0-9\s]+$/;
 
-        if (nombreProducto.includes(productoInput)) { //El método includes () devuelve true si una matriz contiene un valor específico.
-            resultados.push(productoBuscado); //El método push() agrega nuevos elementos al final de una matriz.
-        }
+    let smsErrorBuscar = document.getElementById("smsErrorBuscar");
+
+    if (productoInput.trim() === "") {
+        productoInputValidacion.classList.add("is-invalid");
+        smsErrorBuscar.innerHTML = "El campo de busquedad se encuentra vacio";
     }
+    else if (!expresionRegularBuscar.test(productoInput)) {
+        productoInputValidacion.classList.add("is-invalid");
+        smsErrorBuscar.innerHTML = "Solo se aceptan palabras alfabéticas y numéricas"
+    }
+    else {
+        productoInputValidacion.classList.add("is-valid");
 
-    mostrarResultados(resultados); //funcion 
+        for (let productoBuscado of productos) { //productos es la lista de productos (ejemplo)
+            let nombreProducto = productoBuscado.producto.toLowerCase();
+
+            if (nombreProducto.includes(productoInput)) { //El método includes () devuelve true si una matriz contiene un valor específico.
+                resultados.push(productoBuscado); //El método push() agrega nuevos elementos al final de una matriz.
+            }
+        }
+        mostrarResultados(resultados); //funcion 
+    }
 }
 
 function mostrarResultados(resultados) {
-    NumFilas++;
 
-    let tablaVenta = document.getElementById("myTablaVenta");
+    let smsErrorBuscar = document.getElementById("smsErrorBuscar");
+    let productoInputValidacion = document.getElementById("buscarInput");
+
+    let cantidadInputValidacion = document.getElementById("cantidadInput");
+    let cantidadInput = document.getElementById("cantidadInput").value;
+    let smsErrorCantidad = document.getElementById("smsErrorCantidad");
+
+    cantidadInputValidacion.classList.remove("is-invalid");
+    cantidadInputValidacion.classList.remove("is-valid");
+    expresionRegularCantidad = /^[0-9]+$/;
+
+    NumFilas++;
     let tbody = document.getElementById("tbody");
     let tr = document.createElement("tr");
     let tdNro = document.createElement("td");
@@ -46,7 +75,20 @@ function mostrarResultados(resultados) {
     let tdValoracion = document.createElement("td");
     let tdTotal = document.getElementById("total");
 
-    if (resultados.length > 0) {
+
+    if (cantidadInput === "") {
+        cantidadInputValidacion.classList.add("is-invalid");
+        smsErrorCantidad.innerHTML = "El campo se encuentra vacio"
+    }
+    else if (!expresionRegularCantidad.test(cantidadInput)) {
+        productoInputValidacion.classList.add("is-invalid");
+        smsErrorCantidad.innerHTML = "Solo se aceptan valores numéricos"
+    }
+    else {
+        cantidadInputValidacion.classList.add("is-valid");
+    }
+
+    if (resultados.length > 0) {//Checkeamos si el array esta vacio
         tdNro.setAttribute("scope", "row");
         tdID.setAttribute("class", "text-center");
         tdProducto.setAttribute("class", "text-center");
@@ -55,20 +97,24 @@ function mostrarResultados(resultados) {
         tdStock.setAttribute("class", "text-center");
         tdPrecio.setAttribute("class", "text-center");
         tdValoracion.setAttribute("class", "text-center");
+        tdValoracion.setAttribute("class", "valorTotal")
         tdTotal.setAttribute("class", "text-center");
 
-        for (let producto of resultados) {//Checkeamos si el array esta vacio
+        for (let producto of resultados) {
 
             //Seteamos los valores de productos a las columnas
-            tdNro.innerHTML = NumFilas;
+            let sumaValoracion =
+
+                tdNro.innerHTML = NumFilas;
             tdID.innerHTML = `${producto.id}`;
             tdProducto.innerHTML = `${producto.producto}`;//Agrego el nombre del producto
             tdMarca.innerHTML = `${producto.marca}`;
-            tdCantidad.innerHTML = "5"//Corregir
+            tdCantidad.innerHTML = cantidadInput;
             tdStock.innerHTML = `${producto.stock}`;
             tdPrecio.innerHTML = `${producto.precio}`;
-            tdValoracion.innerHTML = "$100";//Corregir
-            tdTotal.innerHTML = "100"//Corregir
+            sumaValoracion = parseFloat(cantidadInput * producto.precio);
+            tdValoracion.innerHTML = sumaValoracion;
+            
 
 
             //Agregamos las columnas a las filas
@@ -82,20 +128,33 @@ function mostrarResultados(resultados) {
             tr.appendChild(tdPrecio);
             tr.appendChild(tdValoracion);
         }
+
+        let valorTotal=calcularTotal();//
+        tdTotal.innerHTML =valorTotal;
+
     }
-    // else {
-    //     resultsContainer.textContent = 'No se encontraron resultados.'; //Corregir
-    // }
+    else {
+        smsErrorBuscar.innerHTML = 'No se encontraron resultados.';
+        productoInputValidacion.classList.add("is-invalid");
+    }
 
 }
 
+function calcularTotal() {
+    let valorTotal=0;
 
+    let tdValoracion = document.querySelectorAll("tr>.valorTotal");
 
+    for (let valor of tdValoracion) {
+        valorTotal +=parseInt(valor.innerHTML);
+        console.log(valorTotal);
+    }
 
-
-
-
-
-
+    return valorTotal;
+}
 
 window.addEventListener("load", inicio, false);
+
+
+//Falta corregir los input buscar y cantidad/
+//Falta descontar el stock
