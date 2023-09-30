@@ -65,7 +65,7 @@ function cancelar_edicion_formulario() {
   let div_mostrar_ocultar_tabla_usuarios = document.getElementById("divOcultarMostrarTablaUsuarios");
   let formulario_modificar_datos_usuario = document.getElementById("frmModificarDatosUsuario");
   div_mostrar_ocultar_detalles_usuario.classList.add("d-none");
-  div_mostrar_ocultar_detalles_usuario.classList.remove("d-none");
+  div_mostrar_ocultar_tabla_usuarios.classList.remove("d-none");
   formulario_modificar_datos_usuario.reset();
 }
 
