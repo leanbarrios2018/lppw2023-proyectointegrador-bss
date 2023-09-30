@@ -22,7 +22,7 @@
 </head>
 
 <body>
-    <header class="container-fluid">
+    <header class="">
         <div class="row">
             <div class="mx-auto col-12">
                 <!-- navbar - inicio -->
@@ -65,7 +65,8 @@
                     <div class="invalid-feedback" id="smsErrorCantidad"></div>  
                     <button class="input-group-text btn btn-danger rounded-1" type="button" id="buscarBoton"><i class="bi bi-search"></i></button>
                 </div>
-                    <table class="table table-bordered" id="myTablaVenta">
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped" id="myTablaVenta">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -92,6 +93,7 @@
                             <td class="text-center" id="total"></td>
                         </tfoot>
                     </table>
+                </div>  
                 <div class="text-end">
                     <button type="submit" class="btn btn-danger" id="realizarVentaBoton">Realizar Venta&nbsp;<i class="bi bi-currency-dollar"></i></button>
                 </div>
