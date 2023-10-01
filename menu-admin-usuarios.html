@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link rel="stylesheet" href="./css/mystyle.css">
   <link rel="icon" href="./favicon/favicon.ico">
-
+  <link rel="stylesheet" href="./css/redimensionar-tabla.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"
     defer></script>
@@ -73,19 +73,23 @@
               <table id="tblUsuarios" class="table table-dark table-striped">
                 <thead>
                   <tr>
+                    <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">ID</th>
                     <th>Nombre</th>
-                    <th>Rol</th>
-                    <th>DNI</th>
-                    <th>Email</th>
+                    <th class="ocultar-en-pantalla-xs">Rol</th>
+                    <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">Tipo documento</th>
+                    <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">Nro documento</th>
+                    <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Email</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
+                    <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">1</td>
                     <td>Gerente</td>
-                    <td>gerente</td>
-                    <td>12345678</td>
-                    <td>gerente@mail.com</td>
+                    <td class="ocultar-en-pantalla-xs">gerente</td>
+                    <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">DNI</td>
+                    <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">12345678</td>
+                    <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">gerente@mail.com</td>
                     <td>
                       <div class="btn-group" role="group" aria-label="Grupo botones">
                         <button class="btn btn-success btn-sm" data-btn-grupo="mostrar-detalles-usuario"><i class="bi bi-eye"></i></button>
@@ -94,10 +98,12 @@
                     </td>
                   </tr>
                   <tr>
+                    <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">2</td>
                     <td>Administrador Stock</td>
-                    <td>adminstock</td>
-                    <td>23456781</td>
-                    <td>adminstock@mail.com</td>
+                    <td class="ocultar-en-pantalla-xs">adminstock</td>
+                    <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">DNI</td>
+                    <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">23456781</td>
+                    <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">adminstock@mail.com</td>
                     <td>
                       <div class="btn-group" role="group" aria-label="Grupo botones">
                         <button class="btn btn-success btn-sm" data-btn-grupo="mostrar-detalles-usuario"><i class="bi bi-eye"></i></button>
@@ -108,10 +114,12 @@
                     </td>
                   </tr>
                   <tr>
+                    <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">3</td>
                     <td>Vendedor</td>
-                    <td>vendedor</td>
-                    <td>34567812</td>
-                    <td>vendedor@mail.com</td>
+                    <td class="ocultar-en-pantalla-xs">vendedor</td>
+                    <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">DNI</td>
+                    <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">34567812</td>
+                    <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">vendedor@mail.com</td>
                     <td>
                       <div class="btn-group" role="group" aria-label="Grupo botones">
                         <button class="btn btn-success btn-sm" data-btn-grupo="mostrar-detalles-usuario"><i class="bi bi-eye"></i></button>
@@ -122,10 +130,12 @@
                     </td>
                   </tr>
                   <tr>
+                    <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">4</td>
                     <td>Vendedor 2</td>
-                    <td>vendedor</td>
-                    <td>45678123</td>
-                    <td>vendedor2@mail.com</td>
+                    <td class="ocultar-en-pantalla-xs">vendedor</td>
+                    <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">LC/LE</td>
+                    <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">45678123</td>
+                    <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">vendedor2@mail.com</td>
                     <td>
                       <div class="btn-group" role="group" aria-label="Grupo botones">
                         <button class="btn btn-success btn-sm" data-btn-grupo="mostrar-detalles-usuario"><i class="bi bi-eye"></i></button>
@@ -169,29 +179,52 @@
             </div>
             <div class="card-body">
               <div class="row">
-                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-3">
+                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                  <label for="frmUsuarioID" class="form-label">ID</label>
+                  <input type="number" class="form-control" id="frmUsuarioID" disabled />
+                </div>
+                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
                   <label for="frmUsuarioNombre" class="form-label">Nombre</label>
                   <input type="text" class="form-control" id="frmUsuarioNombre" disabled/>
-                  <div class="valid-feedback" id="successAlumnoNombre"></div>
-                  <div class="invalid-feedback" id="errorAlumnoNombre"></div>
+                  <div class="invalid-feedback" id="errorUsuarioNombre"></div>
                 </div>
-                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-3">
+                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4" id="divFrmUsuarioRol">
                   <label for="frmUsuarioRol" class="form-label">Rol</label>
                   <input type="text" class="form-control" id="frmUsuarioRol" disabled/>
-                  <div class="valid-feedback" id="successAlumnoNombre"></div>
-                  <div class="invalid-feedback" id="errorAlumnoNombre"></div>
                 </div>
-                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-3">
+                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4 d-none" id="divSelectorUsuarioRol">
+                  <label for="frmSelectorUsuarioRol" class="form-label">Rol</label>
+                  <select class="form-select" id="frmSelectorUsuarioRol" aria-label="Seleccione un rol">
+                    <option selected></option>
+                    <option value="1" data-grupo-usuarios="gerente">gerente</option>
+                    <option value="2" data-grupo-usuarios="adminstock">adminstock</option>
+                    <option value="3" data-grupo-usuarios="vendedor">vendedor</option>
+                  </select>
+                  <div class="invalid-feedback" id="errorSelectorUsuarioRol"></div>
+                </div>
+                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4" id="divFrmUsuarioTipoDocumento">
+                  <label for="frmUsuarioTipoDocumento" class="form-label">Tipo documento</label>
+                  <input type="text" class="form-control" id="frmUsuarioTipoDocumento" disabled />
+                  <div class="invalid-feedback" id="errorUsuarioTipoDocumento"></div>
+                </div>
+                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4 d-none" id="divSelectorUsuarioTipoDocumento">
+                  <label for="frmSelectorUsuarioTipoDocumento" class="form-label">Tipo documento</label>
+                  <select class="form-select" id="frmSelectorUsuarioTipoDocumento" aria-label="Seleccione un tipo documento">
+                    <option selected></option>
+                    <option value="1" data-grupo-tipo-documento="DNI">DNI</option>
+                    <option value="2" data-grupo-tipo-documento="LC/LE">LC/LE</option>
+                  </select>
+                  <div class="invalid-feedback" id="errorSelectorUsuarioTipoDocumento"></div>
+                </div>
+                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
                   <label for="frmUsuarioNroDocumento" class="form-label">Num. documento</label>
                   <input type="number" class="form-control" id="frmUsuarioNroDocumento" disabled />
-                  <div class="valid-feedback" id="successAlumnoNombre"></div>
-                  <div class="invalid-feedback" id="errorAlumnoNombre"></div>
+                  <div class="invalid-feedback" id="errorUsuarioNroDocumento"></div>
                 </div>
-                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-3">
+                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
                   <label for="frmUsuarioEmail" class="form-label">Email</label>
                   <input type="email" class="form-control" id="frmUsuarioEmail" disabled/>
-                  <div class="valid-feedback" id="successAlumnoNombre"></div>
-                  <div class="invalid-feedback" id="errorAlumnoNombre"></div>
+                  <div class="invalid-feedback" id="errorUsuarioEmail"></div>
                 </div>
               </div>
             </div>
@@ -199,8 +232,8 @@
               <div class="card-footer">
                 <div class="d-grid gap-2">
                   <button type="button" id="btnEditarFormulario" class="btn btn-primary"><i class="bi bi-pencil"></i> Editar</button>
-                  <button type="submit" class="btn btn-primary mt-2 d-none"><i class="bi bi-save"></i> Guardar cambios</button>
-                  <button type="button" id="btnOcultarFormulario" class="btn btn-secondary mt-2"><i class="bi bi-x-circle"></i> Cancelar</button>
+                  <button id="btnGuargarCambios" type="submit" class="btn btn-primary d-none"><i class="bi bi-save"></i> Guardar cambios</button>
+                  <button type="button" id="btnOcultarFormulario" class="btn btn-secondary"><i class="bi bi-x-circle"></i> Cancelar</button>
                 </div>
               </div>
             </div>
@@ -209,6 +242,26 @@
       </div>
     </div>
   </section>
+    <!-- modal mensajes - inicio -->
+    <div class="modal fade" id="modalMostrarMensajes" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content bg-dark text-light">
+            <div class="modal-header">
+              <h2 class="modal-title fs-5" id="modalTitulo"></h2>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" ria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <h6 id="modalTexto"></h6>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal mensajes - fin -->
 </body>
 
 </html>
