@@ -515,13 +515,6 @@ function agregar_valor_id_usuario() {
   return c;
 }
 
-function agregar_botones_a_ultima_columna_fila_actual() {
-  let tabla_usuarios = document.getElementById("tblUsuarios");
-  let ultima_fila = tabla_usuarios.rows.length - 1;
-  let ultima_columna = tabla_usuarios.rows[ultima_fila].cells - 1;
-  console.log(ultima_columna.innerText);
-}
-
 function mostrar_modal() {
   let modal_mensajes = new bootstrap.Modal(document.getElementById("modalMostrarMensajes"));
   modal_mensajes.show();
