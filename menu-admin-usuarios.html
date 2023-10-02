@@ -36,6 +36,9 @@
                   <a class="nav-link text-light mt-1" href="#">Gerente</a>
                 </li>
                 <li class="nav-item">
+                  <a id="btnAgregarUsuario" class="nav-link text-light mt-1 fs-6" href="#frmModificarDatosUsuario">Agregar usuario</a>
+                </li>
+                <li class="nav-item">
                   <a class="nav-link text-light mt-1 fs-6" href="./index-gerente.html">Reporte de ventas</a>
                 </li>
                 <li class="nav-item">
@@ -68,8 +71,8 @@
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-success" type="button"><i class="bi bi-search"></i></button>
             </div>
+            <!-- tabla: tabla usuarios - inicio -->
             <div class="table-responsive mx-auto my-3">
-              <!-- <div> -->
               <table id="tblUsuarios" class="table table-dark table-striped">
                 <thead>
                   <tr>
@@ -148,6 +151,8 @@
                 </tbody>
               </table>
             </div>
+            <!-- tabla: tabla usuarios - fin -->
+            <!-- paginador - inicio -->
             <nav aria-label="Ejemplo paginador">
               <ul class="pagination justify-content-center">
                 <li class="page-item">
@@ -165,14 +170,79 @@
                 </li>
               </ul>
             </nav>
+            <!-- paginador - inicio -->
           </div>
         </div>
       </div>
     </div>
-    <!-- a modo de prueba. se cambiara a un formulario -->
+    <!-- formulario nuevo usuario - inicio -->
+    <div class="row">
+      <div id="divMostrarOcultarFormularioNuevoUsuario" class="mx-auto my-3 col-12 d-none">
+        <form id="frmNuevoUsuario" action="#" method="get">
+          <div class="card bg-dark text-light">
+            <div class="card-header text-light">
+              <h5 id="infoUsuario">Nuevo usuario</h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-12">
+                  <label for="frmNuevoUsuarioNombre" class="form-label">Nombre</label>
+                  <input type="text" class="form-control" id="frmNuevoUsuarioNombre" />
+                  <div class="invalid-feedback" id="errorNuevoUsuarioNombre"></div>
+                </div>
+                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                  <label for="frmSelectorNuevoUsuarioRol" class="form-label">Rol</label>
+                  <select class="form-select" id="frmSelectorNuevoUsuarioRol" aria-label="Seleccione un rol">
+                    <option selected></option>
+                    <option value="1" data-grupo-usuarios="gerente">gerente</option>
+                    <option value="2" data-grupo-usuarios="adminstock">adminstock</option>
+                    <option value="3" data-grupo-usuarios="vendedor">vendedor</option>
+                  </select>
+                  <div class="invalid-feedback" id="errorSelectorNuevoUsuarioRol"></div>
+                </div>
+                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                  <label for="frmSelectorNuevoUsuarioTipoDocumento" class="form-label">Tipo documento</label>
+                  <select class="form-select" id="frmSelectorNuevoUsuarioTipoDocumento"
+                    aria-label="Seleccione un tipo documento">
+                    <option selected></option>
+                    <option value="1" data-grupo-tipo-documento="DNI">DNI</option>
+                    <option value="2" data-grupo-tipo-documento="LC/LE">LC/LE</option>
+                  </select>
+                  <div class="invalid-feedback" id="errorSelectorNuevoUsuarioTipoDocumento"></div>
+                </div>
+                <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                  <label for="frmNuevoUsuarioNroDocumento" class="form-label">Num. documento</label>
+                  <input type="number" class="form-control" id="frmNuevoUsuarioNroDocumento" />
+                  <div class="invalid-feedback" id="errorNuevoUsuarioNroDocumento"></div>
+                </div>
+                <div class="mx-auto mb-3 col-12">
+                  <label for="frmNuevoUsuarioEmail" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="frmNuevoUsuarioEmail" />
+                  <div class="invalid-feedback" id="errorNuevoUsuarioEmail"></div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="card-footer">
+                <div class="d-grid gap-2">
+                  <button id="btnCrearNuevoUsuario" type="submit" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> Crear usuario
+                  </button>
+                  <button type="button" id="btnCancelarNuevoUsuario" class="btn btn-secondary">
+                    <i class="bi bi-x-circle"></i> Cancelar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- formulario: nuevo usuario - fin -->
+    <!-- formulario: modificar datos usuario - inicio -->
     <div class="row">
       <div id="divMostrarOcultarDetallesUsuario" class="mx-auto my-3 col-12 d-none">
-        <form id="frmModificarDatosUsuario" action="#" method="get">
+        <form id="frmModificarUsuario" action="#" method="get">
           <div class="card bg-dark text-light">
             <div class="card-header text-light">
               <h5 id="infoUsuario"></h5>
@@ -233,7 +303,7 @@
                 <div class="d-grid gap-2">
                   <button type="button" id="btnEditarFormulario" class="btn btn-primary"><i class="bi bi-pencil"></i> Editar</button>
                   <button id="btnGuargarCambios" type="submit" class="btn btn-primary d-none"><i class="bi bi-save"></i> Guardar cambios</button>
-                  <button type="button" id="btnOcultarFormulario" class="btn btn-secondary"><i class="bi bi-x-circle"></i> Cancelar</button>
+                  <button type="button" id="btnCancelarEdicionUsuario" class="btn btn-secondary"><i class="bi bi-x-circle"></i> Cancelar</button>
                 </div>
               </div>
             </div>
@@ -241,6 +311,7 @@
         </form>
       </div>
     </div>
+    <!-- formulario: modificar datos usuario - fin -->
   </section>
     <!-- modal mensajes - inicio -->
     <div class="modal fade" id="modalMostrarMensajes" tabindex="-1" aria-hidden="true">
