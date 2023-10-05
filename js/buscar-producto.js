@@ -1,10 +1,57 @@
 function inicio() {
-    document.getElementById("buscarBoton").addEventListener("click", buscarProducto, false);
     document.getElementById("generarVentas").addEventListener("submit", generarVentas, false);
+    document.getElementById("buscarBoton").addEventListener("click", buscarProducto, false);
+    //localStorage.clear(); //Borra los datos almacenados
 }
+
+//variable gloables para localStorage
+let idImprimible;
+let totalImprimible;
 
 function generarVentas(e) {
     e.preventDefault();
+
+    const datosVenta = {
+        id: 0,
+        fecha: "",
+        hora: "",
+        total: 0,
+        botones: "",
+    };
+
+    let MomentoActual = new Date;//El objeto Date trabaja con fechas y horas.
+
+    let hora = MomentoActual.getHours();//Obtengo las horas:
+    let minutos = MomentoActual.getMinutes()//Obtego los minutos
+    let segundos = MomentoActual.getSeconds()//Obtengo los segundos
+
+    let dia = MomentoActual.getDate();//Obtengo dia
+    let mes = MomentoActual.getMonth() + 1;//Obtengo mes
+    let año = MomentoActual.getFullYear();//Obtengo año
+    let horaImprimible = hora + ":" + minutos + ":" + segundos;
+    let fechaImprimible = dia + "/" + mes + "/" + año;
+
+    datosVenta.id = idImprimible;
+    datosVenta.fecha = fechaImprimible;
+    datosVenta.hora = horaImprimible;
+    datosVenta.total = totalImprimible;
+
+
+    // Obtengo los datos existentes del localStorage o crear un nuevo arreglo si no existen
+    let datosGuardados = JSON.parse(localStorage.getItem('datosGuardados')) || [];
+
+    // Agrego los nuevos datos al arreglo
+    datosGuardados.push(datosVenta);
+
+    // Guardado el arreglo actualizado en localStorage/Esto es para que sean diferentes localStorage y los datos no se pisen
+    localStorage.setItem('datosGuardados', JSON.stringify(datosGuardados));
+
+    let modal_texto = document.getElementById("modalTexto");
+    modal_texto.innerHTML = "La venta ha sido generada exitosamente";
+    mostrar_modal();
+
+    // Redirigir a la otra página HTML
+    // window.location.href = 'index-vendedor.html';
 }
 
 // Lista de productos (ejemplo)
@@ -97,10 +144,10 @@ function mostrarResultados(resultados) {
             tdNro.setAttribute("scope", "row");
             tdID.setAttribute("class", "text-center");
             tdProducto.setAttribute("class", "text-center");
-            tdMarca.setAttribute("class", "text-center");
-            tdCantidad.setAttribute("class", "text-center");
-            tdStock.setAttribute("class", "text-center");
-            tdPrecio.setAttribute("class", "text-center");
+            tdMarca.setAttribute("class", "text-center ocultar-en-pantalla-xs");
+            tdCantidad.setAttribute("class", "text-center ocultar-en-pantalla-xs");
+            tdStock.setAttribute("class", "text-center ocultar-en-pantalla-xs");
+            tdPrecio.setAttribute("class", "text-center ocultar-en-pantalla-xs");
             tdValoracion.setAttribute("class", "text-center");
             tdValoracion.setAttribute("valoracion", "valorTotal")
             tdTotal.setAttribute("class", "text-center");
@@ -113,11 +160,13 @@ function mostrarResultados(resultados) {
 
                 tdNro.innerHTML = NumFilas;
                 tdID.innerHTML = `${producto.id}`;
+                idImprimible = `${producto.id}`;
                 tdProducto.innerHTML = `${producto.producto}`;//Agrego el nombre del producto
                 tdMarca.innerHTML = `${producto.marca}`;
                 tdCantidad.innerHTML = cantidadInput;
 
-                if (cantidadInput <= producto.stock) {//Chekeamos si la cantidad es menor a stock
+                if (cantidadInput <= producto.stock) {//Chekeamos si la cantidad es menor a stock.
+
                     descontarStock = parseInt(`${producto.stock}` - cantidadInput);
                     producto.stock = descontarStock;
                     tdStock.innerHTML = descontarStock;
@@ -149,7 +198,8 @@ function mostrarResultados(resultados) {
             }
 
             let valorTotal = calcularTotal();//Llamamos a la funcion
-            tdTotal.innerHTML = valorTotal;
+            tdTotal.innerHTML = "$" + valorTotal;
+            totalImprimible = "$" + valorTotal;
 
         }
         else {
@@ -161,16 +211,17 @@ function mostrarResultados(resultados) {
 
 function calcularTotal() {
     let valorTotal = 0;
-
     let tdValoracion = document.querySelectorAll("tr>td[valoracion='valorTotal']");
 
     for (let valor of tdValoracion) {
         valorTotal += parseInt(valor.innerHTML);
     }
-
     return valorTotal;
 }
 
-window.addEventListener("load", inicio, false);
+function mostrar_modal() {
+    let modal_mensajes = new bootstrap.Modal(document.getElementById("modalMostrarMensajes"));
+    modal_mensajes.show();
+}
 
-//Falta corregir para que si stock es -1 no se ingrese en la tabla
+window.addEventListener("load", inicio, false);
