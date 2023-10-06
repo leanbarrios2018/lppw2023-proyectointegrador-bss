@@ -1,3 +1,7 @@
+/* al hacer la busqueda, se usa esta clase para ocultar los campos */
+tr.ocultar {
+  display: none;
+ }
 /* breakpoint xs */
 @media (max-width: 575px) {
  .ocultar-en-pantalla-xs {

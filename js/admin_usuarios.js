@@ -29,8 +29,12 @@ function inicio() {
   for (let boton_mostrar_detalles_usuario of botones_mostrar_detalles_usuario) {
     boton_mostrar_detalles_usuario.addEventListener("click", mostrar_detalles_usuario);
   }
+  // buscar usuarios
+  let input_busqueda = document.getElementById("buscarUsuario");
+  input_busqueda.addEventListener("keyup", filtrar_busqueda_usuario);
 }
 
+// *********************** alta de usuarios *********************** //
 // mostrar formulario de alta de usuario
 function mostrar_formulario_alta_usuario() {
   // ocultar tabla
@@ -107,7 +111,7 @@ function alta_usuario(evento) {
     mostrar_modal();
     ocultar_formulario_alta_usuario();
 
-    // **** probando si el nuevo usuario le puedo dar comportamiento a ver desalles de usuario. modificacion y eliminacion *** //
+    // **** probando si el nuevo usuario le puedo dar comportamiento a ver detalles de usuario. modificacion y eliminacion *** //
     // modificar datos de un usuario
     const botones_modificar_usuario_desde_tabla = document.querySelectorAll("[data-btn-grupo='modificar-usuario']");
     for (let boton_modificar_usuario_desde_tabla of botones_modificar_usuario_desde_tabla) {
@@ -129,9 +133,14 @@ function alta_usuario(evento) {
     for (let boton_mostrar_detalles_usuario of botones_mostrar_detalles_usuario) {
       boton_mostrar_detalles_usuario.addEventListener("click", mostrar_detalles_usuario);
     }
+    // buscar usuarios
+    let input_busqueda = document.getElementById("buscarUsuario");
+    input_busqueda.addEventListener("keyup", filtrar_busqueda_usuario);
     // **** fin de pruebas *** //
   }
 }
+
+// *********************** midificacion de usuarios *********************** //
 // modificar usuario desde tabla
 function modificar_usuario_desde_tabla(evento) {
   // ver formulario - inicio
@@ -197,6 +206,17 @@ function modificar_usuario(evento) {
     // errores en la validacion de formulario
   }
 }
+
+// *********************** eliminar usuario *********************** //
+// eliminar usuarios
+function eliminar_usuario(evento) {
+  // ocultando los datos del usuario seleccionado de la pantalla
+  // (tener en cuenta a futuro) --> como no haremos borrado "fisico" de los datos en la BBDD, con ocultar los datos (sea de usuarios, como de productos, combos, etc.) bastará
+  let ocultar_usuario = evento.target.closest("tr");
+  ocultar_usuario.classList.add("ocultar");
+}
+
+// *********************** ver datos especificos de un usuario *********************** //
 // mostrar detalles usuario
 function mostrar_detalles_usuario(evento) {
   // empezando para mostrar los detalles del usuario seleccionado
@@ -236,66 +256,70 @@ function mostrar_detalles_usuario(evento) {
   formulario_usuario_email.value = usuario_email;
   formulario_usuario_email.setAttribute("disabled", "");
 }
-// habilitar la modificacion del formulario
-function habilitar_modificacion_formulario() {
-  let boton_editar_usuario = document.getElementById("btnEditarFormulario");
-  boton_editar_usuario.classList.add("d-none");
-  let boton_guardar_cambios = document.getElementById("btnGuargarCambios");
-  boton_guardar_cambios.classList.remove("d-none");
-  let formulario_usuario_nombre = document.getElementById("frmUsuarioNombre");
-  let formulario_usuario_rol = document.getElementById("frmUsuarioRol");
-  let formulario_usuario_rol_valor = formulario_usuario_rol.value;
-  let div_formulario_usuario_rol = document.getElementById("divFrmUsuarioRol");
-  let div_selector_rol = document.getElementById("divSelectorUsuarioRol");
-  let div_formulario_usuario_tipo_documento = document.getElementById("divFrmUsuarioTipoDocumento");
-  let div_selector_tipo_documento = document.getElementById("divSelectorUsuarioTipoDocumento");
-  let formulario_usuario_numero_documento = document.getElementById("frmUsuarioNroDocumento");
-  let formulario_usuario_email = document.getElementById("frmUsuarioEmail");
-  // si el usuario es distinto al rol "gerente", oculto el input de tipo text y lo cambio por un selector
-  if (formulario_usuario_rol_valor != "gerente") {
-    div_formulario_usuario_rol.classList.add("d-none");
-    div_selector_rol.classList.remove("d-none");
+
+// *********************** buscar usuarios *********************** //
+function filtrar_busqueda_usuario() {
+  // nos traemos los radio button
+  let flex_radio_nombre = document.getElementById("flexRadioFiltrarPorNombre");
+  let flex_radio_rol = document.getElementById("flexRadioFiltrarPorRol");
+  let flex_radio_tipo_documento = document.getElementById("flexRadioFiltrarPorTipoDocumento");
+  let flex_radio_email = document.getElementById("flexRadioFiltrarPorEmail");
+  let input_busqueda = document.getElementById("buscarUsuario");
+  let input_filtrar = input_busqueda.value.toLowerCase();
+  let tabla_usuarios = document.getElementById("tblUsuarios");
+  let array_tr = tabla_usuarios.querySelectorAll("tbody tr");
+  for (let columna of array_tr) {
+    if (flex_radio_rol.checked) {
+      // por rol
+      // obtener todos los td correspondientes a rol
+      let columna_usuario_rol = columna.cells[2];
+      let columna_usuario_rol_valor = columna_usuario_rol.textContent;
+      // mostrar en la tabla los datos que coincincidan con el rol escrito
+      if (columna_usuario_rol_valor.toLowerCase().indexOf(input_filtrar) > -1) {
+        columna.classList.remove("d-none");
+      } else {
+        columna.classList.add("d-none");
+      }
+    } else if (flex_radio_tipo_documento.checked) {
+      // por tipo de documento
+      // obtener todos los td correspondientes a tipo de documento
+      let columna_usuario_tipo_documento = columna.cells[3];
+      let columna_usuario_tipo_cocumento_valor = columna_usuario_tipo_documento.textContent;
+      // mostrar en la tabla los datos que coincincidan con el tipo de documento escrito
+      if (columna_usuario_tipo_cocumento_valor.toLowerCase().indexOf(input_filtrar) > -1) {
+        columna.classList.remove("d-none");
+      } else {
+        columna.classList.add("d-none");
+      }
+    } else if (flex_radio_email.checked) {
+      // por email
+      // obtener todos los td correspondientes a email
+      let columna_usuario_email = columna.cells[5];
+      let columna_usuario_email_valor = columna_usuario_email.textContent;
+      // mostrar en la tabla los datos que coincincidan con el email escrito
+      if (columna_usuario_email_valor.toLowerCase().indexOf(input_filtrar) > -1) {
+        columna.classList.remove("d-none");
+      } else {
+        columna.classList.add("d-none");
+      }
+    } else {
+      // por nombre (por defecto)
+      // obtener todos los td correspondientes a nombre
+      let columna_usuario_nombre = columna.cells[1];
+      let columna_usuario_nombre_valor = columna_usuario_nombre.textContent;
+      // mostrar en la tabla los datos que coincincidan con el nombre escrito
+      if (columna_usuario_nombre_valor.toLowerCase().indexOf(input_filtrar) > -1) {
+        columna.classList.remove("d-none");
+      } else {
+        columna.classList.add("d-none");
+      }
+    }
   }
-  // oculto el input de tipo text y lo cambio por un selector
-  div_formulario_usuario_tipo_documento.classList.add("d-none");
-  div_selector_tipo_documento.classList.remove("d-none");
-  // quito el atributo "disabled" a los campos del formulario para poder editarlos
-  formulario_usuario_nombre.removeAttribute("disabled");
-  formulario_usuario_numero_documento.removeAttribute("disabled");
-  formulario_usuario_email.removeAttribute("disabled");
-  // el campo id no debería editarse, por lo que no se quita el atributo "disabled"
-  // en caso de que el usuario a modificarse sea "gerente", tampoco se debería editar su rol
-}
-// cancelar edicion formulario
-function ocultar_formulario_modificar_usuario() {
-  let div_formulario_usuario_rol = document.getElementById("divFrmUsuarioRol");
-  let div_selector_rol = document.getElementById("divSelectorUsuarioRol");
-  let div_formulario_usuario_tipo_documento = document.getElementById("divFrmUsuarioTipoDocumento");
-  let div_selector_tipo_documento = document.getElementById("divSelectorUsuarioTipoDocumento");
-  let div_mostrar_ocultar_detalles_usuario = document.getElementById("divMostrarOcultarDetallesUsuario");
-  let div_mostrar_ocultar_tabla_usuarios = document.getElementById("divOcultarMostrarTablaUsuarios");
-  let formulario_modificar_datos_usuario = document.getElementById("frmModificarUsuario");
-  let boton_editar_usuario = document.getElementById("btnEditarFormulario");
-  let boton_guardar_cambios = document.getElementById("btnGuargarCambios");
-  div_mostrar_ocultar_detalles_usuario.classList.add("d-none");
-  div_mostrar_ocultar_tabla_usuarios.classList.remove("d-none");
-  div_formulario_usuario_rol.classList.remove("d-none");
-  div_selector_rol.classList.add("d-none");
-  div_formulario_usuario_tipo_documento.classList.remove("d-none");
-  div_selector_tipo_documento.classList.add("d-none");
-  boton_editar_usuario.classList.remove("d-none");
-  boton_guardar_cambios.classList.add("d-none");
-  formulario_modificar_datos_usuario.reset();
 }
 
-// eliminar usuarios
-function eliminar_usuario(evento) {
-  // ocultando los datos del usuario seleccionado de la pantalla
-  // (tener en cuenta a futuro) --> como no haremos borrado "fisico" de los datos en la BBDD, con ocultar los datos (sea de usuarios, como de productos, combos, etc.) bastará
-  let ocultar_usuario = evento.target.closest("tr");
-  ocultar_usuario.classList.add("d-none");
-}
 
+// *********************** validaciones en formularios *********************** //
+// validar campos del formulario alta de usuario
 function validar_formulario_alta_usuarios() {
   let contador = 0;
   let array_salida = [];
@@ -399,7 +423,7 @@ function validar_formulario_alta_usuarios() {
     return array_salida;
   }
 }
-
+// validar campos del formulario modificar_usuario
 function validar_formulario_modificar_usuarios() {
   let contador = 0;
   let array_salida = [];
@@ -504,6 +528,59 @@ function validar_formulario_modificar_usuarios() {
   }
 }
 
+// *********************** funciones complementarias/auxiliares *********************** //
+// habilitar la modificacion del formulario
+function habilitar_modificacion_formulario() {
+  let boton_editar_usuario = document.getElementById("btnEditarFormulario");
+  boton_editar_usuario.classList.add("d-none");
+  let boton_guardar_cambios = document.getElementById("btnGuargarCambios");
+  boton_guardar_cambios.classList.remove("d-none");
+  let formulario_usuario_nombre = document.getElementById("frmUsuarioNombre");
+  let formulario_usuario_rol = document.getElementById("frmUsuarioRol");
+  let formulario_usuario_rol_valor = formulario_usuario_rol.value;
+  let div_formulario_usuario_rol = document.getElementById("divFrmUsuarioRol");
+  let div_selector_rol = document.getElementById("divSelectorUsuarioRol");
+  let div_formulario_usuario_tipo_documento = document.getElementById("divFrmUsuarioTipoDocumento");
+  let div_selector_tipo_documento = document.getElementById("divSelectorUsuarioTipoDocumento");
+  let formulario_usuario_numero_documento = document.getElementById("frmUsuarioNroDocumento");
+  let formulario_usuario_email = document.getElementById("frmUsuarioEmail");
+  // si el usuario es distinto al rol "gerente", oculto el input de tipo text y lo cambio por un selector
+  if (formulario_usuario_rol_valor != "gerente") {
+    div_formulario_usuario_rol.classList.add("d-none");
+    div_selector_rol.classList.remove("d-none");
+  }
+  // oculto el input de tipo text y lo cambio por un selector
+  div_formulario_usuario_tipo_documento.classList.add("d-none");
+  div_selector_tipo_documento.classList.remove("d-none");
+  // quito el atributo "disabled" a los campos del formulario para poder editarlos
+  formulario_usuario_nombre.removeAttribute("disabled");
+  formulario_usuario_numero_documento.removeAttribute("disabled");
+  formulario_usuario_email.removeAttribute("disabled");
+  // el campo id no debería editarse, por lo que no se quita el atributo "disabled"
+  // en caso de que el usuario a modificarse sea "gerente", tampoco se debería editar su rol
+}
+// cancelar edicion formulario
+function ocultar_formulario_modificar_usuario() {
+  let div_formulario_usuario_rol = document.getElementById("divFrmUsuarioRol");
+  let div_selector_rol = document.getElementById("divSelectorUsuarioRol");
+  let div_formulario_usuario_tipo_documento = document.getElementById("divFrmUsuarioTipoDocumento");
+  let div_selector_tipo_documento = document.getElementById("divSelectorUsuarioTipoDocumento");
+  let div_mostrar_ocultar_detalles_usuario = document.getElementById("divMostrarOcultarDetallesUsuario");
+  let div_mostrar_ocultar_tabla_usuarios = document.getElementById("divOcultarMostrarTablaUsuarios");
+  let formulario_modificar_datos_usuario = document.getElementById("frmModificarUsuario");
+  let boton_editar_usuario = document.getElementById("btnEditarFormulario");
+  let boton_guardar_cambios = document.getElementById("btnGuargarCambios");
+  div_mostrar_ocultar_detalles_usuario.classList.add("d-none");
+  div_mostrar_ocultar_tabla_usuarios.classList.remove("d-none");
+  div_formulario_usuario_rol.classList.remove("d-none");
+  div_selector_rol.classList.add("d-none");
+  div_formulario_usuario_tipo_documento.classList.remove("d-none");
+  div_selector_tipo_documento.classList.add("d-none");
+  boton_editar_usuario.classList.remove("d-none");
+  boton_guardar_cambios.classList.add("d-none");
+  formulario_modificar_datos_usuario.reset();
+}
+// asignar el id para el nuevo usuario
 function agregar_valor_id_usuario() {
   let c = 0;
   let tabla_usuarios = document.getElementById("tblUsuarios");
@@ -514,7 +591,7 @@ function agregar_valor_id_usuario() {
   }
   return c;
 }
-
+// mostrar modal
 function mostrar_modal() {
   let modal_mensajes = new bootstrap.Modal(document.getElementById("modalMostrarMensajes"));
   modal_mensajes.show();
