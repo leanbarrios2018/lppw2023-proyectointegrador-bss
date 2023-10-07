@@ -28,8 +28,9 @@
    <!-- <script src="./bootstrap-5.3.2/js/bootstrap.bundle.min.js"></script> -->
    <!-- bootstrap js - fin -->
    <!-- custom js - inicio -->
+   <script src="./js/menu-ventas-realizadas.js"></script>
    <!-- custom js - fin -->
-   <title>Estockear: Index administrador stock</title>
+   <title>Estockear: Index gerente</title>
 </head>
 
 <body>
@@ -49,7 +50,8 @@
                         <a class="nav-link text-light mt-1" href="#">Gerente</a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link text-light mt-1 fs-6" href="./menu-admin-usuarios.html">Menú admin. usuarios</a>
+                        <a class="nav-link text-light mt-1 fs-6" href="./menu-admin-usuarios.html">Menú admin.
+                           usuarios</a>
                      </li>
                      <li class="nav-item">
                         <a class="nav-link text-light mt-1 fs-6" href="./index-vendedor.html">Menú vendedor</a>
@@ -73,115 +75,208 @@
    </header>
    <section class="container">
       <div class="row">
-         <div class="mx-auto my-3 col-12">
-            <div class="card bg-dark text-light">
+         <div class="mx-auto my-2 col-12">
+            <div class="card bg-black text-light">
                <div class="card-body">
-                  <div class="d-flex" role="search">
-                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                     <button class="btn btn-outline-success" type="button"><i class="bi bi-search"></i></button>
-                  </div>
-                  <hr>
-                  <div class="mx-auto my-3 col-12">
-                     <h4>Reporte de ventas realizadas el dia 27/09/2025</h4>
-                  </div>
-                  <div id="divMostrarOcultarTabla">
-                     <div class="table-responsive mx-auto my-3">
-                        <!-- <div> -->
-                        <table class="table table-dark table-striped">
-                           <thead>
-                              <tr>
-                                 <th>#</th>
-                                 <th class="ocultar-en-pantalla-xs">ID venta</th>
-                                 <th>Nombre</th>
-                                 <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Fecha</th>
-                                 <th class="ocultar-en-pantalla-xs">Cantidad</th>
-                                 <th>Venta</th>
-                                 <th></th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr>
-                                 <td>1</td>
-                                 <td class="ocultar-en-pantalla-xs">11</td>
-                                 <td>Alfajor de chocolate</td>
-                                 <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">27/09/2023</td>
-                                 <td class="ocultar-en-pantalla-xs">5</td>
-                                 <td>1000</td>
-                                 <td>
-                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                       <button class="btn btn-success btn-sm"><i class="bi bi-eye"></i></button>
-                                    </div>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>2</td>
-                                 <td class="ocultar-en-pantalla-xs">6</td>
-                                 <td>Azucar blanca</td>
-                                 <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">27/09/2023</td>
-                                 <td class="ocultar-en-pantalla-xs">10</td>
-                                 <td>11000</td>
-                                 <td>
-                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                       <button class="btn btn-success btn-sm"><i class="bi bi-eye"></i></button>
-                                    </div>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>3</td>
-                                 <td class="ocultar-en-pantalla-xs">123</td>
-                                 <td>Leche deslactosada</td>
-                                 <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">27/09/2023</td>
-                                 <td class="ocultar-en-pantalla-xs">2</td>
-                                 <td>900</td>
-                                 <td>
-                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                       <button class="btn btn-success btn-sm"><i class="bi bi-eye"></i></button>
-                                    </div>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>4</td>
-                                 <td class="ocultar-en-pantalla-xs">231</td>
-                                 <td>Yerba mate compuesta</td>
-                                 <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">27/09/2023</td>
-                                 <td class="ocultar-en-pantalla-xs">1</td>
-                                 <td>650</td>
-                                 <td>
-                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                       <button class="btn btn-success btn-sm"><i class="bi bi-eye"></i></button>
-                                    </div>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td>Total:</td>
-                                 <td class="ocultar-en-pantalla-xs"></td>
-                                 <td></td>
-                                 <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm"></td>
-                                 <td class="ocultar-en-pantalla-xs"></td>
-                                 <td>13550</td>
-                                 <td></td>
-                              </tr>
-                           </tbody>
-                        </table>
+                  <!-- barra busqueda - inicio -->
+                  <div id="divOcultarMostrarBusqueda" class="mx-auto col-12">
+                     <div class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="button"><i class="bi bi-search"></i></button>
                      </div>
-                     <nav aria-label="Ejemplo paginador">
-                        <ul class="pagination justify-content-center">
-                           <li class="page-item">
-                              <a class="page-link bg-dark text-light" href="#" aria-label="Previous">
-                                 <span aria-hidden="true">&laquo;</span>
-                              </a>
-                           </li>
-                           <li class="page-item active"><a class="page-link bg-dark text-light" href="#">1</a></li>
-                           <li class="page-item"><a class="page-link bg-dark text-light" href="#">2</a></li>
-                           <li class="page-item"><a class="page-link bg-dark text-light" href="#">3</a></li>
-                           <li class="page-item">
-                              <a class="page-link bg-dark text-light" href="#" aria-label="Next">
-                                 <span aria-hidden="true">&raquo;</span>
-                              </a>
-                           </li>
-                        </ul>
-                     </nav>
                   </div>
+                  <!-- barra busqueda - fin -->
+                  <div class="row">
+                     <!-- grafica barra - inicio -->
+                     <div id="divOcultarMostrarGraficaBarra" class="mx-auto my-3 col-6">
+                        <div class="card bg-dark text-light">
+                           <div class="card-header">
+                              <h5>Ventas por año</h5>
+                           </div>
+                           <div class="card-body">
+                              <h6>aca iria el grafico en forma de barra</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- grafica barra - fin -->
+                     <!-- grafica dona - inicio -->
+                     <div id="divOcultarMostrarGraficaDona" class="mx-auto my-3 col-6">
+                        <div class="card bg-dark text-light">
+                           <div class="card-header">
+                              <h5>Productos más vendido</h5>
+                           </div>
+                           <div class="card-body">
+                              <h6>aca iria el gráfico de dona</h6>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- grafica dona - fin -->
+                  </div>
+                  <div id="divOcultarMostrarTablaVentasRealizadasPorDia" class="mx-auto mt-2 mb-1 col-12">
+                     <div class="card bg-dark text-light">
+                        <div class="card-header">
+                           <h4>Reporte de ventas realizadas el dia 27/09/2025</h4>
+                        </div>
+                        <div class="card-body">
+                           <div class="table-responsive mx-auto my-3">
+                              <!-- <div> -->
+                              <table class="table table-dark table-striped">
+                                 <thead>
+                                    <tr>
+                                       <th>#</th>
+                                       <th class="ocultar-en-pantalla-xs">ID venta</th>
+                                       <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Marca</th>
+                                       <th>Nombre</th>
+                                       <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Fecha</th>
+                                       <th class="ocultar-en-pantalla-xs">Cantidad</th>
+                                       <th>Precio</th>
+                                       <th></th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr>
+                                       <td>1</td>
+                                       <td class="ocultar-en-pantalla-xs">11</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Arcor</td>
+                                       <td>Alfajor de chocolate</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">27/09/2023</td>
+                                       <td class="ocultar-en-pantalla-xs">5</td>
+                                       <td>1000</td>
+                                       <td>
+                                          <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                             <button class="btn btn-success btn-sm"
+                                                data-btn-grupo="mostrar-detalles-ventas-realizadas"><i
+                                                   class="bi bi-eye"></i></button>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>2</td>
+                                       <td class="ocultar-en-pantalla-xs">6</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Ledesma</td>
+                                       <td>Azucar blanca</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">27/09/2023</td>
+                                       <td class="ocultar-en-pantalla-xs">10</td>
+                                       <td>11000</td>
+                                       <td>
+                                          <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                             <button class="btn btn-success btn-sm"
+                                                data-btn-grupo="mostrar-detalles-ventas-realizadas"><i
+                                                   class="bi bi-eye"></i></button>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>3</td>
+                                       <td class="ocultar-en-pantalla-xs">123</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">La senenísima</td>
+                                       <td>Leche deslactosada</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">27/09/2023</td>
+                                       <td class="ocultar-en-pantalla-xs">2</td>
+                                       <td>900</td>
+                                       <td>
+                                          <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                             <button class="btn btn-success btn-sm"
+                                                data-btn-grupo="mostrar-detalles-ventas-realizadas"><i
+                                                   class="bi bi-eye"></i></button>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>4</td>
+                                       <td class="ocultar-en-pantalla-xs">231</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Don Arregui</td>
+                                       <td>Yerba mate compuesta</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">27/09/2023</td>
+                                       <td class="ocultar-en-pantalla-xs">1</td>
+                                       <td>650</td>
+                                       <td>
+                                          <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                             <button class="btn btn-success btn-sm"
+                                                data-btn-grupo="mostrar-detalles-ventas-realizadas"><i
+                                                   class="bi bi-eye"></i></button>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td>Total:</td>
+                                       <td class="ocultar-en-pantalla-xs"></td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm"></td>
+                                       <td></td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm"></td>
+                                       <td class="ocultar-en-pantalla-xs"></td>
+                                       <td>13550</td>
+                                       <td></td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                           <nav aria-label="Ejemplo paginador">
+                              <ul class="pagination justify-content-center">
+                                 <li class="page-item">
+                                    <a class="page-link bg-dark text-light" href="#" aria-label="Previous">
+                                       <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                 </li>
+                                 <li class="page-item active"><a class="page-link bg-dark text-light" href="#">1</a>
+                                 </li>
+                                 <li class="page-item"><a class="page-link bg-dark text-light" href="#">2</a></li>
+                                 <li class="page-item"><a class="page-link bg-dark text-light" href="#">3</a></li>
+                                 <li class="page-item">
+                                    <a class="page-link bg-dark text-light" href="#" aria-label="Next">
+                                       <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                 </li>
+                              </ul>
+                           </nav>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- formulario: ver datos producto vendido - inicio -->
+                  <div id="divMostrarOcultarDetallesProductoVendido" class="mx-auto my-1 col-12 d-none">
+                     <!-- <form id="frmVerDetallesProductoVendido" action="#" method="get"> -->
+                     <div class="card bg-dark text-light">
+                        <div class="card-header text-light">
+                           <h5 id="tituloProductoVendido"></h5>
+                        </div>
+                        <div class="card-body">
+                           <div class="row">
+                              <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                 <label for="inputProductoVendidoID" class="form-label">ID</label>
+                                 <input type="number" class="form-control" id="inputProductoVendidoID" disabled />
+                              </div>
+                              <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                 <label for="inputProductoVendidoMarca" class="form-label">Marca</label>
+                                 <input type="text" class="form-control" id="inputProductoVendidoMarca" disabled />
+                              </div>
+                              <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                 <label for="inputProductoVendidoNombre" class="form-label">Nombre</label>
+                                 <input type="text" class="form-control" id="inputProductoVendidoNombre" disabled />
+                              </div>
+                              <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                 <label for="inputProductoVendidoFecha" class="form-label">Fecha</label>
+                                 <input type="date" class="form-control" id="inputUsuarioTipoDocumento" disabled />
+                              </div>
+                              <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                 <label for="inputProductoVendidoCantidad" class="form-label">Cantidad</label>
+                                 <input type="number" class="form-control" id="inputProductoVendidoCantidad" disabled />
+                              </div>
+                              <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                 <label for="inputProductoVendidoPrecio" class="form-label">Precio</label>
+                                 <input type="number" class="form-control" id="inputProductoVendidoPrecio" disabled />
+                              </div>
+                           </div>
+                        </div>
+                        <div class="card-footer">
+                           <div class="d-grid gap-2">
+                              <button type="button" id="btnOcultarDetallesProductoVendido" class="btn btn-secondary"><i
+                                    class="bi bi-x-circle"></i> Cerrar</button>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- </form> -->
+                  </div>
+                  <!-- formulario: ver datos proucto vendido - fin -->
                </div>
             </div>
          </div>

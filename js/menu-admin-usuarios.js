@@ -76,9 +76,7 @@ function alta_usuario(evento) {
     let columna_id_usuario = fila.insertCell(0);
     columna_id_usuario.innerHTML = id_usuario;
     // agregando clases al campo id del usuario para que no se rompa el responsive
-    columna_id_usuario.classList.add("ocultar-en-pantalla-xs");
-    columna_id_usuario.classList.add("ocultar-en-pantalla-sm");
-    columna_id_usuario.classList.add("ocultar-en-pantalla-md");
+    columna_id_usuario.setAttribute("class", "ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md");
     for (let i = 0; i < array_usuario.length; i++) {
       if (i != 0) {
         let columna_actual = fila.insertCell(i);
@@ -88,18 +86,13 @@ function alta_usuario(evento) {
           columna_actual.classList.add("ocultar-en-pantalla-xs")
         } else if (i == 3) {
           // agregando clases al campo tipo documento del usuario para que no se rompa el responsive
-          columna_actual.classList.add("ocultar-en-pantalla-xs");
-          columna_actual.classList.add("ocultar-en-pantalla-sm");
-          columna_actual.classList.add("ocultar-en-pantalla-md");
+          columna_actual.setAttribute("class", "ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md");
         } else if (i == 4) {
           // agregando clases al campo numero documento del usuario para que no se rompa el responsive
-          columna_actual.classList.add("ocultar-en-pantalla-xs");
-          columna_actual.classList.add("ocultar-en-pantalla-sm");
-          columna_actual.classList.add("ocultar-en-pantalla-md");
+          columna_actual.setAttribute("class", "ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md");
         } else if (i == 5) {
           // agregando clases al campo email del usuario para que no se rompa el responsive
-          columna_actual.classList.add("ocultar-en-pantalla-xs");
-          columna_actual.classList.add("ocultar-en-pantalla-sm");
+          columna_actual.setAttribute("class", "ocultar-en-pantalla-xs ocultar-en-pantalla-sm");
         }
       }
     }
@@ -228,21 +221,22 @@ function mostrar_detalles_usuario(evento) {
   let usuario_tipo_documento = fila_usuario.querySelector("td:nth-child(4)").textContent;
   let usuario_numero_documento = fila_usuario.querySelector("td:nth-child(5)").textContent;
   let usuario_email = fila_usuario.querySelector("td:nth-child(6)").textContent;
-  // ocultar tabla
+  // capturo los divs que encapsulan la tabla y formulario
   let ocultar_mostrar_tabla = document.getElementById("divOcultarMostrarTablaUsuarios");
+  let mostrar_ocultar_formulario = document.getElementById("divMostrarOcultarDetallesUsuario");
+  // ocultar tabla
   ocultar_mostrar_tabla.classList.add("d-none");
   // mostrar forumlario
-  let mostrar_ocultar_formulario = document.getElementById("divMostrarOcultarDetallesUsuario");
   mostrar_ocultar_formulario.classList.remove("d-none");
   // volcando los datos de un usuario al formulario
   let titulo_ver_detalle_usuario = document.getElementById("infoUsuario");
-  titulo_ver_detalle_usuario.innerHTML = "Información del usuario " + usuario_nombre;
   let formulario_usuario_id = document.getElementById("frmUsuarioID");
   let formulario_usuario_nombre = document.getElementById("frmUsuarioNombre");
   let formulario_usuario_rol = document.getElementById("frmUsuarioRol");
   let formulario_usuario_tipo_documento = document.getElementById("frmUsuarioTipoDocumento");
   let formulario_usuario_numero_documento = document.getElementById("frmUsuarioNroDocumento");
   let formulario_usuario_email = document.getElementById("frmUsuarioEmail");
+  titulo_ver_detalle_usuario.innerHTML = "Información del usuario " + usuario_nombre;
   formulario_usuario_id.value = usuario_id;
   formulario_usuario_id.setAttribute("disabled", "");
   formulario_usuario_nombre.value = usuario_nombre;
