@@ -25,10 +25,11 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"
       defer></script>
    <!-- local -->
-   <!-- <script src="./bootstrap-5.3.2/js/bootstrap.bundle.min.js"></script> -->
+   <!-- <script src="./bootstrap-5.3.2/js/bootstrap.bundle.min.js" defer></script> -->
    <!-- bootstrap js - fin -->
    <!-- custom js - inicio -->
-   <script src="./js/menu-ventas-realizadas.js"></script>
+   <script src="./js/menu-ventas-realizadas.js" defer></script>
+   <script src="./chartjs-4.4.0/chart.umd.min.js"></script>
    <!-- custom js - fin -->
    <title>Estockear: Index gerente</title>
 </head>
@@ -90,11 +91,8 @@
                      <!-- grafica barra - inicio -->
                      <div id="divOcultarMostrarGraficaBarra" class="mx-auto my-3 col-6">
                         <div class="card bg-dark text-light">
-                           <div class="card-header">
-                              <h5>Ventas por año</h5>
-                           </div>
-                           <div class="card-body">
-                              <h6>aca iria el grafico en forma de barra</h6>
+                           <div class="chart-container">
+                              <canvas id="grafica" width="150" height="150"></canvas>
                            </div>
                         </div>
                      </div>

@@ -37,21 +37,25 @@ function inicio() {
 // *********************** alta de usuarios *********************** //
 // mostrar formulario de alta de usuario
 function mostrar_formulario_alta_usuario() {
+  let div_mostrar_ocultar_barra_busqueda = document.getElementById("divOcultarMostrarBusqueda");
+  let div_mostrar_oultar_tabla = document.getElementById("divOcultarMostrarTablaUsuarios");
+  let div_mostrar_ocultar_formulario_nuevo_usuario = document.getElementById("divMostrarOcultarFormularioNuevoUsuario");
   // ocultar tabla
-  let ocultar_mostrar_tabla = document.getElementById("divOcultarMostrarTablaUsuarios");
-  ocultar_mostrar_tabla.classList.add("d-none");
+  div_mostrar_ocultar_barra_busqueda.classList.add("d-none");
+  div_mostrar_oultar_tabla.classList.add("d-none");
   // mostrar forumlario
-  let mostrar_ocultar_formulario = document.getElementById("divMostrarOcultarFormularioNuevoUsuario");
-  mostrar_ocultar_formulario.classList.remove("d-none");
+  div_mostrar_ocultar_formulario_nuevo_usuario.classList.remove("d-none");
 }
 // ocultar formulario de alta de usuario
 function ocultar_formulario_alta_usuario() {
+  let div_mostrar_ocultar_barra_busqueda = document.getElementById("divOcultarMostrarBusqueda");
+  let div_mostrar_oultar_tabla = document.getElementById("divOcultarMostrarTablaUsuarios");
+  let div_mostrar_ocultar_formulario_nuevo_usuario = document.getElementById("divMostrarOcultarFormularioNuevoUsuario");
   // ocultar forumlario
-  let mostrar_ocultar_formulario = document.getElementById("divMostrarOcultarFormularioNuevoUsuario");
-  mostrar_ocultar_formulario.classList.add("d-none");
-  // mostrar tabla
-  let ocultar_mostrar_tabla = document.getElementById("divOcultarMostrarTablaUsuarios");
-  ocultar_mostrar_tabla.classList.remove("d-none");
+  div_mostrar_ocultar_formulario_nuevo_usuario.classList.add("d-none");
+  // mostrar barra de busqueda y tabla
+  div_mostrar_ocultar_barra_busqueda.classList.remove("d-none");
+  div_mostrar_oultar_tabla.classList.remove("d-none");
   // reiniamos el formulario
   let formulario_agregar_usuario = document.getElementById("frmNuevoUsuario");
   formulario_agregar_usuario.reset();
@@ -146,12 +150,15 @@ function modificar_usuario_desde_tabla(evento) {
   let usuario_tipo_documento = fila_usuario.querySelector("td:nth-child(4)").textContent;
   let usuario_numero_documento = fila_usuario.querySelector("td:nth-child(5)").textContent;
   let usuario_email = fila_usuario.querySelector("td:nth-child(6)").textContent;
-  // ocultar tabla
-  let ocultar_mostrar_tabla = document.getElementById("divOcultarMostrarTablaUsuarios");
-  ocultar_mostrar_tabla.classList.add("d-none");
+  // capturo los divs que encapsulan la barra de busqueda, tabla y formulario
+  let div_mostrar_ocultar_barra_busqueda = document.getElementById("divOcultarMostrarBusqueda");
+  let div_mostrar_oultar_tabla = document.getElementById("divOcultarMostrarTablaUsuarios");
+  let div_mostrar_ocultar_detalles_usuario = document.getElementById("divMostrarOcultarDetallesUsuario");
+  // ocultar barra de busqueda y tabla
+  div_mostrar_ocultar_barra_busqueda.classList.add("d-none");
+  div_mostrar_oultar_tabla.classList.add("d-none");
   // mostrar forumlario
-  let mostrar_ocultar_formulario = document.getElementById("divMostrarOcultarDetallesUsuario");
-  mostrar_ocultar_formulario.classList.remove("d-none");
+  div_mostrar_ocultar_detalles_usuario.classList.remove("d-none");
   // volcando los datos de un usuario al formulario
   let titulo_ver_detalle_usuario = document.getElementById("infoUsuario");
   titulo_ver_detalle_usuario.innerHTML = "Información del usuario " + usuario_nombre;
@@ -183,6 +190,7 @@ function modificar_usuario_desde_tabla(evento) {
 // modificar datos de un usuario
 function modificar_usuario(evento) {
   evento.preventDefault();
+  
   let modal_titulo = document.getElementById("modalTitulo");
   let modal_texto = document.getElementById("modalTexto");
   modal_titulo.innerHTML = "";
@@ -221,13 +229,15 @@ function mostrar_detalles_usuario(evento) {
   let usuario_tipo_documento = fila_usuario.querySelector("td:nth-child(4)").textContent;
   let usuario_numero_documento = fila_usuario.querySelector("td:nth-child(5)").textContent;
   let usuario_email = fila_usuario.querySelector("td:nth-child(6)").textContent;
-  // capturo los divs que encapsulan la tabla y formulario
-  let ocultar_mostrar_tabla = document.getElementById("divOcultarMostrarTablaUsuarios");
-  let mostrar_ocultar_formulario = document.getElementById("divMostrarOcultarDetallesUsuario");
-  // ocultar tabla
-  ocultar_mostrar_tabla.classList.add("d-none");
+  // capturo los divs que encapsulan la barra de busqueda, tabla y formulario
+  let div_mostrar_ocultar_barra_busqueda = document.getElementById("divOcultarMostrarBusqueda");
+  let div_mostrar_oultar_tabla = document.getElementById("divOcultarMostrarTablaUsuarios");
+  let div_mostrar_ocultar_detalles_usuario = document.getElementById("divMostrarOcultarDetallesUsuario");
+  // ocultar barra de busqueda y tabla
+  div_mostrar_ocultar_barra_busqueda.classList.add("d-none");
+  div_mostrar_oultar_tabla.classList.add("d-none");
   // mostrar forumlario
-  mostrar_ocultar_formulario.classList.remove("d-none");
+  div_mostrar_ocultar_detalles_usuario.classList.remove("d-none");
   // volcando los datos de un usuario al formulario
   let titulo_ver_detalle_usuario = document.getElementById("infoUsuario");
   let formulario_usuario_id = document.getElementById("frmUsuarioID");
@@ -525,10 +535,9 @@ function validar_formulario_modificar_usuarios() {
 // *********************** funciones complementarias/auxiliares *********************** //
 // habilitar la modificacion del formulario
 function habilitar_modificacion_formulario() {
+  let titulo_ver_detalle_usuario = document.getElementById("infoUsuario");
   let boton_editar_usuario = document.getElementById("btnEditarFormulario");
-  boton_editar_usuario.classList.add("d-none");
   let boton_guardar_cambios = document.getElementById("btnGuargarCambios");
-  boton_guardar_cambios.classList.remove("d-none");
   let formulario_usuario_nombre = document.getElementById("frmUsuarioNombre");
   let formulario_usuario_rol = document.getElementById("frmUsuarioRol");
   let formulario_usuario_rol_valor = formulario_usuario_rol.value;
@@ -538,6 +547,12 @@ function habilitar_modificacion_formulario() {
   let div_selector_tipo_documento = document.getElementById("divSelectorUsuarioTipoDocumento");
   let formulario_usuario_numero_documento = document.getElementById("frmUsuarioNroDocumento");
   let formulario_usuario_email = document.getElementById("frmUsuarioEmail");
+  //cambio el titulo del formulario
+  titulo_ver_detalle_usuario.innerHTML = "Modificar datos del usuario " + formulario_usuario_nombre.value;
+  // ocultar boton editar usuario
+  boton_editar_usuario.classList.add("d-none");
+  // mostrar boton guardar cambios
+  boton_guardar_cambios.classList.remove("d-none");
   // si el usuario es distinto al rol "gerente", oculto el input de tipo text y lo cambio por un selector
   if (formulario_usuario_rol_valor != "gerente") {
     div_formulario_usuario_rol.classList.add("d-none");
@@ -559,13 +574,15 @@ function ocultar_formulario_modificar_usuario() {
   let div_selector_rol = document.getElementById("divSelectorUsuarioRol");
   let div_formulario_usuario_tipo_documento = document.getElementById("divFrmUsuarioTipoDocumento");
   let div_selector_tipo_documento = document.getElementById("divSelectorUsuarioTipoDocumento");
+  let div_mostrar_ocultar_barra_busqueda = document.getElementById("divOcultarMostrarBusqueda");
+  let div_mostrar_oultar_tabla = document.getElementById("divOcultarMostrarTablaUsuarios");
   let div_mostrar_ocultar_detalles_usuario = document.getElementById("divMostrarOcultarDetallesUsuario");
-  let div_mostrar_ocultar_tabla_usuarios = document.getElementById("divOcultarMostrarTablaUsuarios");
   let formulario_modificar_datos_usuario = document.getElementById("frmModificarUsuario");
   let boton_editar_usuario = document.getElementById("btnEditarFormulario");
   let boton_guardar_cambios = document.getElementById("btnGuargarCambios");
   div_mostrar_ocultar_detalles_usuario.classList.add("d-none");
-  div_mostrar_ocultar_tabla_usuarios.classList.remove("d-none");
+  div_mostrar_ocultar_barra_busqueda.classList.remove("d-none");
+  div_mostrar_oultar_tabla.classList.remove("d-none");
   div_formulario_usuario_rol.classList.remove("d-none");
   div_selector_rol.classList.add("d-none");
   div_formulario_usuario_tipo_documento.classList.remove("d-none");

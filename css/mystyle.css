@@ -9,3 +9,11 @@ body {
   border-radius: .3rem;
   color: #353b41;
 }
+
+/* para redimensionar grafica de chartjs */
+.chart-container {
+  position: relative;
+  margin: auto;
+  height: 20vh;
+  width: 35vw;
+}
