@@ -126,6 +126,7 @@ function mostrarResultados(resultados) {
     let tdStock = document.createElement("td");
     let tdPrecio = document.createElement("td");
     let tdValoracion = document.createElement("td");
+    let tdAcciones = document.createElement("td");
     let tdTotal = document.getElementById("total");
 
 
@@ -150,6 +151,7 @@ function mostrarResultados(resultados) {
             tdPrecio.setAttribute("class", "text-center ocultar-en-pantalla-xs");
             tdValoracion.setAttribute("class", "text-center");
             tdValoracion.setAttribute("valoracion", "valorTotal")
+            tdAcciones.setAttribute("class", "text-center");
             tdTotal.setAttribute("class", "text-center");
 
             for (let producto of resultados) {
@@ -181,6 +183,7 @@ function mostrarResultados(resultados) {
                     tr.appendChild(tdStock);
                     tr.appendChild(tdPrecio);
                     tr.appendChild(tdValoracion);
+                    tr.appendChild(tdAcciones);
                 }
                 else if (producto.stock === 0) {//Chekeamos si hay stock
                     cantidadInputValidacion.classList.add("is-invalid");
@@ -195,6 +198,9 @@ function mostrarResultados(resultados) {
 
                 sumaValoracion = parseFloat(cantidadInput * producto.precio);
                 tdValoracion.innerHTML = sumaValoracion;
+                tdAcciones.innerHTML = "<div class='btn-group' role='group' aria-label='Grupo botones'><button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-usuario'><i class='bi bi-trash'></i></button></div>";
+                document.getElementById("thAcciones").classList.remove("d-none")
+                document.getElementById("tdOcultar").classList.remove("d-none")
             }
 
             let valorTotal = calcularTotal();//Llamamos a la funcion
@@ -206,6 +212,12 @@ function mostrarResultados(resultados) {
             smsError.innerHTML = 'No se encontraron resultados.';
             productoInputValidacion.classList.add("is-invalid");
         }
+    }
+
+    // "eliminar" usuario
+    const botones_eliminar_usuario = document.querySelectorAll("div>button[data-btn-grupo='eliminar-usuario']");
+    for (let boton_eliminar_usuario of botones_eliminar_usuario) {
+        boton_eliminar_usuario.addEventListener("click", eliminar_usuario);
     }
 }
 
@@ -222,6 +234,15 @@ function calcularTotal() {
 function mostrar_modal() {
     let modal_mensajes = new bootstrap.Modal(document.getElementById("modalMostrarMensajes"));
     modal_mensajes.show();
+}
+
+function eliminar_usuario(evento) {
+    // ocultando los datos del usuario seleccionado de la pantalla
+    // (tener en cuenta a futuro) --> como no haremos borrado "fisico" de los datos en la BBDD, con ocultar los datos (sea de usuarios, como de productos, combos, etc.) bastará
+    let ocultar_usuario = evento.target.closest("tr");
+    // ocultar_usuario.classList.add("ocultar");
+    ocultar_usuario.remove()
+    let tdTotal = document.getElementById("total").innerHTML="";
 }
 
 window.addEventListener("load", inicio, false);
