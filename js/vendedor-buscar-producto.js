@@ -242,7 +242,8 @@ function eliminar_usuario(evento) {
     let ocultar_usuario = evento.target.closest("tr");
     // ocultar_usuario.classList.add("ocultar");
     ocultar_usuario.remove()
-    let tdTotal = document.getElementById("total").innerHTML="";
+    let tdTotal = document.getElementById("total").innerHTML = "";
 }
+
 
 window.addEventListener("load", inicio, false);

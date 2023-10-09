@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="./css/mystyle.css">
     <link rel="stylesheet" href="./css/style-vendedor.Css">
     <link rel="stylesheet" href="./css/redimensionar-tabla.css">
+    <link rel="stylesheet" href="./css/vendedor-buscar-combo.css">
+
 
     <!--Icon-->
     <link rel="icon" href="./favicon/favicon.ico">
@@ -18,7 +20,8 @@
 
     <!--Javascript-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" defer></script>
-    <script src="./js/buscar-producto.js" defer></script>
+    <script src="./js/vendedor-buscar-producto.js" defer></script>
+    <script src="./js/vendedor-buscar-combo.js"></script>
     <title>Estockear:Generar Ventas</title>
 </head>
 
@@ -96,6 +99,7 @@
                     </table>
                 </div>
                 <div class="text-end">
+                    <button type="button" class="btn btn-danger" id="agregarCombo" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Combo&nbsp;<i class="bi bi-bag-plus-fill"></i></button>
                     <button type="submit" class="btn btn-danger" id="realizarVentaBoton">Realizar Venta&nbsp;<i class="bi bi-currency-dollar"></i></button>
                 </div>
             </div>
@@ -119,6 +123,87 @@
             </div>
         </div>
     </section>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Lista de Comboss</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="d-block" role="search">
+                    <div class="input-group">
+                        <input class="form-control" type="search" id="autocompletadoBuscarCombo" placeholder="Escribe aquí..." aria-label="Search">
+                        <button class="input-group-text btn btn-outline-danger" type="button"><i class="bi bi-search"></i></button>
+                    </div>
+                    <ul id="listaVenta" class="list-unstyled">
+
+                    </ul>
+                    <div id="smsResultado" class="d-none text-danger">No se encontraron resultados</div>
+                </form>
+                <div class="mx-auto mt-3">
+                    <!-- <h6>Filtrar por (predeterminado: nombre):</h6> -->
+                    <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioFiltro" id="flexRadioFiltrarPorCombo" checked>
+                            <label class="form-check-label" for="flexRadioFiltrarPorNombre">Combo</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioFiltro" id="flexRadioFiltrarPorPrecio">
+                            <label class="form-check-label" for="flexRadioFiltrarPorRol">Precio</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioFiltro" id="flexRadioFiltrarPorId">
+                            <label class="form-check-label" for="flexRadioFiltrarPorId">ID</label>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-black mt-4">
+                    <table class="table table-dark table-striped" id="tablaCombos">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col" class="text-center">ID</th>
+                                <th scope="col" class="text-center">Combo</th>
+                                <th scope="col" class="text-center">Detalle</th>
+                                <th scope="col" class="text-center">Precio</th>
+                                <th scope="col" class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td class="text-center">2</td>
+                                <td class="text-center">Verduras</td>
+                                <td class="text-center">2 kg de papa y 2 kg cebolla</td>
+                                <td class="text-center">$800</td>
+                                <td class="text-center"><div class='btn-group' role='group' aria-label='Grupo botones'><button type='button' class='btn btn-primary btn-sm' data-btn-grupo='agregar-combo'><i class="bi bi-plus-square"></i></button></div></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td class="text-center">1</td>
+                                <td class="text-center">Huevos</td>
+                                <td class="text-center">8 ud huevos blanco</td>
+                                <td class="text-center">$600</td>
+                                <td class="text-center"><div class='btn-group' role='group' aria-label='Grupo botones'><button type='button' class='btn btn-primary btn-sm' data-btn-grupo='agregar-combo'><i class="bi bi-plus-square"></i></button></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
