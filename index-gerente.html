@@ -81,41 +81,23 @@
                <div class="card-body">
                   <!-- barra busqueda - inicio -->
                   <div id="divOcultarMostrarBusqueda" class="mx-auto col-12">
-                     <div class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="button"><i class="bi bi-search"></i></button>
-                     </div>
-                     <!-- filtro busqueda - inicio -->
-                     <div class="mx-auto mt-3">
-                        <h6>Filtrar por (predeterminado: año):</h6>
-                        <div class="row">
-                           <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                              <div class="form-check">
-                                 <input class="form-check-input" type="radio" name="flexRadioFiltro" id="flexRadioFiltrarInformePorAnho" checked>
-                                 <label class="form-check-label" for="flexRadioFiltrarInformePorAnho">
-                                    Año
-                                 </label>
+                     <div class="card bg-dark text-light">
+                        <div class="card-header">
+                           <h5>Buscar ventas realizadas.</h5>
+                        </div>
+                        <div class="card-body">
+                           <div class="row">
+                              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mb-1" role="search">
+                                 <label for="busarProductoVendidoDesde" class="form-label">Desde:</label>
+                                 <input id="busarProductoVendidoDesde" class="form-control" type="date" aria-label="Buscar por fecha">
                               </div>
-                           </div>
-                           <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                              <div class="form-check">
-                                 <input class="form-check-input" type="radio" name="flexRadioFiltro" id="flexRadioFiltrarInformePorMes">
-                                 <label class="form-check-label" for="flexRadioFiltrarInformePorMes">
-                                    Mes
-                                 </label>
-                              </div>
-                           </div>
-                           <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                              <div class="form-check">
-                                 <input class="form-check-input" type="radio" name="flexRadioFiltro" id="flexRadioFiltrarInformePorSemana">
-                                 <label class="form-check-label" for="flexRadioFiltrarPorTipoDocumento">
-                                    Día
-                                 </label>
+                              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mb-1" role="search">
+                                 <label for="busarProductoVendidoHasta" class="form-label">Hasta:</label>
+                                 <input id="busarProductoVendidoHasta" class="form-control" type="date" aria-label="Buscar por fecha">
                               </div>
                            </div>
                         </div>
                      </div>
-                     <!-- filtro busqueda - fin -->
                   </div>
                   <!-- barra busqueda - fin -->
                   <div class="row">
@@ -148,10 +130,10 @@
                      </div>
                      <!-- grafica dona - fin -->
                   </div>
-                  <div id="divOcultarMostrarTablaVentasRealizadasPorDia" class="mx-auto mt-2 mb-1 col-12">
+                  <div id="divOcultarMostrarTablaVentasRealizadasPorDia" class="mx-auto mb-1 col-12">
                      <div class="card bg-dark text-light">
                         <div class="card-header">
-                           <h4>Reporte de ventas realizadas el dia 27/09/2023</h4>
+                           <h4 id="tblReporteVentasTitulo"></h4>
                         </div>
                         <div class="card-body">
                            <div class="table-responsive mx-auto my-3">
@@ -176,7 +158,7 @@
                                        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">6</td>
                                        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Ledesma</td>
                                        <td>Azucar blanca</td>
-                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">27/09/2023</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">09/10/2023</td>
                                        <td class="ocultar-en-pantalla-xs">10</td>
                                        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">ARS</td>
                                        <td>11000</td>
@@ -193,7 +175,7 @@
                                        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">11</td>
                                        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Arcor</td>
                                        <td>Alfajor de chocolate</td>
-                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">27/09/2023</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">09/10/2023</td>
                                        <td class="ocultar-en-pantalla-xs">5</td>
                                        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">ARS</td>
                                        <td>1000</td>
@@ -209,7 +191,7 @@
                                        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">123</td>
                                        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">La senenísima</td>
                                        <td>Leche deslactosada</td>
-                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">27/09/2023</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">09/10/2023</td>
                                        <td class="ocultar-en-pantalla-xs">2</td>
                                        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">ARS</td>
                                        <td>900</td>
@@ -226,7 +208,7 @@
                                        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">231</td>
                                        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Don Arregui</td>
                                        <td>Yerba mate compuesta</td>
-                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">27/09/2023</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">09/10/2023</td>
                                        <td class="ocultar-en-pantalla-xs">1</td>
                                        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">ARS</td>
                                        <td>650</td>

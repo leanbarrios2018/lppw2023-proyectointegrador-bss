@@ -1,6 +1,20 @@
 window.onload = inicio;
 
 function inicio() {
+ // agregar a las busquedas por fecha la fecha de hoy (por defecto) y setear como máximo la fecha de hoy
+ let buscar_ventas_realizadas_desde = document.getElementById("busarProductoVendidoDesde");
+ let buscar_ventas_realizadas_hasta = document.getElementById("busarProductoVendidoHasta");
+ let fecha_actual = obtener_fecha_actual();
+ buscar_ventas_realizadas_desde.value = fecha_actual;
+ buscar_ventas_realizadas_desde.setAttribute("max", fecha_actual);
+ buscar_ventas_realizadas_hasta.value = fecha_actual;
+ buscar_ventas_realizadas_hasta.setAttribute("max", fecha_actual);
+ // mostrar grafica - barra
+ mostrar_grafica_barra();
+ // mostrar grafica - dona
+ mostrar_grafica_dona();
+ // agregar titulo a la tabla de ventas realizadas
+ mostrar_titulo_informe_ventas();
  // ver detalles de una venta realizada
  const botones_mostrar_detalles_ventas_realizadas = document.querySelectorAll("[data-btn-grupo='mostrar-detalles-ventas-realizadas']");
  for (let boton_mostrar_detalles_ventas_realizadas of botones_mostrar_detalles_ventas_realizadas) {
@@ -70,86 +84,130 @@ function ocultar_detalles_producto_vendido() {
  mostrar_ocultar_tabla.classList.remove("d-none");
 }
 
+// *********************** chartjs - graficas *********************** //
+// *********************** mostrar ventas por año - barra *********************** //
+function mostrar_grafica_barra() {
+ // Obtener una referencia al elemento canvas del DOM
+ const grafica_barra = document.getElementById("graficaBarra");
+ // Las etiquetas son las que van en el eje X. 
+ const etiquetas = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciebre"];
+ // Podemos tener varios conjuntos de datos
+ const datos_ventas_2022 = {
+  label: "Ventas por mes - 2022",
+  data: [5000, 1500, 8000, 5102, 8500, 2000, 3230, 4000, 4500, 5320, 6000, 6789], // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
+  backgroundColor: 'rgba(54, 162, 235, 0.2)', // Color de fondo
+  borderColor: 'rgba(54, 162, 235, 1)', // Color del borde
+  borderWidth: 1,// Ancho del borde
+ };
+ const datos_ventas_2023 = {
+  label: "Ventas por mes - 2023",
+  data: [201567, 170080, 190000, 154321, 233900, 215000, 260040, 290000, 336000, 125500], // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
+  backgroundColor: 'rgba(255, 159, 64, 0.2)',// Color de fondo
+  borderColor: 'rgba(255, 159, 64, 1)',// Color del borde
+  borderWidth: 1,// Ancho del borde
+ };
+
+ const opciones = {
+  maintainAspectRatio: false,
+  scales: {
+   yAxes: [{
+    ticks: {
+     beginAtZero: true
+    }
+   }],
+  },
+ }
+ new Chart(grafica_barra, {
+  type: 'bar',// Tipo de gráfica
+  data: {
+   labels: etiquetas,
+   datasets: [
+    // datos_ventas_2022,
+    datos_ventas_2023,
+    // Aquí más datos...
+   ]
+  },
+  options: {
+   opciones
+  }
+ });
+}
+// *********************** mostrar productos más vendidos - dona *********************** //
+function mostrar_grafica_dona() {
+ const grafica_dona = document.getElementById("graficaDona");
+
+ const datos_grafica_dona = {
+  labels: [
+   'Azucar Blanca',
+   'Alfajor de chocolate',
+   'Leche deslactosada',
+   'Yerba mate compuesta'
+  ],
+  datasets: [{
+   label: 'Productos mas vendidos',
+   data: [20000, 6000, 4500, 1300],
+   backgroundColor: [
+    'rgb(255, 99, 132)',
+    'rgb(54, 162, 235)',
+    'rgb(255, 205, 86)',
+    'rgb(0, 139, 139)'
+   ],
+   hoverOffset: 4
+  }]
+ };
+ const opciones = {
+  maintainAspectRatio: false,
+  scales: {
+   yAxes: [{
+    ticks: {
+     beginAtZero: true
+    }
+   }],
+  },
+ }
+ new Chart(grafica_dona, {
+  type: 'doughnut',
+  data: datos_grafica_dona,
+  options: {
+   opciones
+  }
+ });
+}
+
+// *********************** funciones auxiliares *********************** //
+// mostrar en título de la fecha la fecha de hoy (hard-code)
+function mostrar_titulo_informe_ventas() {
+ let buscar_ventas_realizadas_desde = document.getElementById("busarProductoVendidoDesde");
+ let buscar_ventas_realizadas_desde_valor = buscar_ventas_realizadas_desde.value.split('-').reverse().join('/'); 
+ let buscar_ventas_realizadas_hasta = document.getElementById("busarProductoVendidoHasta");
+ let buscar_ventas_realizadas_hasta_valor = buscar_ventas_realizadas_hasta.value.split('/').reverse().join('-');
+ let titulo_tabla_reporte_ventas = document.getElementById("tblReporteVentasTitulo");
+ if (buscar_ventas_realizadas_desde.value == buscar_ventas_realizadas_hasta.value) {
+  titulo_tabla_reporte_ventas.innerHTML = "Ventas realizadas en la fecha " + buscar_ventas_realizadas_desde_valor + ".";
+ } else {
+  titulo_tabla_reporte_ventas.innerHTML = "Ventas realizas en desde " + buscar_ventas_realizadas_desde_valor + " hasta " + buscar_ventas_realizadas_hasta_valor + ".";
+ }
+}
+
+// Obtener fecha actual
+function obtener_fecha_actual() {
+ const fecha = new Date();
+ let anho = fecha.getUTCFullYear().toString();
+ let mes = validar_mes(fecha.getUTCMonth() + 1).toString();
+ let dia = validar_mes(fecha.getUTCDate()).toString();
+ let fecha_actual = anho + "-" + mes + "-" + dia;
+ return fecha_actual;
+}
+function validar_mes(m) {
+ if (m < 10) {
+  m = "0" + m;
+  return m;
+ } else {
+  return m;
+ }
+}
+// parsear fecha
 function parsear_fecha(fecha) {
  let fecha_parseada = fecha.split('/').reverse().join('-');
  return fecha_parseada;
 }
-
-// *********************** chartjs - grafica *********************** //
-// *********************** mostrar ventas por año - barra *********************** //
-// Obtener una referencia al elemento canvas del DOM
-const grafica_barra = document.getElementById("graficaBarra");
-// Las etiquetas son las que van en el eje X. 
-const etiquetas = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciebre"];
-// Podemos tener varios conjuntos de datos
-const datos_ventas_2022 = {
- label: "Ventas por mes - 2022",
- data: [5000, 1500, 8000, 5102, 8500, 2000, 3230, 4000, 4500, 5320, 6000, 6789], // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
- backgroundColor: 'rgba(54, 162, 235, 0.2)', // Color de fondo
- borderColor: 'rgba(54, 162, 235, 1)', // Color del borde
- borderWidth: 1,// Ancho del borde
-};
-const datos_ventas_2023 = {
- label: "Ventas por mes - 2023",
- data: [10000, 1700, 5000, 5989, 7000, 1500, 4000, 4250, 6000, 750], // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
- backgroundColor: 'rgba(255, 159, 64, 0.2)',// Color de fondo
- borderColor: 'rgba(255, 159, 64, 1)',// Color del borde
- borderWidth: 1,// Ancho del borde
-};
-
-let opciones = {
- maintainAspectRatio: false,
- scales: {
-  yAxes: [{
-   ticks: {
-    beginAtZero: true
-   }
-  }],
- },
-}
-
-new Chart(grafica_barra, {
- type: 'bar',// Tipo de gráfica
- data: {
-  labels: etiquetas,
-  datasets: [
-   // datos_ventas_2022,
-   datos_ventas_2023,
-   // Aquí más datos...
-  ]
- },
- options: {
-  opciones
- }
-});
-// *********************** mostrar productos más vendidos - dona *********************** //
-const grafica_dona = document.getElementById("graficaDona");
-
-const datos_grafica_dona = {
- labels: [
-  'Azucar Blanca',
-  'Alfajor de chocolate',
-  'Leche deslactosada',
-  'Yerba mate compuesta'
- ],
- datasets: [{
-  label: 'Productos mas vendidos',
-  data: [20000, 6000, 4500, 1300],
-  backgroundColor: [
-   'rgb(255, 99, 132)',
-   'rgb(54, 162, 235)',
-   'rgb(255, 205, 86)', 
-   'rgb(0, 139, 139)'
-  ],
-  hoverOffset: 4
- }]
-};
-
-new Chart(grafica_dona, {
- type: 'doughnut',
- data: datos_grafica_dona,
- options: {
-  opciones
- }
-});
-
