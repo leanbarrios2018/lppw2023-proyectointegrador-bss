@@ -21,7 +21,8 @@ function mostrar_detalles_producto_vendido(evento) {
  let venta_realizada_nombre = fila_venta_realizada.querySelector("td:nth-child(4)").textContent;
  let venta_realizada_fecha = fila_venta_realizada.querySelector("td:nth-child(5)").textContent;
  let venta_realizada_cantidad = fila_venta_realizada.querySelector("td:nth-child(6)").textContent;
- let venta_realizada_precio = fila_venta_realizada.querySelector("td:nth-child(7)").textContent;
+ let venta_realizada_unidad_monetaria = fila_venta_realizada.querySelector("td:nth-child(7)").textContent;
+ let venta_realizada_precio = fila_venta_realizada.querySelector("td:nth-child(8)").textContent;
  // capturo los divs que enapsulan la barra de busqueda, graficas, la tabla y formuario
  let mostrar_ocultar_barra_busqueda = document.getElementById("divOcultarMostrarBusqueda");
  let mostrar_ocultar_grafico_barra = document.getElementById("divOcultarMostrarGraficaBarra");
@@ -42,6 +43,7 @@ function mostrar_detalles_producto_vendido(evento) {
  let producto_vendido_nombre = document.getElementById("inputProductoVendidoNombre");
  let producto_vendido_fecha = document.getElementById("inputUsuarioTipoDocumento");
  let producto_vendido_cantidad = document.getElementById("inputProductoVendidoCantidad");
+ let producto_vendido_unidad_monetaria = document.getElementById("inputProductoVendidoUnidadMonetaria");
  let producto_vendido_precio = document.getElementById("inputProductoVendidoPrecio");
  titulo_ver_detalle_producto_vendido.innerHTML = 'Detalles del producto vendido ' + venta_realizada_nombre + ' "' + venta_realizada_marca + '".';
  producto_vendido_id.value = venta_realizada_id;
@@ -49,6 +51,7 @@ function mostrar_detalles_producto_vendido(evento) {
  producto_vendido_nombre.value = venta_realizada_nombre;
  producto_vendido_fecha.value = parsear_fecha(venta_realizada_fecha);
  producto_vendido_cantidad.value = venta_realizada_cantidad;
+ producto_vendido_unidad_monetaria.value = venta_realizada_unidad_monetaria
  producto_vendido_precio.value = venta_realizada_precio;
 }
 
@@ -73,47 +76,80 @@ function parsear_fecha(fecha) {
 }
 
 // *********************** chartjs - grafica *********************** //
-// mostrar ventas por año - barra
+// *********************** mostrar ventas por año - barra *********************** //
 // Obtener una referencia al elemento canvas del DOM
-const $grafica = document.getElementById("grafica");
+const grafica_barra = document.getElementById("graficaBarra");
 // Las etiquetas son las que van en el eje X. 
 const etiquetas = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciebre"];
 // Podemos tener varios conjuntos de datos
-const datosVentas2020 = {
- label: "Ventas por mes - 2020",
- data: [5000, 1500, 8000, 5102], // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
+const datos_ventas_2022 = {
+ label: "Ventas por mes - 2022",
+ data: [5000, 1500, 8000, 5102, 8500, 2000, 3230, 4000, 4500, 5320, 6000, 6789], // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
  backgroundColor: 'rgba(54, 162, 235, 0.2)', // Color de fondo
  borderColor: 'rgba(54, 162, 235, 1)', // Color del borde
  borderWidth: 1,// Ancho del borde
 };
-const datosVentas2021 = {
- label: "Ventas por mes - 2021",
- data: [10000, 1700, 5000, 5989], // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
+const datos_ventas_2023 = {
+ label: "Ventas por mes - 2023",
+ data: [10000, 1700, 5000, 5989, 7000, 1500, 4000, 4250, 6000, 750], // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
  backgroundColor: 'rgba(255, 159, 64, 0.2)',// Color de fondo
  borderColor: 'rgba(255, 159, 64, 1)',// Color del borde
  borderWidth: 1,// Ancho del borde
 };
 
-new Chart($grafica, {
+let opciones = {
+ maintainAspectRatio: false,
+ scales: {
+  yAxes: [{
+   ticks: {
+    beginAtZero: true
+   }
+  }],
+ },
+}
+
+new Chart(grafica_barra, {
  type: 'bar',// Tipo de gráfica
  data: {
   labels: etiquetas,
   datasets: [
-   datosVentas2020,
-   datosVentas2021,
+   // datos_ventas_2022,
+   datos_ventas_2023,
    // Aquí más datos...
   ]
  },
  options: {
-  maintainAspectRatio: false,
-  scales: {
-   yAxes: [{
-    ticks: {
-     beginAtZero: true
-    }
-   }],
-  },
+  opciones
+ }
+});
+// *********************** mostrar productos más vendidos - dona *********************** //
+const grafica_dona = document.getElementById("graficaDona");
+
+const datos_grafica_dona = {
+ labels: [
+  'Azucar Blanca',
+  'Alfajor de chocolate',
+  'Leche deslactosada',
+  'Yerba mate compuesta'
+ ],
+ datasets: [{
+  label: 'Productos mas vendidos',
+  data: [20000, 6000, 4500, 1300],
+  backgroundColor: [
+   'rgb(255, 99, 132)',
+   'rgb(54, 162, 235)',
+   'rgb(255, 205, 86)', 
+   'rgb(0, 139, 139)'
+  ],
+  hoverOffset: 4
+ }]
+};
+
+new Chart(grafica_dona, {
+ type: 'doughnut',
+ data: datos_grafica_dona,
+ options: {
+  opciones
  }
 });
 
-// mostrar ventas por mes - dona

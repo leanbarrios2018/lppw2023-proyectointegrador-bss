@@ -28,8 +28,8 @@
    <!-- <script src="./bootstrap-5.3.2/js/bootstrap.bundle.min.js" defer></script> -->
    <!-- bootstrap js - fin -->
    <!-- custom js - inicio -->
+   <script src="./chartjs-4.4.0/chart.umd.min.js" defer></script>
    <script src="./js/menu-ventas-realizadas.js" defer></script>
-   <script src="./chartjs-4.4.0/chart.umd.min.js"></script>
    <!-- custom js - fin -->
    <title>Estockear: Index gerente</title>
 </head>
@@ -85,26 +85,64 @@
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="button"><i class="bi bi-search"></i></button>
                      </div>
+                     <!-- filtro busqueda - inicio -->
+                     <div class="mx-auto mt-3">
+                        <h6>Filtrar por (predeterminado: año):</h6>
+                        <div class="row">
+                           <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                              <div class="form-check">
+                                 <input class="form-check-input" type="radio" name="flexRadioFiltro" id="flexRadioFiltrarInformePorAnho" checked>
+                                 <label class="form-check-label" for="flexRadioFiltrarInformePorAnho">
+                                    Año
+                                 </label>
+                              </div>
+                           </div>
+                           <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                              <div class="form-check">
+                                 <input class="form-check-input" type="radio" name="flexRadioFiltro" id="flexRadioFiltrarInformePorMes">
+                                 <label class="form-check-label" for="flexRadioFiltrarInformePorMes">
+                                    Mes
+                                 </label>
+                              </div>
+                           </div>
+                           <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                              <div class="form-check">
+                                 <input class="form-check-input" type="radio" name="flexRadioFiltro" id="flexRadioFiltrarInformePorSemana">
+                                 <label class="form-check-label" for="flexRadioFiltrarPorTipoDocumento">
+                                    Día
+                                 </label>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- filtro busqueda - fin -->
                   </div>
                   <!-- barra busqueda - fin -->
                   <div class="row">
                      <!-- grafica barra - inicio -->
-                     <div id="divOcultarMostrarGraficaBarra" class="mx-auto my-3 col-6">
+                     <div id="divOcultarMostrarGraficaBarra" class="mx-auto my-3 col-lg-8">
                         <div class="card bg-dark text-light">
-                           <div class="chart-container">
-                              <canvas id="grafica" width="150" height="150"></canvas>
+                           <div class="card-header">
+                              <h5>Reporte anual</h5>
+                           </div>
+                           <div class="card-body text-center">
+                              <div class="chart-container-barra">
+                                 <canvas id="graficaBarra"></canvas>
+                              </div>
                            </div>
                         </div>
                      </div>
                      <!-- grafica barra - fin -->
                      <!-- grafica dona - inicio -->
-                     <div id="divOcultarMostrarGraficaDona" class="mx-auto my-3 col-6">
+                     <div id="divOcultarMostrarGraficaDona" class="mx-auto my-3 col-lg-4">
                         <div class="card bg-dark text-light">
                            <div class="card-header">
-                              <h5>Productos más vendido</h5>
+                              <h5>Productos más vendidos</h5>
                            </div>
-                           <div class="card-body">
-                              <h6>aca iria el gráfico de dona</h6>
+                           <div class="card-body text-center">
+                              <div class="chart-container-dona">
+                                 <canvas id="graficaDona"></canvas>
+                              </div>
                            </div>
                         </div>
                      </div>
@@ -113,7 +151,7 @@
                   <div id="divOcultarMostrarTablaVentasRealizadasPorDia" class="mx-auto mt-2 mb-1 col-12">
                      <div class="card bg-dark text-light">
                         <div class="card-header">
-                           <h4>Reporte de ventas realizadas el dia 27/09/2025</h4>
+                           <h4>Reporte de ventas realizadas el dia 27/09/2023</h4>
                         </div>
                         <div class="card-body">
                            <div class="table-responsive mx-auto my-3">
@@ -122,11 +160,12 @@
                                  <thead>
                                     <tr>
                                        <th>#</th>
-                                       <th class="ocultar-en-pantalla-xs">ID venta</th>
+                                       <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">ID venta</th>
                                        <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Marca</th>
                                        <th>Nombre</th>
                                        <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Fecha</th>
                                        <th class="ocultar-en-pantalla-xs">Cantidad</th>
+                                       <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Unidad monetaria</th>
                                        <th>Precio</th>
                                        <th></th>
                                     </tr>
@@ -134,27 +173,12 @@
                                  <tbody>
                                     <tr>
                                        <td>1</td>
-                                       <td class="ocultar-en-pantalla-xs">11</td>
-                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Arcor</td>
-                                       <td>Alfajor de chocolate</td>
-                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">27/09/2023</td>
-                                       <td class="ocultar-en-pantalla-xs">5</td>
-                                       <td>1000</td>
-                                       <td>
-                                          <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                             <button class="btn btn-success btn-sm"
-                                                data-btn-grupo="mostrar-detalles-ventas-realizadas"><i
-                                                   class="bi bi-eye"></i></button>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td>2</td>
-                                       <td class="ocultar-en-pantalla-xs">6</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">6</td>
                                        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Ledesma</td>
                                        <td>Azucar blanca</td>
                                        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">27/09/2023</td>
                                        <td class="ocultar-en-pantalla-xs">10</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">ARS</td>
                                        <td>11000</td>
                                        <td>
                                           <div class="btn-group" role="group" aria-label="Basic mixed styles example">
@@ -165,12 +189,29 @@
                                        </td>
                                     </tr>
                                     <tr>
+                                       <td>2</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">11</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Arcor</td>
+                                       <td>Alfajor de chocolate</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">27/09/2023</td>
+                                       <td class="ocultar-en-pantalla-xs">5</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">ARS</td>
+                                       <td>1000</td>
+                                       <td>
+                                          <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                             <button class="btn btn-success btn-sm" data-btn-grupo="mostrar-detalles-ventas-realizadas"><i
+                                                   class="bi bi-eye"></i></button>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                    <tr>
                                        <td>3</td>
-                                       <td class="ocultar-en-pantalla-xs">123</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">123</td>
                                        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">La senenísima</td>
                                        <td>Leche deslactosada</td>
                                        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">27/09/2023</td>
                                        <td class="ocultar-en-pantalla-xs">2</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">ARS</td>
                                        <td>900</td>
                                        <td>
                                           <div class="btn-group" role="group" aria-label="Basic mixed styles example">
@@ -182,11 +223,12 @@
                                     </tr>
                                     <tr>
                                        <td>4</td>
-                                       <td class="ocultar-en-pantalla-xs">231</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">231</td>
                                        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Don Arregui</td>
                                        <td>Yerba mate compuesta</td>
                                        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">27/09/2023</td>
                                        <td class="ocultar-en-pantalla-xs">1</td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">ARS</td>
                                        <td>650</td>
                                        <td>
                                           <div class="btn-group" role="group" aria-label="Basic mixed styles example">
@@ -196,17 +238,20 @@
                                           </div>
                                        </td>
                                     </tr>
+                                 </tbody>
+                                 <tfoot>
                                     <tr>
                                        <td>Total:</td>
-                                       <td class="ocultar-en-pantalla-xs"></td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md"></td>
                                        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm"></td>
                                        <td></td>
                                        <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm"></td>
                                        <td class="ocultar-en-pantalla-xs"></td>
+                                       <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">ARS</td>
                                        <td>13550</td>
                                        <td></td>
                                     </tr>
-                                 </tbody>
+                                 </tfoot>
                               </table>
                            </div>
                            <nav aria-label="Ejemplo paginador">
@@ -239,7 +284,7 @@
                         </div>
                         <div class="card-body">
                            <div class="row">
-                              <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                              <div class="mx-auto mb-3 col-12">
                                  <label for="inputProductoVendidoID" class="form-label">ID</label>
                                  <input type="number" class="form-control" id="inputProductoVendidoID" disabled />
                               </div>
@@ -258,6 +303,10 @@
                               <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
                                  <label for="inputProductoVendidoCantidad" class="form-label">Cantidad</label>
                                  <input type="number" class="form-control" id="inputProductoVendidoCantidad" disabled />
+                              </div>
+                              <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                                 <label for="inputProductoVendidoUnidadMonetaria" class="form-label">Unidad monetaria</label>
+                                 <input type="text" class="form-control" id="inputProductoVendidoUnidadMonetaria" disabled />
                               </div>
                               <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
                                  <label for="inputProductoVendidoPrecio" class="form-label">Precio</label>
