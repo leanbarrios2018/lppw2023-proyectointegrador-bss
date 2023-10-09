@@ -268,21 +268,27 @@ function alta_egreso(evento) {
     
     for (let i = 0; i < array_egreso.length; i++) {
 
-        let columna_actual = fila.insertCell(i+1);
-        columna_actual.innerHTML = array_egreso[i];
-        if (i == 2) {
-          // agregando clases al campo nombre del egreso para que no se rompa el responsive
-          columna_actual.setAttribute("class","ocultar-en-pantalla-xs ocultar-en-pantalla-sm")
-        } else if (i == 3) {
+        let columna_actual = fila.insertCell(i+1);//con el +1 corri el array 
+        columna_actual.innerHTML = array_egreso[i]
+        if (i==1){
+        // agregando clases al campo nombre del egreso para que no se rompa el responsive
+        columna_actual.setAttribute("class","ocultar-en-pantalla-xs ocultar-en-pantalla-sm")
+        
+        }else
+         if (i == 2) {
           // agregando clases al campo cantidad del egreso para que no se rompa el responsive
-          columna_actual.setAttribute("class", "ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md");
-        } else if (i == 4) {
+          columna_actual.setAttribute("class","ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md")
+        } else if (i == 3) {
           // agregando clases al campo precio del egreso para que no se rompa el responsive
           columna_actual.setAttribute("class", "ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md");
-        } else if (i == 5) {
+        } else if (i == 4) {
           // agregando clases al campo motivo del egreso para que no se rompa el responsive
           columna_actual.setAttribute("class", "ocultar-en-pantalla-xs");
-        } 
+         }
+        // else if (i == 5) {
+        //   // agregando clases al campo marca del egreso para que no se rompa el responsive
+        //   columna_actual.setAttribute("class", "ocultar-en-pantalla-xs ocultar-en-pantalla-sm ");
+        // } 
 
     }
 
@@ -290,7 +296,7 @@ function alta_egreso(evento) {
     let ultima_columna = fila.insertCell(-1);
     ultima_columna.innerHTML = "<div class='btn-group' role='group' aria-label='Grupo botones'><button class='btn btn-success btn-sm' data-btn-grupo='mostrar-detalles-egreso'><i class='bi bi-eye'></i></button><button class='btn btn-primary btn-sm' data-btn-grupo='modificar-egreso'><i class='bi bi-pencil'></i></button><button class='btn btn-danger btn-sm' data-btn-grupo='eliminar-egreso'><i class='bi bi-trash'></i></button></div>";
     modal_titulo.innerHTML = "Creación egreso exitosa";
-    modal_texto.innerHTML = "El egreso <b>" + array_egreso[0] + "</b> se ha creado correctamente.";
+    modal_texto.innerHTML = "El egreso de <b>" + array_egreso[0] + "</b> a sido registrado correctamente.";
     mostrar_modal();
     ocultar_formulario_alta_egreso();
 
