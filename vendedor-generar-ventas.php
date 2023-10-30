@@ -40,10 +40,10 @@
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link text-light mt-1" href="index-vendedor.html">Vendedor</a>
+                                    <a class="nav-link text-light mt-1" href="index-vendedor.php">Vendedor</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-light mt-1 fs-6" href="vendedor-generar-ventas.html">Generar venta</a>
+                                    <a class="nav-link text-light mt-1 fs-6" href="vendedor-generar-ventas.php">Generar venta</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-light mt-1 fs-6" href="#">Combos</a>
