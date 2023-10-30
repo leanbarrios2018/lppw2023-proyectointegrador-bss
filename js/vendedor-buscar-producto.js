@@ -19,15 +19,15 @@ function generarVentas(e) {
         botones: "",
     };
 
-    let MomentoActual = new Date;//El objeto Date trabaja con fechas y horas.
+    let MomentoActual = new Date; //El objeto Date trabaja con fechas y horas.
 
-    let hora = MomentoActual.getHours();//Obtengo las horas:
-    let minutos = MomentoActual.getMinutes()//Obtego los minutos
-    let segundos = MomentoActual.getSeconds()//Obtengo los segundos
+    let hora = MomentoActual.getHours(); //Obtengo las horas:
+    let minutos = MomentoActual.getMinutes() //Obtego los minutos
+    let segundos = MomentoActual.getSeconds() //Obtengo los segundos
 
-    let dia = MomentoActual.getDate();//Obtengo dia
-    let mes = MomentoActual.getMonth() + 1;//Obtengo mes
-    let año = MomentoActual.getFullYear();//Obtengo año
+    let dia = MomentoActual.getDate(); //Obtengo dia
+    let mes = MomentoActual.getMonth() + 1; //Obtengo mes
+    let año = MomentoActual.getFullYear(); //Obtengo año
     let horaImprimible = hora + ":" + minutos + ":" + segundos;
     let fechaImprimible = dia + "/" + mes + "/" + año;
 
@@ -83,12 +83,10 @@ function buscarProducto() {
     if (productoInput.trim() === "") {
         productoInputValidacion.classList.add("is-invalid");
         smsError.innerHTML = "El campo de busquedad se encuentra vacio";
-    }
-    else if (!expresionRegularBuscar.test(productoInput)) {
+    } else if (!expresionRegularBuscar.test(productoInput)) {
         productoInputValidacion.classList.add("is-invalid");
         smsError.innerHTML = "Solo se aceptan palabras alfabéticas y numéricas"
-    }
-    else {
+    } else {
         productoInputValidacion.classList.add("is-valid");
 
         for (let productoBuscado of productos) { //productos es la lista de productos (ejemplo)
@@ -133,15 +131,13 @@ function mostrarResultados(resultados) {
     if (cantidadInput === "") {
         cantidadInputValidacion.classList.add("is-invalid");
         smsError.innerHTML = "El campo de cantidad se encuentra vacio"
-    }
-    else if (!expresionRegularCantidad.test(cantidadInput)) {
+    } else if (!expresionRegularCantidad.test(cantidadInput)) {
         cantidadInputValidacion.classList.add("is-invalid");
         smsError.innerHTML = "Solo se aceptan valores numéricos y positivos"
-    }
-    else {
+    } else {
         cantidadInputValidacion.classList.add("is-valid");
 
-        if (resultados.length > 0) {//Checkeamos si el array esta vacio
+        if (resultados.length > 0) { //Checkeamos si el array esta vacio
             tdNro.setAttribute("scope", "row");
             tdID.setAttribute("class", "text-center");
             tdProducto.setAttribute("class", "text-center");
@@ -163,11 +159,11 @@ function mostrarResultados(resultados) {
                 tdNro.innerHTML = NumFilas;
                 tdID.innerHTML = `${producto.id}`;
                 idImprimible = `${producto.id}`;
-                tdProducto.innerHTML = `${producto.producto}`;//Agrego el nombre del producto
+                tdProducto.innerHTML = `${producto.producto}`; //Agrego el nombre del producto
                 tdMarca.innerHTML = `${producto.marca}`;
                 tdCantidad.innerHTML = cantidadInput;
 
-                if (cantidadInput <= producto.stock) {//Chekeamos si la cantidad es menor a stock.
+                if (cantidadInput <= producto.stock) { //Chekeamos si la cantidad es menor a stock.
 
                     descontarStock = parseInt(`${producto.stock}` - cantidadInput);
                     producto.stock = descontarStock;
@@ -184,12 +180,10 @@ function mostrarResultados(resultados) {
                     tr.appendChild(tdPrecio);
                     tr.appendChild(tdValoracion);
                     tr.appendChild(tdAcciones);
-                }
-                else if (producto.stock === 0) {//Chekeamos si hay stock
+                } else if (producto.stock === 0) { //Chekeamos si hay stock
                     cantidadInputValidacion.classList.add("is-invalid");
                     smsError.innerHTML = "No hay stock"
-                }
-                else {
+                } else {
                     cantidadInputValidacion.classList.add("is-invalid");
                     smsError.innerHTML = "Cantidad es superior a stock"
                 }
@@ -203,12 +197,11 @@ function mostrarResultados(resultados) {
                 document.getElementById("tdOcultar").classList.remove("d-none")
             }
 
-            let valorTotal = calcularTotal();//Llamamos a la funcion
+            let valorTotal = calcularTotal(); //Llamamos a la funcion
             tdTotal.innerHTML = "$" + valorTotal;
             totalImprimible = "$" + valorTotal;
 
-        }
-        else {
+        } else {
             smsError.innerHTML = 'No se encontraron resultados.';
             productoInputValidacion.classList.add("is-invalid");
         }

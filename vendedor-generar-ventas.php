@@ -1,3 +1,6 @@
+<?php include "conetDataBase.php" ?>
+<?php require "insertIntoVentas.php" ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -12,6 +15,7 @@
     <link rel="stylesheet" href="./css/redimensionar-tabla.css">
     <link rel="stylesheet" href="./css/vendedor-buscar-combo.css">
 
+
     <!--Icon-->
     <link rel="icon" href="./favicon/favicon.ico">
     <script src="https://kit.fontawesome.com/364177c3f4.js" crossorigin="anonymous"></script>
@@ -19,7 +23,7 @@
 
     <!--Javascript-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" defer></script>
-    <script src="./js/vendedor-buscar-producto.js" defer></script>
+    <script src="./js/vendedor-generar-ventas.js" defer></script>
     <script src="./js/vendedor-buscar-combo.js"></script>
     <title>Estockear:Generar Ventas</title>
 </head>
@@ -58,7 +62,7 @@
         </div>
     </header>
     <section class="container ">
-        <form action="" id="generarVentas">
+        <form action="vendedor-generar-ventas.php" id="generarVentas" method="POST">
             <div class="bg-black pt-2 pe-3 pb-2 ps-3  mt-3 rounded-1">
                 <nav class="input-group  mt-4 mb-3">
                     <input type="search" name="buscarInput" id="buscarInput" class="form-control" placeholder="Buscar producto" required>
@@ -71,28 +75,32 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col" class="text-center">ID</th>
+                                <th scope="col" class="text-center">ID Producto</th>
                                 <th scope="col" class="text-center">Producto</th>
                                 <th scope="col" class="text-center ocultar-en-pantalla-xs">Marca</th>
                                 <th scope="col" class="text-center ocultar-en-pantalla-xs">Cantidad</th>
                                 <th scope="col" class="text-center ocultar-en-pantalla-xs">Stock</th>
                                 <th scope="col" class="text-center ocultar-en-pantalla-xs">Precio unitario</th>
-                                <th scope="col" class="text-center ">Valoracion</th>
+                                <th scope="col" class="text-center ">Sub Total</th>
                                 <th scope="col" class="text-center d-none" id="thAcciones">Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="tbody">
+
                         </tbody>
                         <tfoot>
-                            <th scope="row">Precio Total</th>
-                            <td class="text-center"></td>
-                            <td class="text-center"></td>
-                            <td class="text-center ocultar-en-pantalla-xs"></td>
-                            <td class="text-center ocultar-en-pantalla-xs"></td>
-                            <td class="text-center ocultar-en-pantalla-xs"></td>
-                            <td class="text-center ocultar-en-pantalla-xs"></td>
-                            <td class="text-center" id="total">$</td>
-                            <td class="text-center d-none ocultar-en-pantalla-xs" id="tdOcultar"><i class="bi bi-bag-check-fill btn btn-sm btn-success"></i></td>
+                            <tr>
+                                <td scope="row">Precio Total</th>
+                                <td class="text-center"></td>
+                                <td class="text-center"></td>
+                                <td class="text-center ocultar-en-pantalla-xs"></td>
+                                <td class="text-center ocultar-en-pantalla-xs d-none" id="tdCantidadTotal"></td>
+                                <td class="text-center ocultar-en-pantalla-xs"></td>
+                                <td class="text-center ocultar-en-pantalla-xs"></td>
+                                <td class="text-center ocultar-en-pantalla-xs"></td>
+                                <td class="text-center" id="tdTotal"></td>
+                                <td class="text-center d-none ocultar-en-pantalla-xs" id="tdOcultar"><i class="bi bi-bag-check-fill btn btn-sm btn-success"></i></td>
+                            </tr>
                         </tfoot>
                     </table>
                 </div>
@@ -101,6 +109,8 @@
                     <button type="submit" class="btn btn-danger" id="realizarVentaBoton">Realizar Venta&nbsp;<i class="bi bi-currency-dollar"></i></button>
                 </div>
             </div>
+            <input type="number" id="total" name="total" class="form-control d-none" readonly>
+            <input type="number" id="cantidadTotal" name="cantidadTotal" class="form-control d-none" readonly>
         </form>
         <div class="modal fade" id="modalMostrarMensajes" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
@@ -209,3 +219,5 @@
 </body>
 
 </html>
+
+<?php $conn = null; ?>
