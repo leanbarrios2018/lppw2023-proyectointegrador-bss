@@ -7,28 +7,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!--styles-->
+    <!--Css-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="../Estilos/mystyle.css">
-    <link rel="stylesheet" href="../Estilos/redimensionar-tabla.css">
-    <link rel="stylesheet" href="../Estilos/style-vendedor.Css">
-    <link rel="stylesheet" href="../Estilos/vendedor-buscar-combo.css">
 
+    <!--My Css-->
+    <link rel="stylesheet" href="../Estilos/style-body.css">
+    <link rel="stylesheet" href="../Estilos/style-redimensionar-tabla.css">
+    <link rel="stylesheet" href="../Estilos/style-vendedor-buscar-combo.css">
+    <link rel="stylesheet" href="../Estilos/style-vendedor-buscar-producto.css">
 
-    <!--Icon-->
-    <link rel="icon" href="./favicon/favicon.ico">
-    <script src="https://kit.fontawesome.com/364177c3f4.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!--script-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!--Javascript-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" defer></script>
+    <!--My script-->
     <script src="../Controlador/vendedor-buscar-combo.js" defer></script>
     <script src="../Controlador/vendedor-generar-ventas.js"></script>
-    <title>Estockear:Generar Ventas</title>
+    <script src="../Controlador/vendedor-buscar-producto.js"></script>
+
+    <!--Icon-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <title>Generar Venta</title>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
         <a class="navbar-brand text-light fs-5" href="#">Estockear</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -50,15 +54,20 @@
             </li>
         </ul>
     </nav>
-    <section class="container mt-6 w-75">
-        <form action="vendedor-generar-ventas.php" id="generarVentas" method="POST">
-            <div class="bg-black pt-2 pe-3 pb-2 ps-3  mt-3 rounded-1">
-                <nav class="input-group  mt-4 mb-3">
-                    <input type="search" name="buscarInput" id="buscarInput" class="form-control" placeholder="Buscar producto" required>
+    <section class="container mt-6 w-75 flex-grow-1 mb-5">
+        <div class="bg-black pt-2 pe-3 pb-2 ps-3  mt-3 rounded-1">
+            <form class="d-block" role="search">
+                <div class="input-group  mt-4" role="search">
+                    <input type="search" name="buscarInput" id="buscarInput" class="form-control" placeholder="Buscar producto" required aria-label="Search">
                     <input type="number" name="cantidadInput" id="cantidadInput" placeholder="Cantidad" class="form-control ">
                     <button class="input-group-text btn btn-danger rounded-1" type="button" id="buscarBoton"><i class="bi bi-search"></i></button>
                     <div class="invalid-feedback text-center border border-2 border-danger fs-6 rounded-1 bg-white mt-2" id="smsError"></div>
-                </nav>
+                </div>
+                <ul id="listaVentaProducto" class="list-unstyled">
+                </ul>
+                <div id="smsResultadoProducto" class="d-none text-danger">No se encontraron resultados</div>
+            </form>
+            <form action="" id="generarVentas" method="POST" class="mt-3">
                 <div class="table-responsive">
                     <table class="table table-dark table-striped" id="myTablaVenta">
                         <thead>
@@ -97,10 +106,10 @@
                     <button type="button" class="btn btn-danger" id="agregarCombo" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Combo&nbsp;<i class="bi bi-bag-plus-fill"></i></button>
                     <button type="submit" class="btn btn-danger" id="realizarVentaBoton">Realizar Venta&nbsp;<i class="bi bi-currency-dollar"></i></button>
                 </div>
-            </div>
-            <input type="number" id="total" name="total" class="form-control d-none" readonly>
-            <input type="number" id="cantidadTotal" name="cantidadTotal" class="form-control d-none" readonly>
-        </form>
+                <input type="number" id="total" name="total" class="form-control d-none" readonly>
+                <input type="number" id="cantidadTotal" name="cantidadTotal" class="form-control d-none" readonly>
+            </form>
+        </div>
         <div class="modal fade" id="modalMostrarMensajes" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content bg-dark text-light">
@@ -120,35 +129,7 @@
             </div>
         </div>
     </section>
-    <footer class="bg-black text-center text-white mt-4">
-        <!-- Grid container -->
-        <div class="container p-4 pb-0">
-            <!-- Section: Social media -->
-            <section class="mb-4">
-                <!-- Facebook -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-facebook"></i></a>
-
-                <!-- Twitter -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-twitter-x"></i></a>
-
-                <!-- Linkedin -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-linkedin"></i></a>
-
-                <!-- Github -->
-                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-github"></i></a>
-            </section>
-            <!-- Section: Social media -->
-        </div>
-        <!-- Grid container -->
-
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2023 Copyright:
-            <a class="text-white">StVent</a>
-        </div>
-        <!-- Copyright -->
-    </footer>
-    <!-- Modal -->
+    <!-- Modal Combo -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog ">
             <div class="modal-content">
@@ -233,6 +214,34 @@
             </div>
         </div>
     </div>
+    <footer class="bg-black text-center text-white mt-2">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+                <!-- Facebook -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-facebook"></i></a>
+
+                <!-- Twitter -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-twitter-x"></i></a>
+
+                <!-- Linkedin -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-linkedin"></i></a>
+
+                <!-- Github -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="bi bi-github"></i></a>
+            </section>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2023 Copyright:
+            <a class="text-white">Estockear</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
 </body>
 
 </html>
