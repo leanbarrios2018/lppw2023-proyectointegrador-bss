@@ -1,6 +1,13 @@
 function inicio() {
     document.getElementById("generarVentas").addEventListener("submit", generarVentas, false);
     document.getElementById("buscarBoton").addEventListener("click", buscarProducto, false);
+    document.getElementById("buscarInput").addEventListener("input", buscarProductoSelect, false);
+
+    // // "eliminar producto
+    // const botonesEliminarProducto = document.querySelectorAll("tbody>tr>td>div>button[data-btn-grupo='eliminar-producto']");
+    // for (let botonEliminarProducto of botonesEliminarProducto) {
+    //     botonEliminarProducto.addEventListener("click", eliminarProducto, false);
+    // }
 }
 
 // Lista de productos (ejemplo)
@@ -8,6 +15,8 @@ let productos = [
     { id: 1, producto: 'Camisa', marca: "Adidas", stock: 200, precio: 20 },
     { id: 2, producto: 'Pantalon', marca: "Louis Vuitton", stock: 100, precio: 30 },
     { id: 3, producto: 'Zapatos', marca: "Michael Kors", stock: 300, precio: 50 },
+    { id: 4, producto: 'Yogur Clasico Frutilla 900 Gr. Serenisima', marca: "Serenisima", stock: 300, precio: 500 },
+
     // Agrega más productos aquí...
 ];
 
@@ -38,12 +47,14 @@ function buscarProducto() {
 
     let productoInput = document.getElementById("buscarInput").value.toLowerCase();
 
+    console.log(productoInput);
+
     let resultados = [];
 
     productoInputValidacion.classList.remove("is-invalid")
     productoInputValidacion.classList.remove("is-valid");
 
-    expresionRegularBuscar = /^[a-zA-Z0-9\s]+$/;
+    expresionRegularBuscar = /^[a-zA-Z0-9\s.;]+$/;;
 
     let smsError = document.getElementById("smsError");
 
@@ -82,7 +93,10 @@ function mostrarResultados(resultados) {
 
     NumFilas++;
 
+    //llamo a los campos existete en el Dom
     let tbody = document.getElementById("tbody");
+    let tdTotal = document.getElementById("tdTotal");
+    let tdTotalCantidad = document.getElementById("tdCantidadTotal");
 
     //Creo las Tablas
     let tr = document.createElement("tr"); //[X]
@@ -94,7 +108,7 @@ function mostrarResultados(resultados) {
     let tdStock = document.createElement("td");
     let tdPrecio = document.createElement("td");
     let tdSubTotal = document.createElement("td");
-    let tdAcciones = document.createElement("td"); //[X]
+    // let tdAcciones = document.createElement("td"); //[X]
 
 
     //Creo los input
@@ -158,7 +172,7 @@ function mostrarResultados(resultados) {
             tdPrecio.setAttribute("class", "text-center ocultar-en-pantalla-xs");
             tdSubTotal.setAttribute("class", "text-center");
             tdSubTotal.setAttribute("valoracion", "valorTotal")
-            tdAcciones.setAttribute("class", "text-center");
+                // tdAcciones.setAttribute("class", "text-center");
             tdTotal.setAttribute("class", "text-center");
 
             for (let producto of resultados) {
@@ -196,7 +210,7 @@ function mostrarResultados(resultados) {
                     tr.appendChild(tdStock);
                     tr.appendChild(tdPrecio);
                     tr.appendChild(tdSubTotal);
-                    tr.appendChild(tdAcciones);
+                    // tr.appendChild(tdAcciones);
 
                     //Agrego las fila a la tabla
                     tbody.appendChild(tr);
@@ -220,18 +234,19 @@ function mostrarResultados(resultados) {
                 //Agrego los datos del input a la tabla
                 tdSubTotal.innerHTML = inputTdSubTotal.value;
 
-                tdAcciones.innerHTML = "<div class='btn-group' role='group' aria-label='Grupo botones'><button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-producto'><i class='bi bi-trash'></i></button></div>";
-                document.getElementById("thAcciones").classList.remove("d-none");
-                document.getElementById("tdOcultar").classList.remove("d-none");
+                // tdAcciones.innerHTML = "<div class='btn-group' role='group' aria-label='Grupo botones'><button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-producto'><i class='bi bi-trash'></i></button></div>";
+                // document.getElementById("thAcciones").classList.remove("d-none");
+                // document.getElementById("tdOcultar").classList.remove("d-none");
             }
 
             let valorTotal = calcularTotal(); //Llamo  a la funcion para calcular el total de los subtotales
+            tdTotal.innerHTML = valorTotal;
             document.getElementById("total").value = valorTotal;
-            document.getElementById("tdTotal").innerHTML = valorTotal;
+
 
             let valorTotalCantidad = calcularTotalCantidad(); //Llamo  a la funcion para calcular el totalCantidad de las cantidades
+            tdTotalCantidad.innerHTML = valorTotalCantidad;
             document.getElementById("cantidadTotal").value = valorTotalCantidad;
-            document.getElementById("tdCantidadTotal").innerHTML = valorTotalCantidad;
 
         } else {
             smsError.innerHTML = 'No se encontraron resultados.';
@@ -261,25 +276,86 @@ function calcularTotalCantidad() {
     return valorTotalCantidad;
 }
 
-// "eliminar producto
-const botonesEliminarProducto = document.querySelectorAll("td>div>button[data-btn-grupo='eliminar-producto']");
-for (let botonEliminarProducto of botonesEliminarProducto) {
-    botonEliminarProducto.addEventListener("click", eliminarProducto);
+// function eliminarProducto(evento) {
+
+//     let filas = evento.target;
+
+//     let ocultarProducto = filas.closest("tr");
+
+//     ocultarProducto.remove();
+
+//     let subtotal = calcularTotal();
+//     let cantidadTotal = calcularTotalCantidad();
+
+//     let tdTotal = document.getElementById("tdTotal");
+//     tdTotal.innerHTML = subtotal;
+
+//     let total = document.getElementById("total");
+//     total.value = subtotal;
+
+//     document.getElementById("tdCantidadTotal").innerHTML = cantidadTotal;
+//     document.getElementById("cantidadTotal").value = cantidadTotal;
+// }
+
+let inventario;
+
+fetch("../Modelo/select-productos.php")
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Error en la solicitud. Código de estado: " + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        inventario = data;
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+function buscarProductoSelect() {
+
+    const autocompletadoInput = document.getElementById("buscarInput");
+    const inputTexto = autocompletadoInput.value.toLowerCase();
+
+    const listaProducto = document.getElementById("listaVentaProducto");
+
+    if (inputTexto.trim() === "") {
+        listaProducto.classList.add("d-none");
+    } else {
+        listaProducto.classList.remove("d-none");
+        const palabraFiltrada = inventario.filter(keyword => keyword.toLowerCase().includes(inputTexto));
+        mostrarListadoCliente(palabraFiltrada);
+    }
 }
 
-function eliminarProducto(evento) {
-    let ocultarProducto = evento.target.closest("tr");
+function mostrarListadoCliente(palabraFiltrada) {
 
-    ocultarProducto.remove();
+    const autocompletadoInput = document.getElementById("buscarInput");
 
-    let total = calcularTotal();
-    let cantidadTotal = calcularTotalCantidad();
+    const listaProducto = document.getElementById("listaVentaProducto");
 
-    document.getElementById("tdTotal").innerHTML = total;
-    document.getElementById("total").value = total;
+    // const smsErrorResultado = document.getElementById('smsResultadoProducto');
 
-    document.getElementById("tdCantidadTotal").innerHTML = cantidadTotal;
-    document.getElementById("cantidadTotal").value = cantidadTotal;
+    listaProducto.innerHTML = '';
+
+    if (palabraFiltrada.length === 0) {
+        // smsErrorResultado.classList.remove("d-none")
+        listaProducto.classList.add("d-none");
+    } else {
+        // smsErrorResultado.classList.add("d-none")
+        listaProducto.classList.remove("d-none");
+
+        palabraFiltrada.forEach(listado => {
+            const li = document.createElement('li');
+            li.textContent = listado;
+            li.addEventListener('click', () => {
+                autocompletadoInput.value = listado;
+                listaProducto.innerHTML = '';
+            });
+            listaProducto.appendChild(li);
+        });
+    }
 }
 
 window.addEventListener("load", inicio, false);

@@ -1,5 +1,5 @@
 <?php include "../Modelo/dbTwo.php" ?>
-<?php require "../Modelo/insertIntoVentas.php" ?>
+<?php require "../Modelo/insert-into-ventas.php" ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -24,7 +24,6 @@
     <!--My script-->
     <script src="../Controlador/vendedor-buscar-combo.js" defer></script>
     <script src="../Controlador/vendedor-generar-ventas.js"></script>
-    <script src="../Controlador/vendedor-buscar-producto.js"></script>
 
     <!--Icon-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -54,21 +53,19 @@
             </li>
         </ul>
     </nav>
-    <section class="container mt-6 w-75 flex-grow-1 mb-5">
-        <div class="bg-black pt-2 pe-3 pb-2 ps-3  mt-3 rounded-1">
-            <form class="d-block" role="search">
-                <div class="input-group  mt-4" role="search">
-                    <input type="search" name="buscarInput" id="buscarInput" class="form-control" placeholder="Buscar producto" required aria-label="Search">
+    <section class="container mt-6 flex-grow-1 mb-5">
+        <form action="vendedor-generar-ventas.php" id="generarVentas" method="POST">
+            <div class="bg-black pt-2 pe-3 pb-2 ps-3  mt-3 rounded-1">
+                <nav class="input-group  mt-4">
+                    <input type="search" name="buscarInput" id="buscarInput" class="form-control" placeholder="Buscar producto" required>
                     <input type="number" name="cantidadInput" id="cantidadInput" placeholder="Cantidad" class="form-control ">
                     <button class="input-group-text btn btn-danger rounded-1" type="button" id="buscarBoton"><i class="bi bi-search"></i></button>
                     <div class="invalid-feedback text-center border border-2 border-danger fs-6 rounded-1 bg-white mt-2" id="smsError"></div>
-                </div>
-                <ul id="listaVentaProducto" class="list-unstyled">
+                </nav>
+                <ul id="listaVentaProducto" class="list-unstyled" class="d-none">
                 </ul>
                 <div id="smsResultadoProducto" class="d-none text-danger">No se encontraron resultados</div>
-            </form>
-            <form action="" id="generarVentas" method="POST" class="mt-3">
-                <div class="table-responsive">
+                <div class="table-responsive mt-3">
                     <table class="table table-dark table-striped" id="myTablaVenta">
                         <thead>
                             <tr>
@@ -84,7 +81,6 @@
                             </tr>
                         </thead>
                         <tbody id="tbody">
-
                         </tbody>
                         <tfoot>
                             <tr>
@@ -106,10 +102,10 @@
                     <button type="button" class="btn btn-danger" id="agregarCombo" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Combo&nbsp;<i class="bi bi-bag-plus-fill"></i></button>
                     <button type="submit" class="btn btn-danger" id="realizarVentaBoton">Realizar Venta&nbsp;<i class="bi bi-currency-dollar"></i></button>
                 </div>
-                <input type="number" id="total" name="total" class="form-control d-none" readonly>
-                <input type="number" id="cantidadTotal" name="cantidadTotal" class="form-control d-none" readonly>
-            </form>
-        </div>
+            </div>
+            <input type="number" id="total" name="total" class="form-control d-none" readonly>
+            <input type="number" id="cantidadTotal" name="cantidadTotal" class="form-control d-none" readonly>
+        </form>
         <div class="modal fade" id="modalMostrarMensajes" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content bg-dark text-light">
