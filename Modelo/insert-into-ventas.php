@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $consulta = $conn->prepare($consultaInsert);
             $consulta->bindParam(":fecha", $fechaActual);
             $consulta->bindParam(":hora", $horaActual);
-            $consulta->bindParam(":precioTotal", $total, PDO::PARAM_INT);
+            $consulta->bindParam(":precioTotal", $total);
             $consulta->bindParam(":cantidadVenta", $cantidad, PDO::PARAM_INT);
 
             $consulta->execute();

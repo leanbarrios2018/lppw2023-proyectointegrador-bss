@@ -3,6 +3,27 @@ function inicio() {
     document.getElementById("buscarBoton").addEventListener("click", buscarProducto, false);
     document.getElementById("buscarInput").addEventListener("input", buscarProductoSelect, false);
 
+    fetch("../Modelo/select-inventario.php")
+        .then(response => response.json())
+        .then(data => {
+            productos = data;
+        })
+        .catch(error => console.error('Error:', error));
+
+    fetch("../Modelo/select-productos.php")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Error en la solicitud. Código de estado: " + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            inventario = data;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
     // // "eliminar producto
     // const botonesEliminarProducto = document.querySelectorAll("tbody>tr>td>div>button[data-btn-grupo='eliminar-producto']");
     // for (let botonEliminarProducto of botonesEliminarProducto) {
@@ -13,29 +34,8 @@ function inicio() {
 // Lista de productos objeto
 let productos = [];
 
-fetch("../Modelo/select-inventario.php")
-    .then(response => response.json())
-    .then(data => {
-        productos = data;
-    })
-    .catch(error => console.error('Error:', error));
-
-function generarVentas(evento) {
-    evento.preventDefault();
-    setTimeout(mostrar_modal, 1000);
-    setTimeout(enviarFormulario, 2000);
-}
-
-function enviarFormulario() {
-    document.getElementById("generarVentas").submit();
-}
-
-function mostrar_modal() {
-    let modal_mensajes = new bootstrap.Modal(document.getElementById("modalMostrarMensajes"));
-    let modal_texto = document.getElementById("modalTexto");
-    modal_texto.innerHTML = "La venta ha sido generada exitosamente";
-    modal_mensajes.show();
-}
+//Lista de Nombre de productos
+let inventario;
 
 //Contador de filas
 let NumFilas = 0;
@@ -51,16 +51,18 @@ function buscarProducto() {
     productoInputValidacion.classList.remove("is-invalid")
     productoInputValidacion.classList.remove("is-valid");
 
-    expresionRegularBuscar = /^[a-zA-Z0-9\s.;]+$/;;
+    expresionRegularBuscar = /^[a-zA-Z0-9\s.,]+$/;;
 
     let smsError = document.getElementById("smsError");
 
     if (productoInput.trim() === "") {
         productoInputValidacion.classList.add("is-invalid");
         smsError.innerHTML = "El campo de busquedad se encuentra vacio";
+        return false;
     } else if (!expresionRegularBuscar.test(productoInput)) {
         productoInputValidacion.classList.add("is-invalid");
         smsError.innerHTML = "Solo se aceptan palabras alfabéticas y numéricas"
+        return false;
     } else {
         productoInputValidacion.classList.add("is-valid");
 
@@ -74,6 +76,26 @@ function buscarProducto() {
         }
         mostrarResultados(resultados); //funcion 
     }
+    return true;
+}
+
+function generarVentas(evento) {
+    evento.preventDefault();
+    if (buscarProducto()) {
+        setTimeout(mostrar_modal, 1000);
+        setTimeout(enviarFormulario, 2000);
+    }
+}
+
+function enviarFormulario() {
+    document.getElementById("generarVentas").submit();
+}
+
+function mostrar_modal() {
+    let modal_mensajes = new bootstrap.Modal(document.getElementById("modalMostrarMensajes"));
+    let modal_texto = document.getElementById("modalTexto");
+    modal_texto.innerHTML = "La venta ha sido generada exitosamente";
+    modal_mensajes.show();
 }
 
 function mostrarResultados(resultados) {
@@ -295,21 +317,6 @@ function calcularTotalCantidad() {
 //     document.getElementById("cantidadTotal").value = cantidadTotal;
 // }
 
-let inventario;
-
-fetch("../Modelo/select-productos.php")
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Error en la solicitud. Código de estado: " + response.status);
-        }
-        return response.json();
-    })
-    .then(data => {
-        inventario = data;
-    })
-    .catch(error => {
-        console.error(error);
-    });
 
 function buscarProductoSelect() {
 

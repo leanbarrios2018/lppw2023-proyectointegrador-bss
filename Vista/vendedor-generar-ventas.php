@@ -57,7 +57,7 @@
         <form action="vendedor-generar-ventas.php" id="generarVentas" method="POST">
             <div class="bg-black pt-2 pe-3 pb-2 ps-3  mt-3 rounded-1">
                 <nav class="input-group  mt-4">
-                    <input type="search" name="buscarInput" id="buscarInput" class="form-control" placeholder="Buscar producto" required>
+                    <input type="search" name="buscarInput" id="buscarInput" class="form-control" placeholder="Buscar producto" autocomplete="off">
                     <input type="number" name="cantidadInput" id="cantidadInput" placeholder="Cantidad" class="form-control ">
                     <button class="input-group-text btn btn-danger rounded-1" type="button" id="buscarBoton"><i class="bi bi-search"></i></button>
                     <div class="invalid-feedback text-center border border-2 border-danger fs-6 rounded-1 bg-white mt-2" id="smsError"></div>
