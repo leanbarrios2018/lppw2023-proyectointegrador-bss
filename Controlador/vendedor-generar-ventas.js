@@ -10,18 +10,17 @@ function inicio() {
     // }
 }
 
-// Lista de productos (ejemplo)
-let productos = [
-    { id: 1, producto: 'Camisa', marca: "Adidas", stock: 200, precio: 20 },
-    { id: 2, producto: 'Pantalon', marca: "Louis Vuitton", stock: 100, precio: 30 },
-    { id: 3, producto: 'Zapatos', marca: "Michael Kors", stock: 300, precio: 50 },
-    { id: 4, producto: 'Yogur Clasico Frutilla 900 Gr. Serenisima', marca: "Serenisima", stock: 300, precio: 500 },
+// Lista de productos objeto
+let productos = [];
 
-    // Agrega más productos aquí...
-];
+fetch("../Modelo/select-inventario.php")
+    .then(response => response.json())
+    .then(data => {
+        productos = data;
+    })
+    .catch(error => console.error('Error:', error));
 
 function generarVentas(evento) {
-
     evento.preventDefault();
     setTimeout(mostrar_modal, 1000);
     setTimeout(enviarFormulario, 2000);
@@ -47,8 +46,6 @@ function buscarProducto() {
 
     let productoInput = document.getElementById("buscarInput").value.toLowerCase();
 
-    console.log(productoInput);
-
     let resultados = [];
 
     productoInputValidacion.classList.remove("is-invalid")
@@ -67,11 +64,12 @@ function buscarProducto() {
     } else {
         productoInputValidacion.classList.add("is-valid");
 
-        for (let productoBuscado of productos) { //productos es la lista de productos (ejemplo)
-            let nombreProducto = productoBuscado.producto.toLowerCase();
+        for (let productoBuscado of productos) { //productos es la lista de productos objeto
+            let nombreProducto = productoBuscado.nombre.toLowerCase();
 
             if (nombreProducto.includes(productoInput)) { //El método includes () devuelve true si una matriz contiene un valor específico.
                 resultados.push(productoBuscado); //El método push() agrega nuevos elementos al final de una matriz.
+                console.log(resultados);
             }
         }
         mostrarResultados(resultados); //funcion 
@@ -183,15 +181,15 @@ function mostrarResultados(resultados) {
 
                 //Seteamos los valores en los inputs
                 tdNro.innerHTML = NumFilas;
-                inputTdIDProducto.value = `${producto.id}`;
-                inputTdProducto.value = `${producto.producto}`;
+                inputTdIDProducto.value = `${producto.id_producto}`;
+                inputTdProducto.value = `${producto.nombre}`;
                 inputTdMarca.value = `${producto.marca}`;
                 inputTdCantidad.value = cantidadInput;
 
-                if (cantidadInput <= producto.stock) { //Chekeamos si la cantidad es menor a stock.
+                if (cantidadInput <= producto.cantidad) { //Chekeamos si la cantidad es menor a stock.
 
-                    descontarStock = parseInt(`${producto.stock}` - cantidadInput); //Resto la cantidad de stock que hay
-                    producto.stock = descontarStock; //Agrego el esto que quedo
+                    descontarStock = parseFloat(`${producto.cantidad}` - cantidadInput); //Resto la cantidad de stock que hay
+                    producto.cantidad = descontarStock; //Agrego el esto que quedo
                     inputTdStock.value = descontarStock;
 
                     //Agrego los datos del input a las tablas
@@ -215,7 +213,7 @@ function mostrarResultados(resultados) {
                     //Agrego las fila a la tabla
                     tbody.appendChild(tr);
 
-                } else if (producto.stock === 0) { //Chekeamos si hay stock
+                } else if (producto.cantidad === 0) { //Chekeamos si hay stock
                     cantidadInputValidacion.classList.add("is-invalid");
                     smsError.innerHTML = "No hay stock"
                 } else {
@@ -223,12 +221,12 @@ function mostrarResultados(resultados) {
                     smsError.innerHTML = "Cantidad es superior a stock"
                 }
 
-                inputTdPrecio.value = `${producto.precio}`;
+                inputTdPrecio.value = `${producto.precio_venta}`;
 
                 //Agrego los datos del input a la tabla
                 tdPrecio.innerHTML = inputTdPrecio.value;
 
-                sumaSubTotal = parseFloat(cantidadInput * producto.precio); //Multiplico la cantidad por el precio unitario
+                sumaSubTotal = parseFloat(cantidadInput * producto.precio_venta); //Multiplico la cantidad por el precio unitario
                 inputTdSubTotal.value = sumaSubTotal;
 
                 //Agrego los datos del input a la tabla
@@ -260,7 +258,7 @@ function calcularTotal() {
     let subTotal = document.querySelectorAll("tr>td[valoracion='valorTotal']");
 
     for (let valor of subTotal) {
-        valorTotal += parseInt(valor.innerHTML);
+        valorTotal += parseFloat(valor.innerHTML);
     }
     return valorTotal;
 }
@@ -270,7 +268,7 @@ function calcularTotalCantidad() {
     let cantidadProducto = document.querySelectorAll("tr>td[valoracion='valorTotalCantidad']");
 
     for (let valorCantidad of cantidadProducto) {
-        valorTotalCantidad += parseInt(valorCantidad.innerHTML);
+        valorTotalCantidad += parseFloat(valorCantidad.innerHTML);
     }
 
     return valorTotalCantidad;
