@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -462,3 +463,469 @@
 </body>
 
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="./css/mystyle.css">
+  <link rel="icon" href="./favicon/favicon.ico">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"
+    defer></script>
+
+  <!-- custom css - inicio -->
+  <link rel="stylesheet" href="./css/mystyle.css">
+  <link rel="stylesheet" href="./css/redimensionar-tabla.css">
+
+  <script src="./js/stock-egresos.js" defer></script>
+  <title>Estockear: Egresos</title>
+</head>
+
+<body>
+  <header>
+    <div class="row">
+      <div class="mx-auto col-12">
+        <!-- navbar - inicio -->
+        <nav class="navbar navbar-expand-lg bg-black">
+          <div class="container-fluid">
+            <a class="navbar-brand text-light fs-5" href="#">Estockear</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+
+                <li class="nav-item">
+                  <a id="btnAgregarEgreso" class="nav-link text-light mt-1 fs-6" href="#">Agregar
+                    Egreso</a>
+                </li>
+
+              </ul>
+            </div>
+            <ul class="navbar-nav">
+              <li class="nav-item text-end">
+                <a class="nav-link" href="./index.html"><button class="btn btn-danger py-1" id="salir"><i
+                      class="bi bi-door-closed"></i> Cerrar sesion</button></a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <!-- navbar - fin -->
+      </div>
+    </div>
+  </header>
+
+  <section class="container">
+    <div class="row">
+      <div class="mx-auto my-2 col-12">
+        <div class="card bg-black text-light">
+          <div class="card-body">
+
+            <!-- busqueda - inicio -->
+            <div id="divOcultarMostrarBusqueda" class="mx-auto col-12">
+              <div class="d-flex" role="search">
+                <input class="form-control me-2" id="buscarEgreso" type="text" placeholder="Buscar egreso"
+                  aria-label="Buscar">
+                <button class="btn btn-outline-success" type="button"><i class="bi bi-search"></i></button>
+              </div>
+              <!-- filtro busqueda - inicio -->
+              <div class="mx-auto mt-3">
+                <h6>Filtrar por (predeterminado: marca):</h6>
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioFiltro" id="flexRadioFiltrarPorMarca"
+                        checked>
+                      <label class="form-check-label" for="flexRadioFiltrarPorMarca">
+                        Marca
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioFiltro" id="flexRadioFiltrarPorMotivo">
+                      <label class="form-check-label" for="flexRadioFiltrarPorMotivo">
+                        Motivo
+                      </label>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+              <!-- filtro busqueda - fin -->
+            </div>
+            <!-- busqueda - fin -->
+
+
+            <div id="divOcultarMostrarTablaEgresos" class="mx-auto my-3 col-12">
+              <div class="card bg-dark text-light">
+
+                <div class="card-header">
+                  <h5>Egresos</h5>
+                </div>
+
+                <div class="card-body">
+                  <!-- tabla: tabla egresos - inicio -->
+                  <div class="table-responsive mx-auto my-3">
+                    <!-- <div> -->
+                    <table id="tblEgresos" class="table table-dark table-striped">
+                      <thead>
+                        <tr>
+                          <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">ID Producto
+                          </th>
+                          <th>Marca</th>
+                          <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Nombre</th>
+                          <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">Cantidad</th>
+                          <th class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">Precio</th>
+                          <th class="ocultar-en-pantalla-xs ">Motivo</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+
+                        <tr>
+                          <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">1</td>
+                          <td>Capitan del Espacio</td>
+                          <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Alfajores </td>
+                          <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">20</td>
+                          <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">20000</td>
+                          <td class="ocultar-en-pantalla-xs">
+                            Se vencio
+                          </td>
+
+                          <td>
+                            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                              <button class="btn btn-success btn-sm" data-btn-grupo="mostrar-detalles-egreso"><i
+                                  class="bi bi-eye"></i></button>
+                              <button class="btn btn-primary btn-sm" data-btn-grupo="editar-egreso"><i
+                                  class="bi bi-pencil"></i></button>
+                              <button class="btn btn-danger btn-sm" data-btn-grupo="eliminar-egreso"><i
+                                  class="bi bi-trash"></i></button>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">2</td>
+                          <td>Patito</td>
+                          <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Encendedores</td>
+                          <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">70</td>
+                          <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">17000</td>
+                          <td class="ocultar-en-pantalla-xs">Se perdio
+                          </td>
+                          <td>
+                            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                              <button class="btn btn-success btn-sm" data-btn-grupo="mostrar-detalles-egreso"><i
+                                  class="bi bi-eye"></i></button>
+                              <button class="btn btn-primary btn-sm" data-btn-grupo="editar-egreso"><i
+                                  class="bi bi-pencil"></i></button>
+                              <button class="btn btn-danger btn-sm" data-btn-grupo="eliminar-egreso"><i
+                                  class="bi bi-trash"></i></button>
+                            </div>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">3</td>
+                          <td>La Morenita</td>
+                          <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Saquitos de Te</td>
+                          <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">50</td>
+                          <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">50000</td>
+                          <td class="ocultar-en-pantalla-xs">Se rompio</td>
+                          <td>
+                            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                              <button class="btn btn-success btn-sm" data-btn-grupo="mostrar-detalles-egreso"><i
+                                  class="bi bi-eye"></i></button>
+                              <button class="btn btn-primary btn-sm" data-btn-grupo="editar-egreso"><i
+                                  class="bi bi-pencil"></i></button>
+                              <button class="btn btn-danger btn-sm" data-btn-grupo="eliminar-egreso"><i
+                                  class="bi bi-trash"></i></button>
+                            </div>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">4</td>
+                          <td>Playadito</td>
+                          <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm">Yerba mate despalada</td>
+                          <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">50</td>
+                          <td class="ocultar-en-pantalla-xs ocultar-en-pantalla-sm ocultar-en-pantalla-md">75000</td>
+                          <td class="ocultar-en-pantalla-xs ">Otro</td>
+                          <td>
+                            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                              <button class="btn btn-success btn-sm" data-btn-grupo="mostrar-detalles-egreso"><i
+                                  class="bi bi-eye"></i></button>
+                              <button class="btn btn-primary btn-sm" data-btn-grupo="editar-egreso"><i
+                                  class="bi bi-pencil"></i></button>
+                              <button class="btn btn-danger btn-sm" data-btn-grupo="eliminar-egreso"><i
+                                  class="bi bi-trash"></i></button>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- tabla egreso -fin -->
+
+                  <!-- paginador inicio -->
+                  <nav aria-label="Ejemplo paginador">
+                    <ul class="pagination justify-content-center">
+                      <li class="page-item">
+                        <a class="page-link bg-dark text-light" href="#" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li class="page-item active"><a class="page-link bg-dark text-light" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link bg-dark text-light" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link bg-dark text-light" href="#">3</a></li>
+                      <li class="page-item">
+                        <a class="page-link bg-dark text-light" href="#" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                  <!-- paginador fin              -->
+
+                </div>
+
+              </div>
+            </div>
+
+            <!--  formulario  ver detalle -->
+            <div class="row">
+              <div id="divMostrarOcultarDetallesEgreso" class="mx-auto my-3 col-12 d-none">
+                <form id="frmModificarDatosEgreso" action="#" method="get">
+                  <div class="card bg-dark text-light">
+                    <div class="card-header text-light">
+                      <h5 id="infoEgreso"></h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-3">
+                          <label for="frmEgresoId" class="form-label">Id Producto</label>
+                          <input type="number" class="form-control" id="frmEgresoId" disabled />
+                          <div class="valid-feedback" id="success"></div>
+                          <div class="invalid-feedback" id="error"></div>
+                        </div>
+                        <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-3">
+                          <label for="frmEgresoMarca" class="form-label">Marca</label>
+                          <input type="text" class="form-control" id="frmEgresoMarca" disabled />
+                          <div class="valid-feedback" id="success"></div>
+                          <div class="invalid-feedback" id="error"></div>
+                        </div>
+                        <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-3">
+                          <label for="frmEgresoNombre" class="form-label">Nombre</label>
+                          <input type="text" class="form-control" id="frmEgresoNombre" disabled />
+                          <div class="valid-feedback" id="success"></div>
+                          <div class="invalid-feedback" id="error"></div>
+                        </div>
+                        <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-3">
+                          <label for="frmEgresoCantidad" class="form-label">Cantidad</label>
+                          <input type="number" class="form-control" id="frmEgresoCantidad" disabled />
+                          <div class="valid-feedback" id="success"></div>
+                          <div class="invalid-feedback" id="error"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-footer">
+                      <div class="card-footer">
+                        <div class="d-grid gap-2">
+                          <button type="button" id="btnEditarFormulario" class="btn btn-primary"><i
+                              class="bi bi-pencil"></i>
+                            Editar</button>
+                          <button type="submit" class="btn btn-primary mt-2 d-none"><i class="bi bi-save"></i> Guardar
+                            cambios</button>
+                          <button type="button" id="btnOcultarFormulario" class="btn btn-secondary mt-2"><i
+                              class="bi bi-x-circle"></i> Cancelar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- formulario ver detalle fin -->
+
+            <!-- formulario actualizar egreso - inicio -->
+            <div class="row">
+              <div id="divMostrarOcultarFormularioEditarEgreso" class="mx-auto my-3 col-12 d-none">
+                <form id="frmEditarEgreso" action="#" method="get">
+                  <div class="card bg-dark text-light">
+                    <div class="card-header text-light">
+                      <h5 id="infoEgreso">Editar motivo egreso</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+
+                        <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                          <label for="frmEgresoId1" class="form-label">Id Producto</label>
+                          <input type="number" class="form-control" id="frmEgresoId1" disabled />
+                          <div class="valid-feedback" id="success"></div>
+                        </div>
+
+                        <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                          <label for="frmEgresoMarca1" class="form-label">Marca</label>
+                          <input type="text" class="form-control" id="frmEgresoMarca1" disabled />
+                        </div>
+
+                        <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                          <label for="frmEgresoNombre1" class="form-label">Nombre</label>
+                          <input type="text" class="form-control" id="frmEgresoNombre1" disabled />
+                        </div>
+
+                        <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                          <label for="frmEgresoCantidad1" class="form-label">Cantidad</label>
+                          <input type="number" class="form-control" id="frmEgresoCantidad1" disabled />
+                        </div>
+
+                        <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                          <label for="frmEgresoPrecio1" class="form-label">Precio</label>
+                          <input type="number" class="form-control" id="frmEgresoPrecio1" disabled />
+                        </div>
+
+                        <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                          <label for="frmActualizarEgresoMotivo1" class="form-label">Motivo de Egreso</label>
+                          <select class="form-select" id="frmActualizarEgresoMotivo1" aria-label="Seleccione motivo">
+                            <option selected></option>
+                            <option value="1" data-grupo-motivo="Perdido">Perdido</option>
+                            <option value="2" data-grupo-motivo="Roto">Roto</option>
+                            <!-- se pierden, se rompen, se vencen, etcétera.  -->
+                            <option value="3" data-grupo-motivo="Vencido">Vencido</option>
+                            <option value="4" data-grupo-motivo="Otro">Otro</option>
+                          </select>
+                          <div class="invalid-feedback" id="errorSelectorActualizarEgresoMotivo"></div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="card-footer">
+                      <div class="card-footer">
+                        <div class="d-grid gap-2">
+                          <button id="btnCrearActualizarEgreso" type="submit" class="btn btn-primary">
+                            <i class="bi bi-plus-circle"></i> Modificar egreso
+                          </button>
+                          <button type="button" id="btnCancelarEditarEgreso" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> Cancelar
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- formulario: Actualizar egreso - fin -->
+
+            <!-- formulario nuevo egreso - inicio -->
+            <div class="row">
+              <div id="divMostrarOcultarFormularioNuevoEgreso" class="mx-auto my-1 col-12 d-none">
+                <form id="frmNuevoEgreso" action="#" method="get">
+                  <div class="card bg-dark text-light">
+                    <div class="card-header text-light">
+                      <h5>Nuevo egreso</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+
+                        <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                          <label for="frmNuevoEgresoId" class="form-label">Id</label>
+                          <input type="number" class="form-control" id="frmNuevoEgresoId" disabled />
+                        </div>
+
+                        <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                          <label for="frmNuevoEgresoMarca" class="form-label">Marca</label>
+                          <input type="text" class="form-control" id="frmNuevoEgresoMarca" />
+                          <div class="invalid-feedback" id="errorNuevoEgresoMarca"></div>
+                        </div>
+
+                        <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                          <label for="frmNuevoEgresoNombre" class="form-label">Nombre</label>
+                          <input type="text" class="form-control" id="frmNuevoEgresoNombre" />
+                          <div class="invalid-feedback" id="errorNuevoEgresoNombre"></div>
+                        </div>
+
+                        <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                          <label for="frmNuevoEgresoCantidad" class="form-label">Cantidad</label>
+                          <input type="number" class="form-control" id="frmNuevoEgresoCantidad" />
+                          <div class="invalid-feedback" id="errorNuevoEgresoCantidad"></div>
+                        </div>
+
+                        <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                          <label for="frmNuevoEgresoPrecio" class="form-label">Precio</label>
+                          <input type="number" class="form-control" id="frmNuevoEgresoPrecio" />
+                          <div class="invalid-feedback" id="errorNuevoEgresoPrecio"></div>
+                        </div>
+
+
+                        <div class="mx-auto mb-3 col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                          <label for="frmSelectorNuevoEgresoMotivo" class="form-label">Motivo de egreso</label>
+                          <select class="form-select" id="frmSelectorNuevoEgresoMotivo"
+                            aria-label="Seleccione un motivo de egreso">
+                            <option selected></option>
+                            <option value="1" data-grupo-motivo="vencido">Vencido</option>
+                            <option value="2" data-grupo-motivo="perdido">Perdido </option>
+                            <option value="3" data-grupo-motivo="roto">Roto</option>
+                            <option value="4" data-grupo-motivo="otro">Otro</option>
+                          </select>
+                          <div class="invalid-feedback" id="errorSelectorNuevoMotivo"></div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="card-footer">
+                      <div class="d-grid gap-2">
+                        <button id="btnCrearNuevoEgreso" type="submit" class="btn btn-primary">
+                          <i class="bi bi-plus-circle"></i> Registrar egreso
+                        </button>
+                        <button type="button" id="btnCancelarNuevoEgreso" class="btn btn-secondary">
+                          <i class="bi bi-x-circle"></i> Cancelar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- formulario: nuevo egreso - fin -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- modal mensajes - inicio -->
+  <div class="modal fade" id="modalMostrarMensajes" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="modalTitulo"></h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" ria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <h6 id="modalTexto"></h6>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal mensajes - fin -->
+
+</body>
+
+</html>
+>>>>>>> 4f7ba50 (Moviendo todo a OLD. Usando patrón MVC)
