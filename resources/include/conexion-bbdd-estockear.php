@@ -1,9 +1,5 @@
 <?php
-$servername = "localhost"; // 127.0.0.1
-$username = "upe_agent_db"; // cambiar por root
-$password = "upeagentdb"; // cambiar por ""
-$port = 3306;
-$db = "usuarios";
+include "../resources/config/variables-conexion-bbdd.php";
 
 try {
  $conn = new \PDO("mysql:host=$servername;port=$port;dbname=" . $db . ";charset=utf8", $username, $password);
