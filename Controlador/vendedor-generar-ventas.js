@@ -2,35 +2,7 @@ function inicio() {
     document.getElementById("generarVentas").addEventListener("submit", generarVentas, false);
     document.getElementById("buscarBoton").addEventListener("click", buscarProducto, false);
     document.getElementById("buscarInput").addEventListener("input", buscarProductoSelect, false);
-
-    fetch("../Modelo/select-inventario.php")
-        .then(response => response.json())
-        .then(data => {
-            productos = data;
-        })
-        .catch(error => console.error('Error:', error));
-
-    fetch("../Modelo/select-productos.php")
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Error en la solicitud. Código de estado: " + response.status);
-            }
-            return response.json();
-        })
-        .then(data => {
-            inventario = data;
-        })
-        .catch(error => {
-            console.error(error);
-        });
-
-    // // "eliminar producto
-    // const botonesEliminarProducto = document.querySelectorAll("tbody>tr>td>div>button[data-btn-grupo='eliminar-producto']");
-    // for (let botonEliminarProducto of botonesEliminarProducto) {
-    //     botonEliminarProducto.addEventListener("click", eliminarProducto, false);
-    // }
 }
-
 // Lista de productos objeto
 let productos = [];
 
@@ -39,6 +11,32 @@ let inventario;
 
 //Contador de filas
 let NumFilas = 0;
+
+function generarVentas(evento) {
+    evento.preventDefault();
+    setTimeout(mostrar_modal, 1000);
+    setTimeout(enviarFormulario, 2000);
+}
+
+function mostrar_modal() {
+    let modal_mensajes = new bootstrap.Modal(document.getElementById("modalMostrarMensajes"));
+    let modal_texto = document.getElementById("modalTexto");
+    modal_texto.innerHTML = "La venta ha sido generada exitosamente";
+    modal_mensajes.show();
+}
+
+function enviarFormulario() {
+    document.getElementById("generarVentas").submit();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    fetch("../Modelo/select-inventario.php")
+        .then(response => response.json())
+        .then(data => {
+            productos = data;
+        })
+        .catch(error => console.error('Error:', error));
+});
 
 function buscarProducto() {
 
@@ -77,25 +75,6 @@ function buscarProducto() {
         mostrarResultados(resultados); //funcion 
     }
     return true;
-}
-
-function generarVentas(evento) {
-    evento.preventDefault();
-    if (buscarProducto()) {
-        setTimeout(mostrar_modal, 1000);
-        setTimeout(enviarFormulario, 2000);
-    }
-}
-
-function enviarFormulario() {
-    document.getElementById("generarVentas").submit();
-}
-
-function mostrar_modal() {
-    let modal_mensajes = new bootstrap.Modal(document.getElementById("modalMostrarMensajes"));
-    let modal_texto = document.getElementById("modalTexto");
-    modal_texto.innerHTML = "La venta ha sido generada exitosamente";
-    modal_mensajes.show();
 }
 
 function mostrarResultados(resultados) {
@@ -257,6 +236,8 @@ function mostrarResultados(resultados) {
                 // tdAcciones.innerHTML = "<div class='btn-group' role='group' aria-label='Grupo botones'><button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-producto'><i class='bi bi-trash'></i></button></div>";
                 // document.getElementById("thAcciones").classList.remove("d-none");
                 // document.getElementById("tdOcultar").classList.remove("d-none");
+
+                updateStock(producto);
             }
 
             let valorTotal = calcularTotal(); //Llamo  a la funcion para calcular el total de los subtotales
@@ -296,27 +277,21 @@ function calcularTotalCantidad() {
     return valorTotalCantidad;
 }
 
-// function eliminarProducto(evento) {
-
-//     let filas = evento.target;
-
-//     let ocultarProducto = filas.closest("tr");
-
-//     ocultarProducto.remove();
-
-//     let subtotal = calcularTotal();
-//     let cantidadTotal = calcularTotalCantidad();
-
-//     let tdTotal = document.getElementById("tdTotal");
-//     tdTotal.innerHTML = subtotal;
-
-//     let total = document.getElementById("total");
-//     total.value = subtotal;
-
-//     document.getElementById("tdCantidadTotal").innerHTML = cantidadTotal;
-//     document.getElementById("cantidadTotal").value = cantidadTotal;
-// }
-
+document.addEventListener('DOMContentLoaded', () => {
+    fetch("../Modelo/select-productos.php")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Error en la solicitud. Código de estado: " + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            inventario = data;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+});
 
 function buscarProductoSelect() {
 
@@ -363,4 +338,26 @@ function mostrarListadoCliente(palabraFiltrada) {
     }
 }
 
+function updateStock(productos) {
+
+    var datos = new URLSearchParams(); //crea un objeto que se utilizara para representar un conjunto de pares clave/valor que conforman los datos que se enviarán en una solicitud HTTP.
+
+    datos.append('IDStock', productos.id_stock); //agrega un par clave/valor al objeto URLSearchParams
+    datos.append('cantidadProducto', productos.cantidad);
+
+    fetch('../Modelo/update-stock.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded' //utilizado cuando se envían datos de formularios a través de solicitudes HTTP POST.
+            },
+            body: datos
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Error al enviar la cantidad:', error);
+        });
+}
 window.addEventListener("load", inicio, false);
