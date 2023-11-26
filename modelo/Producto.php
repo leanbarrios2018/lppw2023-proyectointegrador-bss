@@ -9,14 +9,16 @@ class Producto
 	private $marca;
 	private $precio_compra;
 	private $precio_venta;
+	private $habilitado;
 
-	function __construct($id, $nombre, $marca, $precio_compra, $precio_venta)
+	function __construct($id, $nombre, $marca, $precio_compra, $precio_venta, $habilitado)
 	{
 		$this->id = $id;
 		$this->nombre = $nombre;
 		$this->marca = $marca;
 		$this->precio_compra = $precio_compra;
 		$this->precio_venta = $precio_venta;
+		$this->habilitado = $habilitado;
 	}
 
 	function getId() {
@@ -34,6 +36,9 @@ class Producto
 	function getPrecioVenta() {
 		return $this->precio_venta;
 	}
+	function getHabilitado() {
+		return $this->habilitado;
+	}
 
 	function setId($id) {
 		$this->id = $id;
@@ -49,6 +54,9 @@ class Producto
 	}
 	function setPrecioVenta($precio_venta) {
 		$this->precio_venta = $precio_venta;
+	}
+	function setHabilitado($habilitado) {
+		$this->habilitado = $habilitado;
 	}
 
 	function __desstruct () {
@@ -103,7 +111,12 @@ class Producto
 	  /** @var \PDO $conn */
 	}
 
-	public function updateProducto($nombre) {
+	public function updateProducto() {
+	  require_once 'resources/include/conexion_bbdd_estockear.php';
+	  /** @var \PDO $conn */
+	}
+
+	public function updateEstadoProducto($id, $habilitado) {
 	  require_once 'resources/include/conexion_bbdd_estockear.php';
 	  /** @var \PDO $conn */
 	}

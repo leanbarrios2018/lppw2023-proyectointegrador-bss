@@ -49,9 +49,16 @@
  		<div class="mx-auto my-3 col-xs-12 col-sm-12 col-md-9 col-lg-9">
  			<div class="card bg-black text-light">
  				<div class="card-body">
+          <div id="divOcultarMostrarBusqueda" class="mx-auto mb-3 col-12">
+            <div class="d-flex" role="search">
+              <input class="form-control me-2" id="buscarProducto" type="text" placeholder="Buscar producto"
+                aria-label="Buscar">
+              <button class="btn btn-outline-success" type="button"><i class="bi bi-search"></i></button>
+            </div>
+          </div>
  					<div class="card bg-dark text-light">
  						<div class="card-header">
- 							<h3>Listado productos.</h3>
+ 							<h3>Productos.</h3>
  						</div>
  						<div class="card-body">
  							<div class="table-responsive">
@@ -62,6 +69,7 @@
  										<th>Marca</th>
  										<th>Precio de compra</th>
  										<th>Precio de venta</th>
+                    <th>Estado</th>
  										<th>&nbsp;</th>
  									</thead>
  									<tbody id="tbodyProductos"></tbody>

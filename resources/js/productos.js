@@ -1,12 +1,16 @@
 window.onload = inicio;
 
 function inicio() {
-	generarTbody();
+	if (document.URL.includes("productos-mostrar-vista.php")) {
+    generarTbodyProductos();
+	}
+	let formulario_cambiar_estado_producto = document.getElementById("frmCambiarEstadoProducto");
+	cambiar_estado_producto.addEventListener("submit", cambiarEstadoProducto());
 }
 
-function generarTbody() {
-	let json_productos = "../controlador/traer-productos.php";
-	fetch(json_productos)
+function generarTbodyProductos() {
+	let tbody_productos_url = "../controlador/traer-productos.php";
+	fetch(tbody_productos_url)
 	.then(function (response) {
 		if (!response.ok) {
 			throw new Error('Error en la llamada a la API: ' + response.statusText);
@@ -23,10 +27,9 @@ function generarTbody() {
 		// console.error("Ocurrio un problema con la solicitud fetch: " + error);
 	});
 }
-
-
+// En caso de querer hacerlo por JSON
 function json_mostrar_productos() {
-	let json_productos = "../controlador/traer-productos.php";
+	let json_productos = "../controlador/productos-op-traer.php";
 	fetch(json_productos)
 	.then(function (response) {
 		if (!response.ok) {
@@ -51,7 +54,7 @@ function json_mostrar_productos() {
 				<td>
 				<div class='btn-group' role='group' aria-label='Grupo botones'>
 				<!-- enviar datos por POST a la página para editar productos -->
-            <form action='./modificar-producto.php' method='post'>
+            <form action='./productos.js?id=${valor.id_producto}' method='post'>
             <input type='hidden' name='frmProductoID' value='${valor.id_producto}'>
             <input type='hidden' name='frmProductoNombre' value='${valor.nombre}'>
             <input type='hidden' name='frmProductoMarca' value='${valor.marca}'>
@@ -62,14 +65,14 @@ function json_mostrar_productos() {
             </button>
             </form>
             <!-- enviar datos por POST a la página para borrar productos -->
-            <form action='./eliminar-producto.php' method='post'>
+            <form action='./productos.js?id=${valor.id_producto}' method='post'>
             <input type='hidden' name='frmProductoID' value='${valor.id_producto}'>
             <input type='hidden' name='frmProductoNombre' value='${valor.nombre}'>
             <input type='hidden' name='frmProductoMarca' value='${valor.marca}'>
             <input type='hidden' name='frmProductoPrecioCompra' value='${valor.precio_compra}'>
             <input type='hidden' name='frmProductoPrcioVenta' value='${valor.precio_venta}'>
             <button type='submit' class='btn btn-danger btn-sm' name='tblBtnEliminarProducto'>
-            <i class='bi bi-trash'></i>
+            <i class="bi bi-lock"></i>
             </button>
             </form>
 				</td>
@@ -77,6 +80,26 @@ function json_mostrar_productos() {
 				tbody_productos.appendChild(tr);
 			}
 		}
+	})
+	.catch(function (error) {
+		console.error('Error:', error)
+		// console.error("Ocurrio un problema con la solicitud fetch: " + error);
+	});
+}
+
+function cambiarEstadoProducto() {
+	let tbody_productos_url = "../controlador/productos-op-cambiar-estado.php";
+	fetch(tbody_productos_url)
+	.then(function (response) {
+		if (!response.ok) {
+			throw new Error('Error en la llamada a la API: ' + response.statusText);
+		}
+		return response.text();
+	})
+	.then(function (productos) {
+		let tbody_productos = document.getElementById("tbodyProductos");
+		// traer el tbody generado en el metodo generarTbody()
+		tbody_productos.innerHTML = productos;
 	})
 	.catch(function (error) {
 		console.error('Error:', error)
