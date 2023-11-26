@@ -3,6 +3,14 @@ function inicio() {
     document.getElementById("buscarBoton").addEventListener("click", buscarProducto, false);
     document.getElementById("buscarInput").addEventListener("input", buscarProductoSelect, false);
 }
+
+function Eliminar() {
+    let botonEliminar = document.querySelectorAll("[data-btn-grupo='eliminar-producto']");
+    for (let botonEliminarProductos of botonEliminar) {
+        botonEliminarProductos.addEventListener("click", eliminarProducto, false);
+    }
+}
+
 // Lista de productos objeto
 let productos = [];
 
@@ -107,7 +115,7 @@ function mostrarResultados(resultados) {
     let tdStock = document.createElement("td");
     let tdPrecio = document.createElement("td");
     let tdSubTotal = document.createElement("td");
-    // let tdAcciones = document.createElement("td"); //[X]
+    let tdAcciones = document.createElement("td"); //[X]
 
 
     //Creo los input
@@ -171,7 +179,7 @@ function mostrarResultados(resultados) {
             tdPrecio.setAttribute("class", "text-center ocultar-en-pantalla-xs");
             tdSubTotal.setAttribute("class", "text-center");
             tdSubTotal.setAttribute("valoracion", "valorTotal")
-                // tdAcciones.setAttribute("class", "text-center");
+            tdAcciones.setAttribute("class", "text-center");
             tdTotal.setAttribute("class", "text-center");
 
             for (let producto of resultados) {
@@ -189,7 +197,7 @@ function mostrarResultados(resultados) {
 
                 if (cantidadInput <= producto.cantidad) { //Chekeamos si la cantidad es menor a stock.
 
-                    descontarStock = parseFloat(`${producto.cantidad}` - cantidadInput); //Resto la cantidad de stock que hay
+                    descontarStock = parseInt(`${producto.cantidad}` - cantidadInput); //Resto la cantidad de stock que hay
                     producto.cantidad = descontarStock; //Agrego el esto que quedo
                     inputTdStock.value = descontarStock;
 
@@ -209,10 +217,7 @@ function mostrarResultados(resultados) {
                     tr.appendChild(tdStock);
                     tr.appendChild(tdPrecio);
                     tr.appendChild(tdSubTotal);
-                    // tr.appendChild(tdAcciones);
-
-                    //Agrego las fila a la tabla
-                    tbody.appendChild(tr);
+                    tr.appendChild(tdAcciones);
 
                 } else if (producto.cantidad === 0) { //Chekeamos si hay stock
                     cantidadInputValidacion.classList.add("is-invalid");
@@ -233,11 +238,18 @@ function mostrarResultados(resultados) {
                 //Agrego los datos del input a la tabla
                 tdSubTotal.innerHTML = inputTdSubTotal.value;
 
-                // tdAcciones.innerHTML = "<div class='btn-group' role='group' aria-label='Grupo botones'><button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-producto'><i class='bi bi-trash'></i></button></div>";
-                // document.getElementById("thAcciones").classList.remove("d-none");
-                // document.getElementById("tdOcultar").classList.remove("d-none");
+                tdAcciones.innerHTML = "<div class='btn-group' role='group' aria-label='Grupo botones'><button type='button' class='btn btn-danger btn-sm' data-btn-grupo='eliminar-producto'><i class='bi bi-trash'></i></button></div>";
+                document.getElementById("thAcciones").classList.remove("d-none");
+                document.getElementById("tdOcultar").classList.remove("d-none");
 
                 updateStock(producto);
+
+                //Agrego las fila a la tabla
+                tbody.appendChild(tr);
+
+                //LLamos  la funcion eliminar 
+                Eliminar();
+
             }
 
             let valorTotal = calcularTotal(); //Llamo  a la funcion para calcular el total de los subtotales
@@ -271,7 +283,7 @@ function calcularTotalCantidad() {
     let cantidadProducto = document.querySelectorAll("tr>td[valoracion='valorTotalCantidad']");
 
     for (let valorCantidad of cantidadProducto) {
-        valorTotalCantidad += parseFloat(valorCantidad.innerHTML);
+        valorTotalCantidad += parseInt(valorCantidad.innerHTML);
     }
 
     return valorTotalCantidad;
@@ -359,5 +371,25 @@ function updateStock(productos) {
         .catch(error => {
             console.error('Error al enviar la cantidad:', error);
         });
+
+}
+
+function eliminarProducto(evento) {
+
+    let botonOcultarProducto = evento.target
+    let removerProducto = botonOcultarProducto.closest("tr"); //Closest encuentra el elemento más cercano que coincida con el selector
+
+    console.log("Hola producto eliminar")
+
+    removerProducto.remove();
+
+    let total = parseFloat(calcularTotal());
+    let cantidadTotal = parseInt(calcularTotalCantidad());
+
+    document.getElementById("tdTotal").innerHTML = total;
+    document.getElementById("total").value = total;
+
+    document.getElementById("tdCantidadTotal").innerHTML = cantidadTotal;
+    document.getElementById("cantidadTotal").value = cantidadTotal;
 }
 window.addEventListener("load", inicio, false);

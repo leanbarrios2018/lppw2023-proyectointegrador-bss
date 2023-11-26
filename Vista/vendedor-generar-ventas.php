@@ -57,7 +57,7 @@
         <form action="vendedor-generar-ventas.php" id="generarVentas" method="POST">
             <div class="bg-black pt-2 pe-3 pb-2 ps-3  mt-3 rounded-1">
                 <nav class="input-group  mt-4">
-                    <input type="search" name="buscarInput" id="buscarInput" class="form-control" placeholder="Buscar producto" autocomplete="off">
+                    <input type="search" name="buscarInput" id="buscarInput" class="form-control" placeholder="Buscar producto" autocomplete="off" required>
                     <input type="number" name="cantidadInput" id="cantidadInput" placeholder="Cantidad" class="form-control ">
                     <button class="input-group-text btn btn-danger rounded-1" type="button" id="buscarBoton"><i class="bi bi-search"></i></button>
                     <div class="invalid-feedback text-center border border-2 border-danger fs-6 rounded-1 bg-white mt-2" id="smsError"></div>
@@ -77,7 +77,7 @@
                                 <th scope="col" class="text-center ocultar-en-pantalla-xs">Stock</th>
                                 <th scope="col" class="text-center ocultar-en-pantalla-xs">Precio unitario</th>
                                 <th scope="col" class="text-center ">Sub Total</th>
-                                <th scope="col" class="text-center d-none" id="thAcciones">Acciones</th>
+                                <th scope="col" class="text-center" id="thAcciones">Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="tbody">
@@ -93,7 +93,7 @@
                                 <td class="text-center ocultar-en-pantalla-xs"></td>
                                 <td class="text-center ocultar-en-pantalla-xs"></td>
                                 <td class="text-center" id="tdTotal"></td>
-                                <td class="text-center d-none ocultar-en-pantalla-xs" id="tdOcultar"><i class="bi bi-bag-check-fill btn btn-sm btn-success"></i></td>
+                                <td class="text-center ocultar-en-pantalla-xs" id="tdOcultar"><i class="bi bi-check-circle btn btn-sm btn-success"></i></td>
                             </tr>
                         </tfoot>
                     </table>
