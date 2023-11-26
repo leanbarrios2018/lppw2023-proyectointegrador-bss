@@ -4,10 +4,12 @@ function inicio() {
     document.getElementById("buscarInput").addEventListener("input", buscarProductoSelect, false);
 }
 
-function Eliminar() {
+function Eliminar(producto) {
     let botonEliminar = document.querySelectorAll("[data-btn-grupo='eliminar-producto']");
     for (let botonEliminarProductos of botonEliminar) {
-        botonEliminarProductos.addEventListener("click", eliminarProducto, false);
+        botonEliminarProductos.addEventListener("click", function(event) {
+            eliminarProducto(event, producto, cantidadInput);
+        }, false);
     }
 }
 
@@ -77,7 +79,6 @@ function buscarProducto() {
 
             if (nombreProducto.includes(productoInput)) { //El método includes () devuelve true si una matriz contiene un valor específico.
                 resultados.push(productoBuscado); //El método push() agrega nuevos elementos al final de una matriz.
-                console.log(resultados);
             }
         }
         mostrarResultados(resultados); //funcion 
@@ -242,14 +243,13 @@ function mostrarResultados(resultados) {
                 document.getElementById("thAcciones").classList.remove("d-none");
                 document.getElementById("tdOcultar").classList.remove("d-none");
 
-                updateStock(producto);
-
                 //Agrego las fila a la tabla
                 tbody.appendChild(tr);
 
                 //LLamos  la funcion eliminar 
-                Eliminar();
+                Eliminar(producto, cantidadInput);
 
+                updateStock(producto);
             }
 
             let valorTotal = calcularTotal(); //Llamo  a la funcion para calcular el total de los subtotales
@@ -365,21 +365,16 @@ function updateStock(productos) {
             body: datos
         })
         .then(response => response.text())
-        .then(data => {
-            console.log(data);
-        })
+        .then(data => {})
         .catch(error => {
             console.error('Error al enviar la cantidad:', error);
         });
 
 }
 
-function eliminarProducto(evento) {
-
-    let botonOcultarProducto = evento.target
-    let removerProducto = botonOcultarProducto.closest("tr"); //Closest encuentra el elemento más cercano que coincida con el selector
-
-    console.log("Hola producto eliminar")
+function eliminarProducto(event, producto, cantidadInput) {
+    let botonOcultarProducto = event.target;
+    let removerProducto = botonOcultarProducto.closest("tr");
 
     removerProducto.remove();
 
@@ -391,5 +386,13 @@ function eliminarProducto(evento) {
 
     document.getElementById("tdCantidadTotal").innerHTML = cantidadTotal;
     document.getElementById("cantidadTotal").value = cantidadTotal;
+
+    for (let indice of productos) {
+        if (producto.idProducto === indice.idProducto) {
+            indice.cantidad += parseInt(cantidadInput.value);
+            console.log(indice.cantidad);
+            updateStock(indice);
+        }
+    }
 }
 window.addEventListener("load", inicio, false);
