@@ -70,7 +70,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col" class="text-center">ID Producto</th>
+                                <th scope="col" class="text-center d-none">ID Producto</th>
                                 <th scope="col" class="text-center">Producto</th>
                                 <th scope="col" class="text-center ocultar-en-pantalla-xs">Marca</th>
                                 <th scope="col" class="text-center ocultar-en-pantalla-xs">Cantidad</th>
@@ -89,7 +89,6 @@
                                 <td class="text-center"></td>
                                 <td class="text-center ocultar-en-pantalla-xs"></td>
                                 <td class="text-center ocultar-en-pantalla-xs d-none" id="tdCantidadTotal"></td>
-                                <td class="text-center ocultar-en-pantalla-xs"></td>
                                 <td class="text-center ocultar-en-pantalla-xs"></td>
                                 <td class="text-center ocultar-en-pantalla-xs"></td>
                                 <td class="text-center" id="tdTotal"></td>

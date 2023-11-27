@@ -171,7 +171,7 @@ function mostrarResultados(resultados) {
         if (resultados.length > 0) { //Checkea si el array esta vacio
 
             tdNro.setAttribute("scope", "row");
-            tdIDProducto.setAttribute("class", "text-center");
+            tdIDProducto.setAttribute("class", "text-center d-none");
             tdProducto.setAttribute("class", "text-center");
             tdMarca.setAttribute("class", "text-center ocultar-en-pantalla-xs");
             tdCantidad.setAttribute("class", "text-center ocultar-en-pantalla-xs");
