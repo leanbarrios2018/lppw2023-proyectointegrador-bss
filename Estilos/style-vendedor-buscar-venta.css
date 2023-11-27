@@ -13,6 +13,7 @@
 #listadoVenta li {
     padding: 5px;
     cursor: pointer;
+    color: #020202;
 }
 
 #listadoVenta>li:hover {

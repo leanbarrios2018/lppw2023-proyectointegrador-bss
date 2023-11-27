@@ -1,15 +1,20 @@
 <?php include 'dbTwo.php'; ?>
 
 <?php
-$consultaSelect = "SELECT `id_venta`, `fecha`, `hora`, `precio_total`, `cantidad_venta` FROM `ventas`";
+$Ventas = [];
+$consulta = $conn->query("SELECT `id_venta`, `fecha`, `hora`, `precio_total`, `cantidad_venta` FROM `ventas`");
 
-try {
-    $consulta = $conn->query($consultaSelect);
-    $venta = $consulta->fetchAll(PDO::FETCH_ASSOC);
+if ($consulta->rowCount()) {
+    while ($row = $consulta->fetch(PDO::FETCH_ASSOC)) {
 
-    header('Content-Type: application/json');
-    echo json_encode($venta);
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
+        $Ventas[] = strval($row["fecha"]); //strval se utiliza para convertir un valor en una cadena (string). +
+        $Ventas[] = strval($row["precio_total"]);
+        $Ventas[] = strval($row["cantidad_venta"]);
+    }
+} else {
+    echo "No se encontraron resultados en la base de datos.";
 }
+header('Content-Type: application/json');
+echo json_encode($Ventas);
 ?>
+<?php $conn = null; ?>

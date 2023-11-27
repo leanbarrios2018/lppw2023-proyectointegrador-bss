@@ -1,27 +1,24 @@
+function inicio() {
+    document.getElementById("buscarVenta").addEventListener("input", buscarVentaSelect, false);
+    document.getElementById("buscarVenta").addEventListener("change", filtrarBusquedad, false);
+}
+
 //Lista de venta
 let lista;
 
-function inicio() {
-    document.getElementById("buscarVenta").addEventListener("input", buscarVentaSelect, false);
-    document.getElementById("buscarVenta").addEventListener("input", filtrarBusquedad, false);
-
-    fetch("../Modelo/select-lista-venta.php")
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Error en la solicitud. Código de estado: " + response.status);
-            }
-            return response.json();
-        })
-        .then(data => {
-            lista = data;
-
-            console.log(lista);
-        })
-        .catch(error => {
-            console.error(error);
-        });
-
-}
+fetch("../Modelo/select-lista-venta.php")
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Error en la solicitud. Código de estado: " + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        lista = data;
+    })
+    .catch(error => {
+        console.error(error);
+    });
 
 function buscarVentaSelect() {
 
