@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
 	 <?php
-	 $title = 'Estockear: Visualizar productos.';
+	 $title = 'Estockear: Visualizar ingresos.';
 	 $header_php = '../resources/include/header.php';
 	 require_once $header_php;
 	 ?>
+   <script defer src="../resources/js/ingresos.js"></script>
 </head>
 <body>
 
@@ -23,7 +24,7 @@
                       <a class="nav-link text-light mt-1" href="#">Admin stock</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link text-light mt-1 fs-6" href="ingresos-mostrar-vista.php">Ingresos</a>
+                      <a class="nav-link text-light mt-1 fs-6" href="productos-mostrar-vista.php">Productos</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link text-light mt-1 fs-6" href="egresos-mostrar-vista.php">Egresos</a>
@@ -35,7 +36,7 @@
               </div>
               <ul class="navbar-nav">
                 <li class="nav-item text-end">
-                    <a class="nav-link" href="./index.html"><button class="btn btn-danger py-1" id="salir"><i class="bi bi-door-closed"></i> Cerrar sesion</button></a>
+                    <a class="nav-link" href="#"><button class="btn btn-danger py-1" id="salir"><i class="bi bi-door-closed"></i> Cerrar sesion</button></a>
                 </li>
               </ul>
             </div>
@@ -49,27 +50,17 @@
  		<div class="mx-auto my-3 col-xs-12 col-sm-12 col-md-9 col-lg-9">
  			<div class="card bg-black text-light">
  				<div class="card-body">
-          <div id="divOcultarMostrarBusqueda" class="mx-auto mb-3 col-12">
-            <div class="d-flex" role="search">
-              <input class="form-control me-2" id="buscarProducto" type="text" placeholder="Buscar producto"
-                aria-label="Buscar">
-              <button class="btn btn-outline-success" type="button"><i class="bi bi-search"></i></button>
-            </div>
-          </div>
  					<div class="card bg-dark text-light">
  						<div class="card-header">
- 							<h3>Productos.</h3>
+ 							<h3>Listado ingresos.</h3>
  						</div>
  						<div class="card-body">
  							<div class="table-responsive">
  								<table class="table table-dark table-stripped">
  									<thead>
- 										<th>ID Producto</th>
+ 										<th>ID ingreso</th>
  										<th>Nombre</th>
- 										<th>Marca</th>
- 										<th>Precio de compra</th>
- 										<th>Precio de venta</th>
-                    <th>Estado</th>
+                    <th>Fecha ingreso</th>
  										<th>&nbsp;</th>
  									</thead>
  									<tbody id="tbodyProductos"></tbody>
@@ -82,7 +73,6 @@
  		</div>
  	</div>
  </div>
- <script src="../resources/js/productos.js"></script>
 </body>
 </html>
 
