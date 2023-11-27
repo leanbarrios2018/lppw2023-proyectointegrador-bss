@@ -16,10 +16,9 @@ function buscarCombo() {
 
     if (inputTexto.trim() === "") {
         listaVenta.classList.add("d-none");
-    }
-    else {
+    } else {
         listaVenta.classList.remove("d-none");
-        const palabraFiltrada = keywords.filter(keyword => keyword.toLowerCase().includes(inputTexto));
+        const palabraFiltrada = inventario.filter(keyword => keyword.toLowerCase().includes(inputTexto));
         mostrarListadoVenta(palabraFiltrada);
     }
 }
@@ -30,14 +29,14 @@ function mostrarListadoVenta(palabraFiltrada) {
 
     const listaVenta = document.getElementById("listaVenta");
 
-    const smsErrorResultado = document.getElementById('smsResultado');
+    // const smsErrorResultado = document.getElementById('smsResultado');
 
     listaVenta.innerHTML = '';
 
     if (palabraFiltrada.length === 0) {
-        smsErrorResultado.classList.remove("d-none")
+        // smsErrorResultado.classList.remove("d-none")
     } else {
-        smsErrorResultado.classList.add("d-none")
+        // smsErrorResultado.classList.add("d-none")
 
         palabraFiltrada.forEach(listado => {
             const li = document.createElement('li');

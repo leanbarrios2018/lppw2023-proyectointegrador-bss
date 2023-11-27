@@ -38,10 +38,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active text-warning mt-1 fs-6" aria-current="page" href="">Vendedor</a>
+                    <a class="nav-link active text-warning mt-1 fs-6" aria-current="page" href="index-vendedor.php">Vendedor</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-warning mt-1 fs-6" href="VendedorCrearCliente.php">Generar venta</a>
+                    <a class="nav-link text-warning mt-1 fs-6" href="vendedor-generar-ventas.php">Generar venta</a>
                 </li>
                 <li class="nav-item"><a class="nav-link text-warning mt-1 fs-6" href="VendedorProductoBuscarCargarStock.html">Combos</a>
                 </li>

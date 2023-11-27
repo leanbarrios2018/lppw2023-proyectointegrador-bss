@@ -317,11 +317,11 @@ function buscarProductoSelect() {
     } else {
         listaProducto.classList.remove("d-none");
         const palabraFiltrada = inventario.filter(keyword => keyword.toLowerCase().includes(inputTexto));
-        mostrarListadoCliente(palabraFiltrada);
+        mostrarListadoProducto(palabraFiltrada);
     }
 }
 
-function mostrarListadoCliente(palabraFiltrada) {
+function mostrarListadoProducto(palabraFiltrada) {
 
     const autocompletadoInput = document.getElementById("buscarInput");
 
