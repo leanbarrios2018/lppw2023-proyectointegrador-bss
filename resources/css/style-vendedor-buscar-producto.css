@@ -1,0 +1,20 @@
+#buscarInput {
+    width: 300px;
+    padding: 10px;
+}
+
+#listaVentaProducto {
+    padding: 0;
+    border: 1px solid #020202;
+    background-color: white;
+    top: 10%;
+}
+
+#listaVentaProducto li {
+    padding: 5px;
+    cursor: pointer;
+}
+
+#listaVentaProducto>li:hover {
+    border: 1px solid #0d6efd;
+}

@@ -1,0 +1,21 @@
+#buscarVenta {
+    width: 300px;
+    padding: 10px;
+}
+
+#listadoVenta {
+    padding: 0;
+    border: 1px solid #020202;
+    background-color: white;
+    top: 10%;
+}
+
+#listadoVenta li {
+    padding: 5px;
+    cursor: pointer;
+    color: #020202;
+}
+
+#listadoVenta>li:hover {
+    border: 1px solid #0d6efd;
+}
