@@ -2,14 +2,12 @@ window.onload = inicio;
 
 function inicio() {
 	if (document.URL.includes("productos-mostrar-vista.php")) {
-    generarTbodyProductos();
+		generarTbodyProductos();
 	}
-	let formulario_cambiar_estado_producto = document.getElementById("frmCambiarEstadoProducto");
-	cambiar_estado_producto.addEventListener("submit", cambiarEstadoProducto());
 }
 
 function generarTbodyProductos() {
-	let tbody_productos_url = "../controlador/traer-productos.php";
+	let tbody_productos_url = "../controlador/productos-op-traer.php";
 	fetch(tbody_productos_url)
 	.then(function (response) {
 		if (!response.ok) {
@@ -87,9 +85,17 @@ function json_mostrar_productos() {
 	});
 }
 
-function cambiarEstadoProducto() {
-	let tbody_productos_url = "../controlador/productos-op-cambiar-estado.php";
-	fetch(tbody_productos_url)
+function cambiarEstado() {
+	let cambiar_estado_url = '../controlador/productos-op-cambiar-estado.php';
+	let id = document.getElementById('frmProductoID');
+	let estado = document.getElementById('frmProductoEstado');
+	fetch(tbody_productos_url, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded',
+		},
+		body: cambiar_estado_url + '?id=' + encodeURIComponent(id) + '&estado=' + encodeURIComponent(estado),
+	})
 	.then(function (response) {
 		if (!response.ok) {
 			throw new Error('Error en la llamada a la API: ' + response.statusText);
@@ -97,9 +103,12 @@ function cambiarEstadoProducto() {
 		return response.text();
 	})
 	.then(function (productos) {
-		let tbody_productos = document.getElementById("tbodyProductos");
+		// let tbody_productos = document.getElementById("tbodyProductos");
 		// traer el tbody generado en el metodo generarTbody()
-		tbody_productos.innerHTML = productos;
+		// tbody_productos.innerHTML = productos;
+		// Manejar la respuesta si es necesario
+		console.log(data);
+		generarTbodyProductos();
 	})
 	.catch(function (error) {
 		console.error('Error:', error)

@@ -9,16 +9,16 @@ class Producto
 	private $marca;
 	private $precio_compra;
 	private $precio_venta;
-	private $habilitado;
+	private $estado;
 
-	function __construct($id, $nombre, $marca, $precio_compra, $precio_venta, $habilitado)
+	function __construct($id, $nombre, $marca, $precio_compra, $precio_venta, $estado)
 	{
 		$this->id = $id;
 		$this->nombre = $nombre;
 		$this->marca = $marca;
 		$this->precio_compra = $precio_compra;
 		$this->precio_venta = $precio_venta;
-		$this->habilitado = $habilitado;
+		$this->estado = $estado;
 	}
 
 	function getId() {
@@ -36,8 +36,8 @@ class Producto
 	function getPrecioVenta() {
 		return $this->precio_venta;
 	}
-	function getHabilitado() {
-		return $this->habilitado;
+	function getEstado() {
+		return $this->estado;
 	}
 
 	function setId($id) {
@@ -55,8 +55,8 @@ class Producto
 	function setPrecioVenta($precio_venta) {
 		$this->precio_venta = $precio_venta;
 	}
-	function setHabilitado($habilitado) {
-		$this->habilitado = $habilitado;
+	function setEstado($estado) {
+		$this->estado = $estado;
 	}
 
 	function __desstruct () {
@@ -101,24 +101,46 @@ class Producto
 	  }
 	}
 
-	public static function getProductoById() {
-	  require_once 'resources/include/conexion_bbdd_estockear.php';
+	public static function getProductoById($id) {
+	  require_once '../resources/include/conexion-bbdd-estockear.php';
 	  /** @var \PDO $conn */
+	  try {
+	   $sql_get_productos = 'SELECT * FROM productos WHERE id_producto = :id';
+	   $objQuery = $conn->prepare($sql_get_productos);
+	   $objQuery->bindParam(':id', $id);
+	   $objQuery->execute();
+	   while ($row = $objQuery->fetchAll(\PDO::FETCH_ASSOC)) {
+	    array_push($productos, $row);
+	   }
+	   return $productos;
+	  } catch (Exception $e) {
+	   echo "Error inesperado: " . $e->getMessage();
+	   die();
+	  }
 	}
 
 	public function insertNuevoProducto() {
-	  require_once 'resources/include/conexion_bbdd_estockear.php';
+	  require_once '../resources/include/conexion-bbdd-estockear.php';
 	  /** @var \PDO $conn */
 	}
 
 	public function updateProducto() {
-	  require_once 'resources/include/conexion_bbdd_estockear.php';
+	  require_once '../resources/include/conexion-bbdd-estockear.php';
 	  /** @var \PDO $conn */
 	}
 
-	public function updateEstadoProducto($id, $habilitado) {
-	  require_once 'resources/include/conexion_bbdd_estockear.php';
+	public function updateEstadoProducto($id, $nuevo_estado) {
+	  require_once '../resources/include/conexion-bbdd-estockear.php';
 	  /** @var \PDO $conn */
+	  try {
+	  	$sql_update_estado_producto = "UPDATE productos SET estado = :nuevo_estado WHERE id_producto = :id";
+	  	$objQuery = $conn->prepare($sql_update_estado_producto);
+	  	$objQuery->bindParam(':nuevo_estado', $nuevo_estado);
+	  	$objQuery->bindParam(':id', $id);
+	  	$objQuery->execute();
+	  	} catch (Exception $e) {
+	  	echo "Error inesperado: " . $e->getMessage();
+	  }
 	}
 
 	//public function deleteProducto($id) {}

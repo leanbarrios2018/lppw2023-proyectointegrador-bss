@@ -82,7 +82,7 @@
  		</div>
  	</div>
  </div>
- <script src="../resources/js/productos.js" defer></script>
+ <script src="../resources/js/productos.js"></script>
 </body>
 </html>
 
