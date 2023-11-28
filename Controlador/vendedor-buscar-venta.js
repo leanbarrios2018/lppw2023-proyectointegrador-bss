@@ -1,6 +1,6 @@
 function inicio() {
     document.getElementById("buscarVenta").addEventListener("input", buscarVentaSelect, false);
-    document.getElementById("buscarVenta").addEventListener("change", filtrarBusquedad, false);
+    document.getElementById("buscarBoton").addEventListener("click", filtrarBusquedad, false);
 }
 
 //Lista de venta
