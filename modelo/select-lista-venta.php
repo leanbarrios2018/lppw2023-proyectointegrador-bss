@@ -1,4 +1,4 @@
-<?php include "../modelo/dbTwo.php" ?>
+<?php include "../modelo/dbTwo.php"; ?>
 
 <?php
 $Ventas = [];

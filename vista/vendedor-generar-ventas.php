@@ -1,5 +1,5 @@
-<?php include "../modelo/dbTwo.php" ?>
-<?php require "../modelo/insert-into-ventas.php" ?>
+<?php include "../Modelo/dbTwo.php" ?>
+<?php require "../Controlador/Insert-ventas.php" ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -54,7 +54,7 @@
         </ul>
     </nav>
     <section class="container mt-6 flex-grow-1 mb-5">
-        <form action="vendedor-generar-ventas.php" id="generarVentas" method="POST">
+        <form action="../Controlador/Insert-ventas.php" id="generarVentas" method="POST">
             <div class="bg-black pt-2 pe-3 pb-2 ps-3  mt-3 rounded-1">
                 <nav class="input-group  mt-4">
                     <input type="search" name="buscarInput" id="buscarInput" class="form-control" placeholder="Buscar producto" autocomplete="off" required>

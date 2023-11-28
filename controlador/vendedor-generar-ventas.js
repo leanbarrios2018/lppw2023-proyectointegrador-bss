@@ -40,7 +40,7 @@ function enviarFormulario() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetch("../modelo/select-inventario.php")
+    fetch("../modelo/select-productos.php")
         .then(response => response.json())
         .then(data => {
             productos = data;
@@ -290,7 +290,7 @@ function calcularTotalCantidad() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetch("../modelo/select-productos.php")
+    fetch("../modelo/select-inventario.php")
         .then(response => {
             if (!response.ok) {
                 throw new Error("Error en la solicitud. Código de estado: " + response.status);

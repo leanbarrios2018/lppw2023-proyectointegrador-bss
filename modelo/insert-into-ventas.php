@@ -1,35 +1,39 @@
-<?php include "../modelo/dbTwo.php" ?>
-
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+class selectVentas
+{
+    private $conn;
+    private $fecha;
 
-    date_default_timezone_set('America/Argentina/Buenos_Aires'); // Configuro la zona horaria a Buenos Aires, Argentina
-    $fechaActual = date("Y-m-d"); // Obtengo la fecha actual (Año-Mes-Día)
-    $horaActual = date("H:i:s"); // Obtengo la hora actual (Horas:Minutos:Segundos)
-    $total = $_POST["total"];
-    $cantidad = $_POST["cantidadTotal"];
+    private $hora;
 
-    if (!empty($total) && !empty($cantidad)) {
+    private $total;
+
+    private $cantidad;
+
+    public function __construct($conn, $fecha, $hora, $total, $cantidad)
+    {
+        $this->conn = $conn;
+        $this->fecha = $fecha;
+        $this->hora = $hora;
+        $this->total = $total;
+        $this->cantidad = $cantidad;
+    }
+
+    public function insertVentas()
+    {
+        $consultaInsert = "INSERT INTO `ventas`(`fecha`, `hora`, `precio_total`, `cantidad_venta`) 
+        VALUES (:fecha,:hora,:precioTotal,:cantidadVenta)";
+
         try {
-            $consultaInsert = "INSERT INTO `ventas`(`fecha`, `hora`, `precio_total`, `cantidad_venta`) 
-            VALUES (:fecha,:hora,:precioTotal,:cantidadVenta)";
-
-            $consulta = $conn->prepare($consultaInsert);
-            $consulta->bindParam(":fecha", $fechaActual);
-            $consulta->bindParam(":hora", $horaActual);
-            $consulta->bindParam(":precioTotal", $total);
-            $consulta->bindParam(":cantidadVenta", $cantidad, PDO::PARAM_INT);
-
+            $consulta = $this->conn->prepare($consultaInsert);
+            $consulta->bindParam(':fecha', $this->fecha);
+            $consulta->bindParam(':hora', $this->hora);
+            $consulta->bindParam(':precioTotal', $this->total);
+            $consulta->bindParam(':cantidadVenta', $this->cantidad);
             $consulta->execute();
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            throw new Exception("Error al insertar en la base de datos: " . $e->getMessage());
         }
-    } else {
-        echo "Algunos campos están vacíos. Por favor, completa todos los campos.";
     }
 }
-?>
-
-
-<?php $conn = null; ?>
