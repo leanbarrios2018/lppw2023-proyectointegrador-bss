@@ -97,6 +97,17 @@ class ProductoControlador
 		echo $respuesta;
 	}
 
+	public function generarPaginador() {
+		// Cantidad de productos por página
+		$productosPorPagina = 10;
+		// Página actual (si no se especifica, por defecto será la primera página)
+		if (isset($_GET['paginador'])) {
+			$paginador = $this->test_input($_GET['paginador']);
+		} else {
+			$paginador = 1;
+		}
+	}
+
 	// traer los productos por json
 	public function mostrarTablaPorJSON() {
 		require_once "../modelo/Producto.php";
