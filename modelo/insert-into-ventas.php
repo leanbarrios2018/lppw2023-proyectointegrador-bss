@@ -11,6 +11,13 @@ class selectVentas
 
     private $cantidad;
 
+    private $IDVenta;
+
+    public function getIDVenta()
+    {
+        return $this->IDVenta;
+    }
+
     public function __construct($conn, $fecha, $hora, $total, $cantidad)
     {
         $this->conn = $conn;
@@ -32,6 +39,7 @@ class selectVentas
             $consulta->bindParam(':precioTotal', $this->total);
             $consulta->bindParam(':cantidadVenta', $this->cantidad);
             $consulta->execute();
+            $this->IDVenta = $this->conn->lastInsertId();
         } catch (PDOException $e) {
             throw new Exception("Error al insertar en la base de datos: " . $e->getMessage());
         }

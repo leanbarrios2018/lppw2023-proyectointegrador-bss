@@ -1,5 +1,5 @@
-<?php include "../Modelo/dbTwo.php" ?>
-<?php require "../Controlador/Insert-ventas.php" ?>
+<?php include "../modelo/dbTwo.php" ?>
+<?php include "../controlador/Insert-ventas.php" ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -102,8 +102,9 @@
                     <button type="submit" class="btn btn-danger" id="realizarVentaBoton">Realizar Venta&nbsp;<i class="bi bi-currency-dollar"></i></button>
                 </div>
             </div>
-            <input type="number" id="total" name="total" class="form-control d-none" readonly>
-            <input type="number" id="cantidadTotal" name="cantidadTotal" class="form-control d-none" readonly>
+            <input type='hidden' id="total" name="total" class="form-control d-none" readonly>
+            <input type='hidden' id="cantidadTotal" name="cantidadTotal" class="form-control d-none" readonly>
+            <input type='hidden' id='IDVenta' name='IDVenta' value='<?php echo $_SESSION['IDVenta']; ?>'>
         </form>
         <div class="modal fade" id="modalMostrarMensajes" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
