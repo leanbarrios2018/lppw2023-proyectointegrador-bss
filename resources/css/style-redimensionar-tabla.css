@@ -5,28 +5,44 @@ tr.ocultar {
 }
 
 
-/* breakpoint xs */
-
-@media (max-width: 575px) {
+/* breakpoint xs (<576px)*/
+@media (max-width: 575.98px) {
     .ocultar-en-pantalla-xs {
         display: none;
     }
 }
 
-
-/* breakpoint sm */
-
-@media (max-width: 767px) {
+/* breakpoint sm (≥576px)*/
+@media (min-width: 576px) and (max-width: 767.98px) {
     .ocultar-en-pantalla-sm {
         display: none;
     }
 }
 
-
-/* breakpoint md */
-
-@media (max-width: 991px) {
+/* breakpoint md (≥768px)*/
+@media (min-width: 768px) and (max-width: 991.98px) {
     .ocultar-en-pantalla-md {
+        display: none;
+    }
+}
+
+/* breakpoint lg (≥992px)*/
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .ocultar-en-pantalla-lg {
+        display: none;
+    }
+}
+
+/* breakpoint xl (≥1200px)*/
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+    .ocultar-en-pantalla-xl {
+        display: none;
+    }
+}
+
+/*breakpoint xxl (≥1400px)*/
+@media (min-width: 1400px) {
+    .ocultar-en-pantalla-xxl {
         display: none;
     }
 }
