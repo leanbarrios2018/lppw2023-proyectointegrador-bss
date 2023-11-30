@@ -2,10 +2,10 @@
 include "../modelo/dbTwo.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Obtiene los datos JSON del cuerpo de la solicitud
+    // Obtengo los datos JSON del cuerpo de la solicitud
     $datosJson = file_get_contents('php://input');
 
-    // Decodifica los datos JSON en un array asociativo
+    // Decodifico los datos JSON en un array asociativo
     $listaDeVenta = json_decode($datosJson, true);
 
     $conn->beginTransaction();

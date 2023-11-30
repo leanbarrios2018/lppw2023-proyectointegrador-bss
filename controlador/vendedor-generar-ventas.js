@@ -13,12 +13,6 @@ function Eliminar(producto) {
     }
 }
 
-// Lista de ventas
-// let listaDeVenta = {
-//     IDVenta: '',
-//     IDProducto: '',
-// };
-
 let datosJson;
 
 // Lista de productos objeto

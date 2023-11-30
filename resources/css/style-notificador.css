@@ -1,0 +1,54 @@
+#divMainNotificaciones {
+    position: relative;
+}
+
+#botonIndicador {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#divNotificaciones {
+    position: absolute;
+    top: 80%;
+    right: 98%;
+    width: 300px;
+    /* Ajusta según sea necesario */
+    min-width: 200px;
+    /* Establece un ancho mínimo */
+    max-width: 400px;
+    /* Establece un ancho máximo */
+    padding: 1em;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: start;
+}
+
+@media (max-width: 768px) {
+    #divNotificaciones {
+        width: 100%;
+        /* Utiliza el 100% del ancho de la pantalla */
+        max-width: none;
+        /* Elimina el ancho máximo */
+    }
+}
+
+.divNotificaciones {
+    font-size: 1em;
+    text-align: left;
+}
+
+#divNotificaciones {
+    padding: 0;
+}
+
+#divNotificaciones ul li {
+    padding: 5px;
+    cursor: pointer;
+    background-color: white;
+}
+
+#divNotificaciones>ul>li:hover {
+    border: 1px solid #0d6efd;
+}

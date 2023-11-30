@@ -1,5 +1,6 @@
 <?php include "../modelo/dbTwo.php"; ?>
 <?php include "../modelo/select-ventas.php" ?>
+<?php include "../modelo/select-ventas-detalles.php" ?>
 <?php $tabla = new selectVentas($conn); ?>
 
 <!DOCTYPE html>
@@ -20,6 +21,7 @@
 
     <!--My JavaScript-->
     <script src="../controlador/vendedor-buscar-venta.js"></script>
+    <script src="../controlador/vendedor-ventas-detalles.js"></script>
 
     <!--Javascript-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" defer></script>
@@ -27,7 +29,6 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
         <a class="navbar-brand text-light fs-5" href="#">Estockear</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -87,11 +88,14 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
+                                    <th scope="col" class="text-center d-none">ID Producto Venta</th>
+                                    <th scope="col" class="text-center d-none">ID Producto</th>
                                     <th scope="col" class="text-center d-none">ID Venta</th>
                                     <th scope="col" class="text-center">Fecha</th>
                                     <th scope="col" class="text-center">Hora</th>
                                     <th scope="col" class="text-center">Total</th>
-                                    <th scope="col" class="text-center">Ventas</th>
+                                    <th scope="col" class="text-center">Cantidad</th>
+                                    <th scope="col" class="text-center">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody id="tbodyVenta">
@@ -114,6 +118,27 @@
                             </li>
                         </ul>
                     </nav>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Detalles de Ventas -->
+        <div class="modal fade" id="ModalDetallesVentas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary bg-gradient">
+                        <h1 class="modal-title fs-5" id="ModalDetallesTitulo"></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="modal-body">
+                        <form action="../modelo/select-ventas-detalles.php" id="formDetallesVentas">
+                            <input type="hidden" name="IDPV" id="IDPV">
+                            <input type="hidden" name="IDP" id="IDP">
+                            <input type="hidden" name="IDV" id="IDV">
+                        </form>
+                    </div>
+                    <div class="modal-footer bg-black bg-gradient">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
                 </div>
             </div>
         </div>
