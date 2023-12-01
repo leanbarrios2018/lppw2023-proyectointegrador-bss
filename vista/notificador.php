@@ -1,6 +1,7 @@
 <?php include "../modelo/dbTwo.php"; ?>
 <?php include "../controlador/insert-notificador.php" ?>
 <?php include "../modelo/select-notificadores.php" ?>
+<?php include "../controlador/update-notificador.php" ?>
 <?php $selectN = new Notificadores($conn); ?>
 
 <!DOCTYPE html>
@@ -162,7 +163,8 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body bg-dark bg-gradient text-light">
-                        <form action="../Controlador/ModeloUpdateIndicador.php" method="post" id="formNotificadorUpdate">
+                        <form action="../controlador/update-notificador.php" method="post" id="formNotificadorUpdate">
+
                             <label for="IDIndicador" class="form-label mt-2 d-none">ID Indicador:</label>
                             <input type="text" class="form-control  d-none" id="IDIndicador" name="IDIndicador" readonly>
 
@@ -171,7 +173,7 @@
 
                             <label for="Nivel" class="form-label mt-2">Nivel:</label>
                             <input type="number" class="form-control" id="Nivel" name="Nivel">
-                            <div class="invalid-feedback" id="errorUpdateNivel"></div>
+                            <div class="invalid-feedback mt-2" id="errorUpdateNivel"></div>
 
                             <label for="IDProducto" class="form-label mt-2  d-none">ID Producto:</label>
                             <input type="text" class="form-control  d-none" id="IDProducto" name="IDProducto" readonly>
