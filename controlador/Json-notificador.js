@@ -1,7 +1,7 @@
 function inicio() {
     setTimeout(() => {
         verificarstock();
-    }, 1000);
+    }, 5000);
 }
 
 function verificarstock() {

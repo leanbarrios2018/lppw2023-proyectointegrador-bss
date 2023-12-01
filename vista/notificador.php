@@ -1,4 +1,7 @@
+<?php include "../modelo/dbTwo.php"; ?>
 <?php include "../controlador/insert-notificador.php" ?>
+<?php include "../modelo/select-notificadores.php" ?>
+<?php $selectN = new Notificadores($conn); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +24,7 @@
     <script src="../controlador/json-productos-notificador.js"></script>
     <script src="../controlador/json-categorias-notificador.js"></script>
     <script src="../controlador/Json-notificador.js"></script>
-    
+
     <script src="../controlador/boton-notificador.js"></script>
     <script src="../controlador/indicador.js"></script>
 
@@ -115,6 +118,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $selectN->SelectNotificadores(); ?>
                             </tbody>
                         </table>
                     </div>
