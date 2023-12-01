@@ -13,6 +13,8 @@ function Eliminar(producto) {
     }
 }
 
+let datosJson;
+
 // Lista de productos objeto
 let productos = [];
 
@@ -24,8 +26,28 @@ let NumFilas = 0;
 
 function generarVentas(evento) {
     evento.preventDefault();
-    setTimeout(mostrar_modal, 1000);
-    setTimeout(enviarFormulario, 2000);
+
+    setTimeout(() => {
+        try {
+            mostrar_modal();
+        } catch (error) {
+            console.error('Error en mostrar_modal:', error);
+        }
+    }, 1000);
+    setTimeout(() => {
+        try {
+            enviarFormulario();
+        } catch (error) {
+            console.error('Error en enviarFormulario:', error);
+        }
+    }, 2000);
+    // setTimeout(() => {
+    //     try {
+    //         insertarLista(datosJson);
+    //     } catch (error) {
+    //         console.error('Error en limpiarFormulario:', error);
+    //     }
+    // }, 2100);
 }
 
 function mostrar_modal() {
@@ -40,7 +62,7 @@ function enviarFormulario() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetch("../modelo/select-inventario.php")
+    fetch("../modelo/select-productos.php")
         .then(response => response.json())
         .then(data => {
             productos = data;
@@ -129,7 +151,7 @@ function mostrarResultados(resultados) {
     let inputTdSubTotal = document.createElement("input");
 
     //Seteo los atributos de tipo name en los input
-    inputTdIDProducto.setAttribute("name", "idProducto");
+    inputTdIDProducto.setAttribute("name", "IDProducto");
     inputTdProducto.setAttribute("name", "producto");
     inputTdMarca.setAttribute("name", "marca");
     inputTdCantidad.setAttribute("name", "cantidad");
@@ -137,7 +159,8 @@ function mostrarResultados(resultados) {
     inputTdPrecio.setAttribute("name", "precio");
     inputTdSubTotal.setAttribute("name", "subTotal");
 
-    //otros seteo
+    //Otros seteo
+    inputTdIDProducto.setAttribute("type", "number");
     inputTdSubTotal.setAttribute("type", "number");
     inputTdCantidad.setAttribute("type", "number");
 
@@ -204,6 +227,7 @@ function mostrarResultados(resultados) {
 
                     //Agrego los datos del input a las tablas
                     tdIDProducto.innerHTML = inputTdIDProducto.value;
+                    tdIDProducto.appendChild(inputTdIDProducto);
                     tdProducto.innerHTML = inputTdProducto.value;
                     tdMarca.innerHTML = inputTdMarca.value
                     tdCantidad.innerHTML = inputTdCantidad.value;
@@ -250,6 +274,8 @@ function mostrarResultados(resultados) {
                 Eliminar(producto, cantidadInput);
 
                 updateStock(producto);
+
+                agregarListaDeProductosVendidos(producto);
             }
 
             let valorTotal = calcularTotal(); //Llamo  a la funcion para calcular el total de los subtotales
@@ -290,7 +316,7 @@ function calcularTotalCantidad() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetch("../modelo/select-productos.php")
+    fetch("../modelo/select-inventario.php")
         .then(response => {
             if (!response.ok) {
                 throw new Error("Error en la solicitud. Código de estado: " + response.status);
@@ -395,4 +421,41 @@ function eliminarProducto(event, producto, cantidadInput) {
         }
     }
 }
+
+function agregarListaDeProductosVendidos(productos) {
+    let IDVenta = parseInt(document.getElementById("IDVenta").value) + 1;
+
+    // Crear un objeto para almacenar la información de la venta
+    let listaDeVenta = {
+        IDVenta: IDVenta,
+        IDProducto: productos.id_producto
+    };
+
+    console.log(IDVenta);
+    console.log(listaDeVenta);
+
+    // Convierto el objeto a formato JSON
+    datosJson = JSON.stringify(listaDeVenta);
+    insertarLista(datosJson);
+}
+
+function insertarLista(datosJson) {
+    const url = '../modelo/insert-lista-productos.php';
+
+    fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: datosJson,
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Datos enviados al servidor:', data);
+        })
+        .catch(error => {
+            console.error('Error al enviar datos al servidor:', error);
+        });
+}
+
 window.addEventListener("load", inicio, false);

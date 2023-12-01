@@ -1,5 +1,5 @@
 <?php include "../modelo/dbTwo.php" ?>
-<?php require "../modelo/insert-into-ventas.php" ?>
+<?php include "../controlador/Insert-ventas.php" ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -32,7 +32,7 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black fixed-top ms-2">
         <a class="navbar-brand text-light fs-5" href="#">Estockear</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -54,7 +54,7 @@
         </ul>
     </nav>
     <section class="container mt-6 flex-grow-1 mb-5">
-        <form action="vendedor-generar-ventas.php" id="generarVentas" method="POST">
+        <form action="../Controlador/Insert-ventas.php" id="generarVentas" method="POST">
             <div class="bg-black pt-2 pe-3 pb-2 ps-3  mt-3 rounded-1">
                 <nav class="input-group  mt-4">
                     <input type="search" name="buscarInput" id="buscarInput" class="form-control" placeholder="Buscar producto" autocomplete="off" required>
@@ -102,8 +102,9 @@
                     <button type="submit" class="btn btn-danger" id="realizarVentaBoton">Realizar Venta&nbsp;<i class="bi bi-currency-dollar"></i></button>
                 </div>
             </div>
-            <input type="number" id="total" name="total" class="form-control d-none" readonly>
-            <input type="number" id="cantidadTotal" name="cantidadTotal" class="form-control d-none" readonly>
+            <input type='hidden' id="total" name="total" class="form-control d-none" readonly>
+            <input type='hidden' id="cantidadTotal" name="cantidadTotal" class="form-control d-none" readonly>
+            <input type='hidden' id='IDVenta' name='IDVenta' value='<?php echo $_SESSION['IDVenta']; ?>'>
         </form>
         <div class="modal fade" id="modalMostrarMensajes" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">

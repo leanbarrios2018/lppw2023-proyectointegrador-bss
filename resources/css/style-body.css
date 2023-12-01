@@ -1,4 +1,6 @@
 body {
-    background: linear-gradient(to right, #0052d4, #4364f7, #0052d4);
+    /* background: linear-gradient(to right, #0052d4, #4364f7, #0052d4);
+    padding-top: 76px; */
+    background-color: #343a40;
     padding-top: 76px;
 }
