@@ -24,10 +24,9 @@
     <script src="../controlador/json-productos-notificador.js"></script>
     <script src="../controlador/json-categorias-notificador.js"></script>
     <script src="../controlador/Json-notificador.js"></script>
-
-    <script src="../controlador/boton-notificador.js"></script>
     <script src="../controlador/indicador.js"></script>
-
+    <script src="../controlador/update-notificador.js"></script>
+    <script src="../controlador/boton-notificador.js"></script>
 
     <!--Script-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -154,8 +153,8 @@
                 </form>
             </div>
         </div>
-        <!-- Modal Update Indicador -->
-        <div class="modal fade" id="modalUpdateIndicador" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- Modal Update notificador-->
+        <div class="modal fade" id="modalUpdateNotificador" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header bg-primary bg-gradient text-light">
@@ -163,7 +162,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body bg-dark bg-gradient text-light">
-                        <form action="../Controlador/ModeloUpdateIndicador.php" method="post" id="formIndicadorUpdate">
+                        <form action="../Controlador/ModeloUpdateIndicador.php" method="post" id="formNotificadorUpdate">
                             <label for="IDIndicador" class="form-label mt-2 d-none">ID Indicador:</label>
                             <input type="text" class="form-control  d-none" id="IDIndicador" name="IDIndicador" readonly>
 
@@ -171,8 +170,8 @@
                             <input type="text" class="form-control  d-none" id="IDUsuario" name="IDUsuario" readonly>
 
                             <label for="Nivel" class="form-label mt-2">Nivel:</label>
-                            <input type="text" class="form-control" id="Nivel" name="Nivel">
-                            <div class="invalid-feedback" id="errorEditarNivel"></div>
+                            <input type="number" class="form-control" id="Nivel" name="Nivel">
+                            <div class="invalid-feedback" id="errorUpdateNivel"></div>
 
                             <label for="IDProducto" class="form-label mt-2  d-none">ID Producto:</label>
                             <input type="text" class="form-control  d-none" id="IDProducto" name="IDProducto" readonly>
@@ -195,7 +194,7 @@
                     </div>
                     <div class="modal-footer bg-black text-light">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary" form="formIndicadorUpdate">Guardar Cambios</button>
+                        <button type="submit" class="btn btn-primary" form="formNotificadorUpdate">Guardar Cambios</button>
                     </div>
                 </div>
             </div>
