@@ -32,7 +32,7 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black fixed-top ms-2">
         <a class="navbar-brand text-light fs-5" href="#">Estockear</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarNav">
